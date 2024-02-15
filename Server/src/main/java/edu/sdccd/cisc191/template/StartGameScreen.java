@@ -17,5 +17,8 @@ public class StartGameScreen extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //TODO make startscreen and many things
+        VBox startButtons;
+        GameButton startButton = new  GameButton("Start",  Color.GREEN);
+
     }
 }
