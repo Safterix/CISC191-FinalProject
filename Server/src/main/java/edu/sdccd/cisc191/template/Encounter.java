@@ -10,6 +10,11 @@ public class Encounter extends VBox
     private String text;
     private Label textLabel;
 
+    /**
+     * Constructor for encounter. Adds a row of choices above text.
+     * @param text the Encoutner's text
+     * @param choices PlayerChoices that the player can select in the encounter
+     */
     public Encounter(String text, PlayerChoice... choices)
     {
         this.text = text;
@@ -19,6 +24,10 @@ public class Encounter extends VBox
         getChildren().addAll(choicesRow, textLabel);
     }
 
+    /**
+     * Changes the Encounter's text
+     * @param newText the updated text
+     */
     public void updateText(String newText)
     {
         text = newText;
