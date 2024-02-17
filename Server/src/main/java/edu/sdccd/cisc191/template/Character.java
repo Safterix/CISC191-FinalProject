@@ -55,6 +55,19 @@ public class Character
         money += gainedMoney;
     }
 
+
+    public void hurt(int damage)
+    {
+        health -= damage;
+        //TODO check for dying
+    }
+
+    public void heal (int healing)
+    {
+        health += healing;
+    }
+
+
     /**
      * @return name
      */
