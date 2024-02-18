@@ -33,8 +33,8 @@ public class ViewGame extends Application {
     public void start(Stage stage) {
         gameStage = stage;
         //sets default scene width and height
-        sceneWidth = 1000;
-        sceneHeight = 1000;
+        sceneWidth = 1280;
+        sceneHeight = 720;
 
         //TODO make start button do something lol
         GameButton start = new GameButton("Start", sceneWidth / 2, sceneHeight / 10, Color.GREEN);
@@ -53,12 +53,17 @@ public class ViewGame extends Application {
         VBox buttonsHolder = new VBox(5, start, credits, quit);
         buttonsHolder.setAlignment(Pos.CENTER);
 
-        //makes borderpane and adds the buttons holder
+        // add title and subtitle and TODO other labels?
+        DefaultText gameTitle  = new DefaultText("Silk Road", sceneWidth/5,Color.BLACK);
+        DefaultText subtitle = new DefaultText("hehehe yaaay", sceneWidth/15, Color.DARKBLUE);
+
+        //makes borderpane and adds the buttons holder to center
         layout = new BorderPane(buttonsHolder);
         layout.setStyle("-fx-background-color: #4c4c5b");
-
-        //TODO add title label and other labels?
-
+        //adds title and subtitle to holder and centers at the top
+        buttonsHolder = new VBox(sceneHeight/20, gameTitle, subtitle);
+        layout.setTop(buttonsHolder);
+        buttonsHolder.setAlignment(Pos.CENTER);
         //creates scene
         Scene scene = new Scene(layout, sceneWidth, sceneHeight, Color.GRAY);
         stage.setTitle("Silk Road");
@@ -85,7 +90,9 @@ public class ViewGame extends Application {
         sceneWidth = width;
         sceneHeight = height;
     }
-
+    /**
+     * makes credit page
+     */
     public void showCredits() {
         //creates people buttons TODO make it lead to our github pages or somethign?
         GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 10, Color.GREEN);
@@ -101,7 +108,16 @@ public class ViewGame extends Application {
         //makes borderpane and adds the buttons holder
         layout = new BorderPane(buttonHolder);
         layout.setStyle("-fx-background-color: gray");
-        gameStage.setTitle("Credits!");
-        gameStage.setScene(new Scene(layout, sceneWidth, sceneHeight));
+        switchScene(new Scene(layout, sceneWidth, sceneHeight), "Credits!");
+    }
+
+    /**
+     * Sets the scene to a new scene and changes the title
+     * @param scene the scene/page that will be switched to
+     * @param title the name/title of the page
+     */
+    public void switchScene(Scene scene, String title){
+        gameStage.setScene(scene);
+        gameStage.setTitle(title);
     }
 }
