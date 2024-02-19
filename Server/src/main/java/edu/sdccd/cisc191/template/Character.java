@@ -84,24 +84,29 @@ public class Character
     {
         return MAX_HEALTH;
     }
+    /**
+     * @return max health
+     */
+    public int getReputation()
+    {
+        return reputation;
+    }
+
 
     public GridPane getProfile(){
     //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
-        DefaultText stat = new DefaultText(Integer.toString(health),20);
-        VBox stats = new VBox(stat);
-        stats.getChildren().add(stat);
-        stat = new DefaultText(Integer.toString(money),20);
-        stats.getChildren().add(stat);
-        stat = new DefaultText(Integer.toString(reputation),20);
-        stats.getChildren().add(stat);
+        DefaultText health = new DefaultText("Health: "+ getHealth(),20,"#AA0C0C");
+        DefaultText money = new DefaultText("Money: "+ getMoney(),20, "#9FB425");
+        DefaultText reputation = new DefaultText("Reputation: "+ getReputation(),20);
+        VBox stats = new VBox(health,money,reputation);
 
         GridPane profile = new GridPane();
         profile.add(stats, 0,2,2,1);
     //todo add profile pic of player in (0,1)
 
         //adds the name to (0,0) of gridpane
-        stat = new DefaultText(name,40);
-        profile.add(stat,0,0);
+        DefaultText playerName = new DefaultText(getName(),40);
+        profile.add(playerName,0,0);
 
         //todo add inventory button to (1,0)
         return profile;

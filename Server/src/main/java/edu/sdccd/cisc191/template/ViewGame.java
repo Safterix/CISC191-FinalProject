@@ -5,9 +5,13 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
@@ -38,9 +42,12 @@ public class ViewGame extends Application {
 
         //TODO make start button do something lol
         GameButton start = new GameButton("Start", sceneWidth / 2, sceneHeight / 10, "#9FB425");
+        start.setOnAction((ActionEvent startIt)->{
+            startGame();
+        });
         //makes credit buttons which leads you to credit scene
         GameButton credits = new GameButton("Credits", sceneWidth / 4, sceneHeight / 10);
-        credits.setOnAction((ActionEvent startIt)-> {
+        credits.setOnAction((ActionEvent creditsShow)-> {
             showCredits();
         });
         //makes quit button which exits the window
@@ -110,7 +117,40 @@ public class ViewGame extends Application {
         layout.setStyle("-fx-background-color: gray");
         switchScene(new Scene(layout, sceneWidth, sceneHeight), "Credits!");
     }
+    public void startGame(){
 
+        //text field that player enters name in next to confirmation button
+        TextField namePlayer = new TextField();
+        namePlayer.setPrefSize(sceneWidth/2,sceneHeight/5);
+        namePlayer.fontProperty().set(new Font("Times New Roman",40));
+        GameButton confirm = new GameButton("Confirm", sceneWidth/5,sceneHeight/5);
+        HBox nameEnter = new HBox(namePlayer, confirm);
+        nameEnter.setAlignment(Pos.CENTER);
+        //asks player to enter name
+        DefaultText askPlayer = new DefaultText("What is your name?",sceneWidth/10);
+        //sets the layout and scene
+        layout = new BorderPane(nameEnter);
+        layout.setTop(askPlayer);
+        BorderPane.setAlignment(askPlayer,Pos.BOTTOM_CENTER);
+        switchScene(new Scene(layout,sceneWidth,sceneHeight), "Begin your adventure...");
+
+        //confirm button will make a player charcter or tell you to try again
+        confirm.setOnAction((ActionEvent createCharacter)->{
+            if(namePlayer.getText() == null||namePlayer.getText().isEmpty()){
+                askPlayer.setText("That is not your name...try again");
+            }
+            else{
+                Character player = new Character(namePlayer.getText(),100,100);
+                //todo do the rest idk...
+
+                layout = new BorderPane(player.getProfile());
+                switchScene(new Scene(layout,sceneWidth,sceneHeight),"Yay");
+            }
+
+        });
+
+
+    }
     /**
      * Sets the scene to a new scene and changes the title
      * @param scene the scene/page that will be switched to
