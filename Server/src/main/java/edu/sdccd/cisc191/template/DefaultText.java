@@ -12,6 +12,16 @@ public class DefaultText extends Label {
         fontProperty().set(new Font("Times New Roman", size));
         setTextFill(color);
     }
+    public DefaultText(String text, int size, String color) {
+        setText(text);
+        fontProperty().set(new Font("Times New Roman", size));
+        setStyle("-fx-text-fill: "+color);
+    }
+    public DefaultText(String text,int size){
+        setText(text);
+        fontProperty().set(new Font("Times New Roman", size));
+        setStyle("-fx-text-fill: #815355");
+    }
 }
 
 

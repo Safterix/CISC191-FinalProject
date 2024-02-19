@@ -37,14 +37,14 @@ public class ViewGame extends Application {
         sceneHeight = 720;
 
         //TODO make start button do something lol
-        GameButton start = new GameButton("Start", sceneWidth / 2, sceneHeight / 10, Color.GREEN);
+        GameButton start = new GameButton("Start", sceneWidth / 2, sceneHeight / 10, "#9FB425");
         //makes credit buttons which leads you to credit scene
-        GameButton credits = new GameButton("Credits", sceneWidth / 4, sceneHeight / 10, Color.YELLOW);
+        GameButton credits = new GameButton("Credits", sceneWidth / 4, sceneHeight / 10);
         credits.setOnAction((ActionEvent startIt)-> {
             showCredits();
         });
         //makes quit button which exits the window
-        GameButton quit = new GameButton("Quit", sceneWidth / 4, sceneHeight / 10, Color.RED);
+        GameButton quit = new GameButton("Quit", sceneWidth / 4, sceneHeight / 10, "#AA0C0C");
         quit.setOnAction((ActionEvent exit) -> {
             Platform.exit();
         });
@@ -54,12 +54,12 @@ public class ViewGame extends Application {
         buttonsHolder.setAlignment(Pos.CENTER);
 
         // add title and subtitle and TODO other labels?
-        DefaultText gameTitle  = new DefaultText("Silk Road", sceneWidth/5,Color.BLACK);
-        DefaultText subtitle = new DefaultText("hehehe yaaay", sceneWidth/15, Color.DARKBLUE);
+        DefaultText gameTitle  = new DefaultText("Silk Road", sceneWidth/5);
+        DefaultText subtitle = new DefaultText("hehehe yaaay", sceneWidth/15);
 
         //makes borderpane and adds the buttons holder to center
         layout = new BorderPane(buttonsHolder);
-        layout.setStyle("-fx-background-color: #4c4c5b");
+        layout.setStyle("-fx-background-color: #CBD4C2");
         //adds title and subtitle to holder and centers at the top
         buttonsHolder = new VBox(sceneHeight/20, gameTitle, subtitle);
         layout.setTop(buttonsHolder);
@@ -95,9 +95,9 @@ public class ViewGame extends Application {
      */
     public void showCredits() {
         //creates people buttons TODO make it lead to our github pages or somethign?
-        GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 10, Color.GREEN);
+        GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 10, "#9FB425");
         //creates a button to go back to the start screen
-        GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 10, Color.RED);
+        GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 10, "#AA0C0C");
         goBack.setOnAction((ActionEvent back) -> {
             start(gameStage);
         });
@@ -120,4 +120,5 @@ public class ViewGame extends Application {
         gameStage.setScene(scene);
         gameStage.setTitle(title);
     }
+
 }

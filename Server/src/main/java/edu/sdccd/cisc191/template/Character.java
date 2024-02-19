@@ -1,5 +1,11 @@
 package edu.sdccd.cisc191.template;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
 public class Character
 {
     private String name; //name of the character
@@ -77,5 +83,28 @@ public class Character
     public int getMAX_HEALTH()
     {
         return MAX_HEALTH;
+    }
+
+    public GridPane getProfile(){
+    //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
+        DefaultText stat = new DefaultText(Integer.toString(health),20);
+        VBox stats = new VBox(stat);
+        stats.getChildren().add(stat);
+        stat = new DefaultText(Integer.toString(money),20);
+        stats.getChildren().add(stat);
+        stat = new DefaultText(Integer.toString(reputation),20);
+        stats.getChildren().add(stat);
+
+        GridPane profile = new GridPane();
+        profile.add(stats, 0,2,2,1);
+    //todo add profile pic of player in (0,1)
+
+        //adds the name to (0,0) of gridpane
+        stat = new DefaultText(name,40);
+        profile.add(stat,0,0);
+
+        //todo add inventory button to (1,0)
+        return profile;
+
     }
 }
