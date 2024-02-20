@@ -2,9 +2,10 @@ package edu.sdccd.cisc191.template;
 
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -28,14 +29,14 @@ public class ViewGame extends Application
      * Code to create a mock encounter
      * @param stage
      */
-    private static void testEncounter(Stage stage) //TODO: delete this method
+    private void testEncounter(Stage stage) //TODO: delete this method
     {
         //create a mock player
         Player player = new Player("Bob", 10, 10);
 
         //create two choices for the encounter
-        PlayerChoice help = new PlayerChoice("Agree");
-        PlayerChoice refuse = new PlayerChoice("Refuse");
+        GameButton help = new GameButton("Agree");
+        GameButton refuse = new GameButton("Refuse");
 
         //create the encounter
         Encounter encounter = new Encounter("\"Welcome to Honeywood! My sheep have run amok! Will you help me?\"", help, refuse);
@@ -53,9 +54,20 @@ public class ViewGame extends Application
         });
 
         //show
-        Scene scene = new Scene(encounter);
+        Scene scene = new Scene(getEncounterView(encounter));
         stage.setScene(scene);
         stage.show();
+    }
+
+    public VBox getEncounterView(Encounter encounter)
+    {
+        VBox vBox = new VBox();
+
+        Label label = encounter.getTextLabel();
+        HBox hBox = new HBox(encounter.getChoices());
+        vBox.getChildren().addAll(label, hBox);
+
+        return vBox;
     }
 
     public int getSceneWidth()

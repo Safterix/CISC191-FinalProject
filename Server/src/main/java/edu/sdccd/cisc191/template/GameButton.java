@@ -5,9 +5,9 @@ import javafx.scene.control.Button;
 /**
  * A Button subclass that is used for in-game player choices
  */
-public class PlayerChoice extends Button
+public class GameButton extends Button
 {
-    public PlayerChoice(String choiceLabel)
+    public GameButton(String choiceLabel)
     {
         super(choiceLabel);
     }
