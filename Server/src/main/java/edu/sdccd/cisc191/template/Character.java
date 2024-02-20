@@ -12,8 +12,9 @@ public class Character
     private int money; //amount of money they have
     private int health; // amount of hp they have
     private final int MAX_HEALTH;
-    int reputation; // reputation TODO implement reputation
-    Item[][] inventory; //multidimensional array inventory TODO decide on how inventory size works
+    private int reputation; // reputation TODO implement reputation
+
+    private Item[][] inventory; //multidimensional array inventory TODO decide on how inventory size works
 
     /**
      * Constructor that sets the character's name, money, and health
@@ -27,6 +28,7 @@ public class Character
         this.money = money;
         this.health = MAX_HEALTH = health; //sets the final field MAX_HEALTH, then sets health
         reputation = 0;
+        inventory = new Item[3][3];
     }
 
     /**
@@ -92,12 +94,22 @@ public class Character
         return reputation;
     }
 
+    public Item[][] getInventory(){
+        return inventory;}
 
-    public GridPane getProfile(){
+    public GridPane displayInventory(int screenWidth, int screenHeight){
+
+    GridPane inventoryShow =new GridPane();
+    //TODO make it so all the items int he inventory gets its own image/label/thing for a gridpane
+    return inventoryShow;
+    }
+
+
+    public GridPane getProfile(int screenWidth, int screenHeight){
     //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
         DefaultText health = new DefaultText("Health: "+ getHealth(),20,"#AA0C0C");
         DefaultText money = new DefaultText("Money: "+ getMoney(),20, "#9FB425");
-        DefaultText reputation = new DefaultText("Reputation: "+ getReputation(),20);
+        DefaultText reputation = new DefaultText("Rep: "+ getReputation(),20);
         VBox stats = new VBox(health,money,reputation);
 
         GridPane profile = new GridPane();
@@ -108,7 +120,6 @@ public class Character
         DefaultText playerName = new DefaultText(getName(),40);
         profile.add(playerName,0,0);
 
-        //todo add inventory button to (1,0)
         return profile;
 
     }

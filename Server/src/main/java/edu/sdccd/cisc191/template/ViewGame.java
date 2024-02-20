@@ -3,15 +3,14 @@ package edu.sdccd.cisc191.template;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
@@ -41,17 +40,17 @@ public class ViewGame extends Application {
         sceneHeight = 720;
 
         //TODO make start button do something lol
-        GameButton start = new GameButton("Start", sceneWidth / 2, sceneHeight / 10, "#9FB425");
+        GameButton start = new GameButton("Start", sceneWidth / 2, sceneHeight / 10, sceneWidth/20);
         start.setOnAction((ActionEvent startIt)->{
             startGame();
         });
         //makes credit buttons which leads you to credit scene
-        GameButton credits = new GameButton("Credits", sceneWidth / 4, sceneHeight / 10);
+        GameButton credits = new GameButton("Credits", sceneWidth / 4, sceneHeight / 10,sceneWidth/30);
         credits.setOnAction((ActionEvent creditsShow)-> {
             showCredits();
         });
         //makes quit button which exits the window
-        GameButton quit = new GameButton("Quit", sceneWidth / 4, sceneHeight / 10, "#AA0C0C");
+        GameButton quit = new GameButton("Quit", sceneWidth / 4, sceneHeight / 10, sceneWidth/30);
         quit.setOnAction((ActionEvent exit) -> {
             Platform.exit();
         });
@@ -62,7 +61,7 @@ public class ViewGame extends Application {
 
         // add title and subtitle and TODO other labels?
         DefaultText gameTitle  = new DefaultText("Silk Road", sceneWidth/5);
-        DefaultText subtitle = new DefaultText("hehehe yaaay", sceneWidth/15);
+        DefaultText subtitle = new DefaultText("hehehe yaaay", sceneWidth/20);
 
         //makes borderpane and adds the buttons holder to center
         layout = new BorderPane(buttonsHolder);
@@ -102,9 +101,9 @@ public class ViewGame extends Application {
      */
     public void showCredits() {
         //creates people buttons TODO make it lead to our github pages or somethign?
-        GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 10, "#9FB425");
+        GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 10, sceneWidth/20);
         //creates a button to go back to the start screen
-        GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 10, "#AA0C0C");
+        GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 10, sceneWidth/25);
         goBack.setOnAction((ActionEvent back) -> {
             start(gameStage);
         });
@@ -122,8 +121,11 @@ public class ViewGame extends Application {
         //text field that player enters name in next to confirmation button
         TextField namePlayer = new TextField();
         namePlayer.setPrefSize(sceneWidth/2,sceneHeight/5);
-        namePlayer.fontProperty().set(new Font("Times New Roman",40));
-        GameButton confirm = new GameButton("Confirm", sceneWidth/5,sceneHeight/5);
+        namePlayer.fontProperty().set(new Font("Times New Roman",sceneWidth/25));
+        namePlayer.setStyle("-fx-text-fill: #815355;-fx-background-color: #CBD4C2; -fx-border-color: #523249;" +
+                        "-fx-border-width: 5; -fx-cursor: hand;");
+
+        GameButton confirm = new GameButton("Confirm", sceneWidth/5,sceneHeight/5,sceneWidth/25);
         HBox nameEnter = new HBox(namePlayer, confirm);
         nameEnter.setAlignment(Pos.CENTER);
         //asks player to enter name
@@ -142,13 +144,23 @@ public class ViewGame extends Application {
             else{
                 Character player = new Character(namePlayer.getText(),100,100);
                 //todo do the rest idk...
-
-                layout = new BorderPane(player.getProfile());
-                switchScene(new Scene(layout,sceneWidth,sceneHeight),"Yay");
+                switchScene(new Scene(gameScreen(player),sceneWidth,sceneHeight),"yay");
             }
 
         });
 
+
+    }
+    //todo the basic/ main ui of the game
+    public GridPane gameScreen(Character player){
+        //playerinfo bottom area
+        GridPane wholeUi = new GridPane();
+        wholeUi.add(player.getProfile(sceneWidth,sceneHeight), 0,1,1,1);
+        //todo add inventor in (2,1)
+        //todo map backhtund, npc/event, options, dialog
+        StackPane gameEvents;
+
+        return wholeUi;
 
     }
     /**
