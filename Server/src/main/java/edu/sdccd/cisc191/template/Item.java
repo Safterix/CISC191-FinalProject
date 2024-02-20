@@ -4,6 +4,9 @@ public class Item
 {
     private String name;
 
+    public Item(){
+        name = "nothing";
+    }
     /**
      * Constructor with name
      * @param name the item's name
