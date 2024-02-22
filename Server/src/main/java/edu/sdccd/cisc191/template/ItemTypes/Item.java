@@ -1,4 +1,4 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.ItemTypes;
 
 import edu.sdccd.cisc191.template.Characters.Character;
 

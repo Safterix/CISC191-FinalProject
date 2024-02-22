@@ -1,13 +1,5 @@
 package edu.sdccd.cisc191.template.Characters;
 
-import edu.sdccd.cisc191.template.DefaultText;
-import edu.sdccd.cisc191.template.Item;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
 public class Character
 {
     private String name; //name of the character
