@@ -40,7 +40,7 @@ public class ViewGame extends Application {
         sceneHeight = 720;
 
         //TODO make start button do something lol
-        GameButton start = new GameButton("Start", sceneWidth / 2, sceneHeight / 10, sceneWidth/20);
+        GameButton start = new GameButton("Start", sceneWidth / 2, sceneHeight / 10, sceneWidth/30);
         start.setOnAction((ActionEvent startIt)->{
             startGame();
         });
@@ -60,8 +60,8 @@ public class ViewGame extends Application {
         buttonsHolder.setAlignment(Pos.CENTER);
 
         // add title and subtitle and TODO other labels?
-        DefaultText gameTitle  = new DefaultText("Silk Road", sceneWidth/5);
-        DefaultText subtitle = new DefaultText("hehehe yaaay", sceneWidth/20);
+        GameLabel gameTitle  = new GameLabel("Silk Road", sceneWidth/7);
+        GameLabel subtitle = new GameLabel("hehehe yaaay", sceneWidth/30);
 
         //makes borderpane and adds the buttons holder to center
         layout = new BorderPane(buttonsHolder);
@@ -122,14 +122,15 @@ public class ViewGame extends Application {
         TextField namePlayer = new TextField();
         namePlayer.setPrefSize(sceneWidth/2,sceneHeight/5);
         namePlayer.fontProperty().set(new Font("Times New Roman",sceneWidth/25));
-        namePlayer.setStyle("-fx-text-fill: #815355;-fx-background-color: #CBD4C2; -fx-border-color: #523249;" +
-                        "-fx-border-width: 5; -fx-cursor: hand;");
+        namePlayer.getStylesheets().add("colorPalette.css");
+        namePlayer.getStyleClass().add("text-field");
 
-        GameButton confirm = new GameButton("Confirm", sceneWidth/5,sceneHeight/5,sceneWidth/25);
+        //puts confirmation button and textfield next to each other and centers it
+        GameButton confirm = new GameButton("Confirm", sceneWidth/5,sceneHeight/5,sceneWidth/35);
         HBox nameEnter = new HBox(namePlayer, confirm);
         nameEnter.setAlignment(Pos.CENTER);
-        //asks player to enter name
-        DefaultText askPlayer = new DefaultText("What is your name?",sceneWidth/10);
+        //asks player to enter name label
+        GameLabel askPlayer = new GameLabel("What is your name?",sceneWidth/20);
         //sets the layout and scene
         layout = new BorderPane(nameEnter);
         layout.setTop(askPlayer);
@@ -139,7 +140,7 @@ public class ViewGame extends Application {
         //confirm button will make a player charcter or tell you to try again
         confirm.setOnAction((ActionEvent createCharacter)->{
             if(namePlayer.getText() == null||namePlayer.getText().isEmpty()){
-                askPlayer.setText("That is not your name...try again");
+                askPlayer.setText("That is not your name...");
             }
             else{
                 Character player = new Character(namePlayer.getText(),100,100);
