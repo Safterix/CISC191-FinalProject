@@ -1,19 +1,23 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.ItemTypes;
+
+import edu.sdccd.cisc191.template.Characters.Character;
 
 public class Item
 {
-    private String name;
+    private String name,  description;
 
     public Item(){
-        name = "nothing";
+        name = "";
+        description = "empty!";
     }
     /**
      * Constructor with name
      * @param name the item's name
      */
-    public Item(String name)
+    public Item(String name, String  description)
     {
         this.name = name;
+        this.description =description;
     }
 
     /**
@@ -32,5 +36,7 @@ public class Item
     {
         return name;
     }
+    public String getDescription(){return description;}
 
+    }
 }
