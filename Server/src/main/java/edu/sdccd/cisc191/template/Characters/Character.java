@@ -1,5 +1,7 @@
 package edu.sdccd.cisc191.template.Characters;
 
+import edu.sdccd.cisc191.template.ItemTypes.Item;
+
 public class Character
 {
     private String name; //name of the character
@@ -8,7 +10,7 @@ public class Character
     private final int MAX_HEALTH;
     private int reputation; // reputation TODO implement reputation
 
-    private Inventory inventory; //TODO decide on how inventory size works
+    private Item[][] inventory; //TODO decide on how inventory size works
 
     /**
      * Constructor that sets the character's name, money, and health

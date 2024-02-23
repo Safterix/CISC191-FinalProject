@@ -1,7 +1,7 @@
 package edu.sdccd.cisc191.template.Characters;
 
 import edu.sdccd.cisc191.template.Characters.Character;
-import edu.sdccd.cisc191.template.DefaultText;
+import edu.sdccd.cisc191.template.GameLabel;
 import javafx.scene.canvas.Canvas;
 import  javafx.scene.canvas.CanvasBuilder;
 import  javafx.scene.canvas.GraphicsContext;
@@ -31,9 +31,9 @@ public class Player extends Character {
 
     public GridPane getProfile(int screenWidth, int screenHeight){
         //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
-        DefaultText health = new DefaultText("Health: "+ getHealth(),20,"#AA0C0C");
-        DefaultText money = new DefaultText("Money: "+ getMoney(),20, "#9FB425");
-        DefaultText reputation = new DefaultText("Rep: "+ getReputation(),20);
+        GameLabel health = new GameLabel("Health: "+ getHealth(),20,"#AA0C0C");
+        GameLabel money = new GameLabel("Money: "+ getMoney(),20, "#9FB425");
+        GameLabel reputation = new GameLabel("Rep: "+ getReputation(),20);
         VBox stats = new VBox(health,money,reputation);
 
         GridPane profile = new GridPane();
@@ -41,7 +41,7 @@ public class Player extends Character {
         //todo add profile pic of player in (0,1)
 
         //adds the name to (0,0) of gridpane
-        DefaultText playerName = new DefaultText(getName(),40);
+        GameLabel playerName = new GameLabel(getName(),40);
         profile.add(playerName,0,0);
 
         return profile;

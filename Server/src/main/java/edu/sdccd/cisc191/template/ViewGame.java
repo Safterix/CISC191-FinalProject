@@ -2,6 +2,7 @@ package edu.sdccd.cisc191.template;
 
 
 import edu.sdccd.cisc191.template.Characters.Character;
+import edu.sdccd.cisc191.template.Characters.Player;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -142,7 +143,7 @@ public class ViewGame extends Application {
                 askPlayer.setText("That is not your name...");
             }
             else{
-                Character player = new Character(namePlayer.getText(),100,100);
+                Character player = new Player(namePlayer.getText(),100,100,0);
                 //todo do the rest idk...
                 switchScene(new Scene(gameScreen(player),sceneWidth,sceneHeight),"yay");
             }
@@ -155,7 +156,7 @@ public class ViewGame extends Application {
     public GridPane gameScreen(Character player){
         //playerinfo bottom area
         GridPane wholeUi = new GridPane();
-        wholeUi.add(player.getProfile(sceneWidth,sceneHeight), 0,1,1,1);
+        //add charcater
         //todo add inventor in (2,1)
         //todo map backhtund, npc/event, options, dialog
         StackPane gameEvents;
