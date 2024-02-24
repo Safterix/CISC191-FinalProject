@@ -3,6 +3,7 @@ package edu.sdccd.cisc191.template;
 
 import edu.sdccd.cisc191.template.Characters.Character;
 import edu.sdccd.cisc191.template.Characters.Player;
+import edu.sdccd.cisc191.template.ItemTypes.Heal;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -125,9 +126,15 @@ public class ViewGame extends Application {
         namePlayer.getStylesheets().add("colorPalette.css");
         namePlayer.getStyleClass().add("text-field");
 
+
+        //TODO DELETE LATER ITEM TEST ONLY
+        Heal test = new Heal(Heal.HealingItems.GINSENG);
+        GameButton lala = test.displayItem(sceneHeight/10);
+
+
         //puts confirmation button and textfield next to each other and centers it
         GameButton confirm = new GameButton("Confirm", sceneWidth/5,sceneHeight/5,sceneWidth/35);
-        HBox nameEnter = new HBox(namePlayer, confirm);
+        HBox nameEnter = new HBox(namePlayer, confirm,lala); //TODO DELTE ITEM TEST ONLY
         nameEnter.setAlignment(Pos.CENTER);
         //asks player to enter name label
         GameLabel askPlayer = new GameLabel("What is your name?",sceneWidth/20);
@@ -136,6 +143,9 @@ public class ViewGame extends Application {
         layout.setTop(askPlayer);
         BorderPane.setAlignment(askPlayer,Pos.BOTTOM_CENTER);
         switchScene(new Scene(layout,sceneWidth,sceneHeight), "Begin your adventure...");
+
+
+
 
         //confirm button will make a player charcter or tell you to try again
         confirm.setOnAction((ActionEvent createCharacter)->{
