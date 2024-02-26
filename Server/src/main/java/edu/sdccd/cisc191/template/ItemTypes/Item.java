@@ -15,7 +15,7 @@ public class Item {
 
 
     public Item() {
-        name = "";
+        name = "Nothing";
         description = "Empty!";
 
     }

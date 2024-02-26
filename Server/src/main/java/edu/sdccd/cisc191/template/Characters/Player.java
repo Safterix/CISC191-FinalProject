@@ -29,7 +29,7 @@ public class Player extends Character {
     }
 
 
-    public GridPane getProfile(int screenWidth, int screenHeight){
+    public GridPane displayProfile(){
         //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
         GameLabel health = new GameLabel("Health: "+ getHealth(),20,"#AA0C0C");
         GameLabel money = new GameLabel("Money: "+ getMoney(),20, "#9FB425");

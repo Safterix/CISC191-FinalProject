@@ -10,7 +10,7 @@ public class Character
     private final int MAX_HEALTH;
     private int reputation; // reputation TODO implement reputation
 
-    private Item[][] inventory; //TODO decide on how inventory size works
+    private Inventory storage; //TODO decide on how inventory size works
 
     /**
      * Constructor that sets the character's name, money, and health
@@ -24,6 +24,7 @@ public class Character
         this.money = money;
         this.health = MAX_HEALTH = health; //sets the final field MAX_HEALTH, then sets health
         reputation = rep;
+        storage= new Inventory();
     }
 
     /**
@@ -88,7 +89,7 @@ public class Character
     {
         return reputation;
     }
-
+    public Inventory getInventory(){return storage;}
 
 
 }

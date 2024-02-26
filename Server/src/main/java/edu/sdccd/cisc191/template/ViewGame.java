@@ -15,13 +15,16 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
+import static edu.sdccd.cisc191.template.GameScreen.defaultScreen;
+
 /**
  *
  */
 public class ViewGame extends Application {
 
-    private int sceneWidth; //this way, the class itself keeps track of the screen's size
-    private int sceneHeight;
+    //default size
+    private int sceneWidth=0; //this way, the class itself keeps track of the screen's size
+    private int sceneHeight=0;
     private BorderPane layout;
     //so u can switch the scene...
     private Stage gameStage;
@@ -36,9 +39,10 @@ public class ViewGame extends Application {
     @Override
     public void start(Stage stage) {
         gameStage = stage;
-        //sets default scene width and height
-        sceneWidth = 1280;
-        sceneHeight = 720;
+        if((sceneWidth==0)&&(sceneHeight==0)){
+            sceneWidth=1280;
+            sceneHeight=720;
+        }
 
         //TODO make start button do something lol
         GameButton start = new GameButton("Start", sceneWidth / 2, sceneHeight / 10, sceneWidth/30);
@@ -50,6 +54,10 @@ public class ViewGame extends Application {
         credits.setOnAction((ActionEvent creditsShow)-> {
             showCredits();
         });
+        GameButton settings = new GameButton("Settings",sceneWidth/4,sceneHeight/10,sceneWidth/30);
+        settings.setOnAction((ActionEvent settingsShow)->{
+            showSettings();
+        });
         //makes quit button which exits the window
         GameButton quit = new GameButton("Quit", sceneWidth / 4, sceneHeight / 10, sceneWidth/30);
         quit.setOnAction((ActionEvent exit) -> {
@@ -57,7 +65,7 @@ public class ViewGame extends Application {
         });
 
         //makes holder for the buttons and centers it
-        VBox buttonsHolder = new VBox(5, start, credits, quit);
+        VBox buttonsHolder = new VBox(5, start, credits,settings, quit);
         buttonsHolder.setAlignment(Pos.CENTER);
 
         // add title and subtitle and TODO other labels?
@@ -75,27 +83,22 @@ public class ViewGame extends Application {
         Scene scene = new Scene(layout, sceneWidth, sceneHeight, Color.GRAY);
         stage.setTitle("Silk Road");
         stage.setScene(scene);
+        stage.resizableProperty().set(false);
         stage.show();
 
     }
 
-    public int getSceneWidth() {
-        return sceneWidth;
-    }
-
-    public int getSceneHeight() {
-        return sceneHeight;
-    }
 
     /**
-     * Sets the screen's size TODO make this actually change the scene's size
-     *
+     * Sets the screen's size TODO make this actually change the scene's size IDK HWO TO DO THIS
+     *TODO
      * @param width  new width
      * @param height new height
      */
     public void setScreenDimensions(int width, int height) {
         sceneWidth = width;
         sceneHeight = height;
+        start(gameStage);
     }
     /**
      * makes credit page
@@ -116,6 +119,34 @@ public class ViewGame extends Application {
         layout = new BorderPane(buttonHolder);
         layout.setStyle("-fx-background-color: gray");
         switchScene(new Scene(layout, sceneWidth, sceneHeight), "Credits!");
+    }
+
+    /**
+     * TODO SETTINSG APGE TO CHANGE SCREEN IDK HW TO DO THIS
+     */
+    public void showSettings() {
+        //creates window options
+        GameButton defautlSize = new GameButton("1280x720", sceneWidth / 2, sceneHeight / 10, sceneWidth / 20);
+        defautlSize.setOnAction((ActionEvent back) -> {
+            setScreenDimensions(1280,720);
+        });
+        GameButton biggerSize = new GameButton("1920x1080", sceneWidth / 2, sceneHeight / 10, sceneWidth / 20);
+        defautlSize.setOnAction((ActionEvent back) -> {
+            setScreenDimensions(1920,1080);
+        });
+        //creates a button to go back to the start screen
+        GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 10, sceneWidth / 25);
+        goBack.setOnAction((ActionEvent back) -> {
+            start(gameStage);
+        });
+        //adds buttons to a button holder then centers it
+        VBox buttonHolder = new VBox(5, defautlSize,biggerSize,goBack);
+        buttonHolder.setAlignment(Pos.CENTER);
+
+        //makes borderpane and adds the buttons holder
+        layout = new BorderPane(buttonHolder);
+        layout.setStyle("-fx-background-color: gray");
+        switchScene(new Scene(layout, sceneWidth, sceneHeight), "Settings!");
     }
     public void startGame(){
 
@@ -153,25 +184,13 @@ public class ViewGame extends Application {
                 askPlayer.setText("That is not your name...");
             }
             else{
-                Character player = new Player(namePlayer.getText(),100,100,0);
+                Player player = new Player(namePlayer.getText(),100,100,0);
                 //todo do the rest idk...
-                switchScene(new Scene(gameScreen(player),sceneWidth,sceneHeight),"yay");
+                switchScene(new Scene(defaultScreen(player,sceneWidth/30),sceneWidth,sceneHeight),"yay");
             }
 
         });
 
-
-    }
-    //todo the basic/ main ui of the game
-    public GridPane gameScreen(Character player){
-        //playerinfo bottom area
-        GridPane wholeUi = new GridPane();
-        //add charcater
-        //todo add inventor in (2,1)
-        //todo map backhtund, npc/event, options, dialog
-        StackPane gameEvents;
-
-        return wholeUi;
 
     }
     /**

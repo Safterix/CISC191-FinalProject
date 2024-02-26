@@ -28,7 +28,7 @@ public class GameButton extends Button {
     }
 
     /**
-     * item SHOW BUTTON
+     * item  BUTTON
      * @param name of item
      * @param description of item
      * @param size of button (it is square)
@@ -39,11 +39,12 @@ public class GameButton extends Button {
         setPrefWidth(size);
         setPrefHeight(size);
         getStylesheets().add("colorPalette.css");
-        getStyleClass().add("game-button");
+        getStyleClass().add("item-button");
         setGraphic(icon);
-
+        setFont(new Font("Courier New", size/7));
         Tooltip hoverText = new Tooltip(description);
         hoverText.setShowDelay(Duration.seconds(0.5));
+        hoverText.fontProperty().set(new Font("Courier New", size/3));
         setTooltip(hoverText);
 
 
