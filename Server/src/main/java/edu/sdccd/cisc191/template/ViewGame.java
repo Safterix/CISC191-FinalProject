@@ -126,21 +126,27 @@ public class ViewGame extends Application {
      */
     public void showSettings() {
         //creates window options
+        GameButton smallerSize = new GameButton("640x360", sceneWidth / 2, sceneHeight / 10, sceneWidth / 20);
+        smallerSize.setOnAction((ActionEvent size360p) -> {
+            setScreenDimensions(640 ,360);
+        });
         GameButton defautlSize = new GameButton("1280x720", sceneWidth / 2, sceneHeight / 10, sceneWidth / 20);
-        defautlSize.setOnAction((ActionEvent back) -> {
+        defautlSize.setOnAction((ActionEvent size720p) -> {
             setScreenDimensions(1280,720);
         });
         GameButton biggerSize = new GameButton("1920x1080", sceneWidth / 2, sceneHeight / 10, sceneWidth / 20);
-        defautlSize.setOnAction((ActionEvent back) -> {
+        biggerSize.setOnAction((ActionEvent size1080p) -> {
             setScreenDimensions(1920,1080);
         });
+
         //creates a button to go back to the start screen
         GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 10, sceneWidth / 25);
         goBack.setOnAction((ActionEvent back) -> {
             start(gameStage);
         });
+
         //adds buttons to a button holder then centers it
-        VBox buttonHolder = new VBox(5, defautlSize,biggerSize,goBack);
+        VBox buttonHolder = new VBox(5, smallerSize, defautlSize,biggerSize,goBack);
         buttonHolder.setAlignment(Pos.CENTER);
 
         //makes borderpane and adds the buttons holder
