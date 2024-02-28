@@ -8,8 +8,7 @@ public class Character
     private int money; //amount of money they have
     private int health; // amount of hp they have
     private final int MAX_HEALTH;
-    private int reputation; // reputation TODO implement reputation
-
+    private short reputation; // reputation from [-100,100]
     private Inventory storage; //TODO decide on how inventory size works
 
     /**
@@ -18,7 +17,7 @@ public class Character
      * @param money the character's money
      * @param health the character's health
      */
-    public Character(String name, int money, int health, int rep)
+    public Character(String name, int money, int health, short rep)
     {
         this.name = name;
         this.money = money;
@@ -83,12 +82,39 @@ public class Character
         return MAX_HEALTH;
     }
     /**
-     * @return max health
+     * heals cahracter by healAmount
+     */
+    public void heal(int healAmount)
+    {
+        health += healAmount;
+
+    }
+
+    /**
+     * @param damage take damge amount
+     */
+    public void damage(int damage)
+    {
+        health -= damage;
+        if (health < 0)
+        {
+            //TODO porbably ViewGame.Lose() havent been made yet but YOU DIE!!!!!!!!!!!
+        }
+    }
+
+
+
+    /**
+     * @return reputation
+     * NPCS have constant reputation while Player has fliud reputation me thinky
      */
     public int getReputation()
     {
         return reputation;
     }
+    /**
+     * @return return storage
+     */
     public Inventory getInventory(){return storage;}
 
 
