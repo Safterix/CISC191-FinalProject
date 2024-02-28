@@ -43,7 +43,6 @@ public class GameButton extends Button {
         setGraphic(icon);
         setFont(new Font("Courier New", size/7));
         Tooltip hoverText = new Tooltip(description);
-        hoverText.setShowDelay(Duration.seconds(0.5));
         hoverText.fontProperty().set(new Font("Courier New", size/3));
         setTooltip(hoverText);
 
