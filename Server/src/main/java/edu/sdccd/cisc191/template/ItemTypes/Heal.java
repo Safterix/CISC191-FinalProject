@@ -34,6 +34,10 @@ public class Heal extends Goods{
             }
         }
     //makes intentional item
+    /**
+     * makes item with enum
+     * @param item the name of the item from HealingItems enum
+     */
     public Heal(HealingItems item){
         itemOptions= item;
         switch(itemOptions){

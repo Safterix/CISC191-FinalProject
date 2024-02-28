@@ -13,7 +13,7 @@ public class Player extends Character {
     GraphicsContext pfp; //?????????????
 
     int score;
-    public Player(String name, int money, int health, int rep){
+    public Player(String name, int money, int health, short rep){
         super(name,money,health,rep);
         score  = 0;
 
@@ -31,7 +31,7 @@ public class Player extends Character {
 
     public GridPane displayProfile(){
         //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
-        GameLabel health = new GameLabel("Health: "+ getHealth(),20,"#AA0C0C");
+        GameLabel health = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),20,"#AA0C0C");
         GameLabel money = new GameLabel("Money: "+ getMoney(),20, "#9FB425");
         GameLabel reputation = new GameLabel("Rep: "+ getReputation(),20);
         VBox stats = new VBox(health,money,reputation);

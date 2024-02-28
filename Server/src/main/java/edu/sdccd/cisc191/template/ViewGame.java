@@ -81,7 +81,6 @@ public class ViewGame extends Application {
         buttonsHolder.setAlignment(Pos.CENTER);
         //creates scene
         Scene scene = new Scene(layout, sceneWidth, sceneHeight, Color.GRAY);
-        scene.getStylesheets().add(getClass().getResource("/fontStyle.css").toExternalForm());
         stage.setTitle("Silk Road");
         stage.setScene(scene);
         stage.resizableProperty().set(false);

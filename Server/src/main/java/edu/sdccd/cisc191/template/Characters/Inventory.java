@@ -16,6 +16,13 @@ public class Inventory {
             }
         }
     }
+
+    /**
+     * adds one item
+     * @param row which row will item be in
+     * @param col which col
+     * @param item what ist he item
+     */
     public void addItem(int row, int col, Item item){
         storage[row][col]= item;
     }
@@ -24,6 +31,11 @@ public class Inventory {
         storage[row][col]= new Item();
     }
 
+    /**
+     * displays the inventory on a gridpane of buttons
+     * @param itemSize size of button
+     * @return gridpane of buttons, visual of inventory
+     */
     public GridPane displayInventory(int itemSize){
         GridPane inventoryCells = new GridPane();
         for(int row=0; row<storage.length;row++){
