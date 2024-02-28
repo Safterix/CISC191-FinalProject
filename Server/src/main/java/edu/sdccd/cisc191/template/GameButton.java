@@ -23,7 +23,7 @@ public class GameButton extends Button {
         setPrefHeight(height);
         getStylesheets().add("colorPalette.css");
         getStyleClass().add("game-button");
-        setFont(new Font("Courier New", size));
+        setStyle("-fx-font-size: "+ size);
 
     }
 
@@ -41,9 +41,10 @@ public class GameButton extends Button {
         getStylesheets().add("colorPalette.css");
         getStyleClass().add("item-button");
         setGraphic(icon);
-        setFont(new Font("Courier New", size/7));
+        setStyle("-fx-font-size: "+ size/7);
         Tooltip hoverText = new Tooltip(description);
-        hoverText.fontProperty().set(new Font("Courier New", size/3));
+        hoverText.setStyle("-fx-font-size: "+ size/3);
+
         setTooltip(hoverText);
 
 

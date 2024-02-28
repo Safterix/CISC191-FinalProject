@@ -5,9 +5,14 @@
 
 .label {
     -fx-font-family: 'GoodDog';
-    -fx-font-size: 100;
 }
 
-.button .text {
+.button  {
+    -fx-font-family: 'GoodDog';
+}
+.tooltip .text{
+    -fx-font-family: 'GoodDog';
+}
+.text-field {
     -fx-font-family: 'GoodDog';
 }

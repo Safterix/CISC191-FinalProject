@@ -9,7 +9,8 @@
     -fx-background-color: #586F6B;
     -fx-text-fill: #CBD4C2;
 }
-    .text-field {
+
+.text-field {
         -fx-text-fill: #815355;
         -fx-background-color: #CBD4C2;
         -fx-border-color: #523249;
@@ -30,4 +31,8 @@
 .item-button:hover {
     -fx-background-color: #586F6B;
     -fx-text-fill: #CBD4C2;
+}
+
+.game-label {
+    -fx-text-fill: #815355;
 }

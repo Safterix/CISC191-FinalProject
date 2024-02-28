@@ -10,8 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
@@ -80,7 +78,7 @@ public class ViewGame extends Application {
         layout.setTop(buttonsHolder);
         buttonsHolder.setAlignment(Pos.CENTER);
         //creates scene
-        Scene scene = new Scene(layout, sceneWidth, sceneHeight, Color.GRAY);
+        Scene scene = new GameScene(layout, sceneWidth, sceneHeight);
         stage.setTitle("Silk Road");
         stage.setScene(scene);
         stage.resizableProperty().set(false);
@@ -118,7 +116,7 @@ public class ViewGame extends Application {
         //makes borderpane and adds the buttons holder
         layout = new BorderPane(buttonHolder);
         layout.setStyle("-fx-background-color: gray");
-        switchScene(new Scene(layout, sceneWidth, sceneHeight), "Credits!");
+        switchScene(new GameScene(layout, sceneWidth, sceneHeight), "Credits!");
     }
 
     /**
@@ -152,14 +150,13 @@ public class ViewGame extends Application {
         //makes borderpane and adds the buttons holder
         layout = new BorderPane(buttonHolder);
         layout.setStyle("-fx-background-color: gray");
-        switchScene(new Scene(layout, sceneWidth, sceneHeight), "Settings!");
+        switchScene(new GameScene(layout, sceneWidth, sceneHeight), "Settings!");
     }
     public void startGame(){
 
         //text field that player enters name in next to confirmation button
         TextField namePlayer = new TextField();
         namePlayer.setPrefSize(sceneWidth/2,sceneHeight/5);
-        namePlayer.fontProperty().set(new Font("Times New Roman",sceneWidth/25));
         namePlayer.getStylesheets().add("colorPalette.css");
         namePlayer.getStyleClass().add("text-field");
 
@@ -179,7 +176,7 @@ public class ViewGame extends Application {
         layout = new BorderPane(nameEnter);
         layout.setTop(askPlayer);
         BorderPane.setAlignment(askPlayer,Pos.BOTTOM_CENTER);
-        switchScene(new Scene(layout,sceneWidth,sceneHeight), "Begin your adventure...");
+        switchScene(new GameScene(layout,sceneWidth,sceneHeight), "Begin your adventure...");
 
 
 
@@ -190,9 +187,9 @@ public class ViewGame extends Application {
                 askPlayer.setText("That is not your name...");
             }
             else{
-                Player player = new Player(namePlayer.getText(),100,100,0);
+                Player player = new Player(namePlayer.getText(),100,100, (short) 0);
                 //todo do the rest idk...
-                switchScene(new Scene(defaultScreen(player,sceneWidth/30),sceneWidth,sceneHeight),"yay");
+                switchScene(new GameScene(defaultScreen(player,sceneWidth/30),sceneWidth,sceneHeight),"yay");
             }
 
         });
@@ -204,7 +201,7 @@ public class ViewGame extends Application {
      * @param scene the scene/page that will be switched to
      * @param title the name/title of the page
      */
-    public void switchScene(Scene scene, String title){
+    public void switchScene(GameScene scene, String title){
         gameStage.setScene(scene);
         gameStage.setTitle(title);
     }
