@@ -104,13 +104,14 @@ public class ViewGame extends Application {
     public void showCredits() {
         //creates people buttons TODO make it lead to our github pages or somethign?
         GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 10, sceneWidth/20);
+        GameButton angeliz = new GameButton("angeliz", sceneWidth / 2, sceneHeight / 10, sceneWidth/20);
         //creates a button to go back to the start screen
         GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 10, sceneWidth/25);
         goBack.setOnAction((ActionEvent back) -> {
             start(gameStage);
         });
         //adds buttons to a button holder then centers it
-        VBox buttonHolder = new VBox(5, kim, goBack);
+        VBox buttonHolder = new VBox(5, angeliz, kim, goBack);
         buttonHolder.setAlignment(Pos.CENTER);
 
         //makes borderpane and adds the buttons holder

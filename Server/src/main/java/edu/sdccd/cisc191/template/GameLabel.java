@@ -9,7 +9,8 @@ import javafx.scene.text.Font;
 public class GameLabel extends Label {
 
     public GameLabel(String text, int size, String color) {
-        setText(text);
+        setText(text);getStylesheets().add("colorPalette.css");
+        getStyleClass().add("color-label");
         setStyle("-fx-font-size: "+ size);
         setStyle("-fx-text-fill: "+color);
     }
