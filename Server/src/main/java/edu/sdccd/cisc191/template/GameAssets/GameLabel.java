@@ -1,4 +1,4 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GameAssets;
 
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -17,7 +17,7 @@ public class GameLabel extends Label {
     public GameLabel(String text,int size){
         setText(text);
         getStylesheets().add("colorPalette.css");
-        getStyleClass().add("game-label");
+        getStyleClass().add("color-label");
         setStyle("-fx-font-size: " +size);
     }
 }

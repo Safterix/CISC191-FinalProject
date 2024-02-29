@@ -1,4 +1,4 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GameAssets;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -41,7 +41,7 @@ public class GameButton extends Button {
         getStylesheets().add("colorPalette.css");
         getStyleClass().add("item-button");
         setGraphic(icon);
-        setStyle("-fx-font-size: "+ size/7);
+        setStyle("-fx-font-size: "+ size/5);
         Tooltip hoverText = new Tooltip(description);
         hoverText.setStyle("-fx-font-size: "+ size/3);
 

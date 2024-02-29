@@ -34,12 +34,12 @@
 }
 
 .game-label {
+    -fx-text-alignment: left ;
     -fx-text-fill: #815355;
 }
 
---TODO wip
 
 .color-label {
-
+    -fx-text-alignment: left ;
 }
 

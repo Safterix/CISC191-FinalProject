@@ -1,8 +1,10 @@
 package edu.sdccd.cisc191.template;
 
 
-import edu.sdccd.cisc191.template.Characters.Character;
 import edu.sdccd.cisc191.template.Characters.Player;
+import edu.sdccd.cisc191.template.GameAssets.GameButton;
+import edu.sdccd.cisc191.template.GameAssets.GameLabel;
+import edu.sdccd.cisc191.template.GameAssets.GameScene;
 import edu.sdccd.cisc191.template.ItemTypes.Heal;
 import javafx.application.Application;
 import javafx.event.ActionEvent;

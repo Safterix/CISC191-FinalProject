@@ -1,9 +1,7 @@
 package edu.sdccd.cisc191.template.Characters;
 
-import edu.sdccd.cisc191.template.Characters.Character;
-import edu.sdccd.cisc191.template.GameLabel;
+import edu.sdccd.cisc191.template.GameAssets.GameLabel;
 import javafx.scene.canvas.Canvas;
-import  javafx.scene.canvas.CanvasBuilder;
 import  javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -34,6 +32,7 @@ public class Player extends Character {
         GameLabel health = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),20,"#AA0C0C");
         GameLabel money = new GameLabel("Money: "+ getMoney(),20, "#9FB425");
         GameLabel reputation = new GameLabel("Rep: "+ getReputation(),20);
+        //TODO IDK WHY the font is smalelr....
         VBox stats = new VBox(health,money,reputation);
 
         GridPane profile = new GridPane();

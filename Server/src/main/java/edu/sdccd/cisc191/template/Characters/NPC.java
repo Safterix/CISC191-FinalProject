@@ -1,8 +1,7 @@
 package edu.sdccd.cisc191.template.Characters;
 
-import edu.sdccd.cisc191.template.GameLabel;
+import edu.sdccd.cisc191.template.GameAssets.GameLabel;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
 public class NPC extends Character {
     private String name; //name of the character

@@ -1,4 +1,4 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GameAssets;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

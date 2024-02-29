@@ -1,7 +1,7 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
 import edu.sdccd.cisc191.template.Characters.Character;
-import edu.sdccd.cisc191.template.GameButton;
+import edu.sdccd.cisc191.template.GameAssets.GameButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
