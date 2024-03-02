@@ -1,10 +1,7 @@
-package edu.sdccd.cisc191.template;
+package edu.sdccd.cisc191.template.GameAssets;
 
 
 import edu.sdccd.cisc191.template.Characters.Player;
-import edu.sdccd.cisc191.template.GameAssets.GameButton;
-import edu.sdccd.cisc191.template.GameAssets.GameLabel;
-import edu.sdccd.cisc191.template.GameAssets.GameScene;
 import edu.sdccd.cisc191.template.ItemTypes.Heal;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -15,7 +12,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
-import static edu.sdccd.cisc191.template.GameScreen.defaultScreen;
+import static edu.sdccd.cisc191.template.GameAssets.GameScreen.defaultScreen;
 
 /**
  *
@@ -192,7 +189,7 @@ public class ViewGame extends Application {
             else{
                 Player player = new Player(namePlayer.getText(),100,100, (short) 0);
                 //todo do the rest idk...
-                switchScene(new GameScene(defaultScreen(player,sceneWidth/30),sceneWidth,sceneHeight),"yay");
+                switchScene(new GameScene(defaultScreen(player,sceneWidth,sceneHeight),sceneWidth,sceneHeight),"yay");
             }
 
         });

@@ -1,6 +1,8 @@
 package edu.sdccd.cisc191.template.Characters;
 
 import edu.sdccd.cisc191.template.ItemTypes.Item;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Character
 {
@@ -10,6 +12,8 @@ public class Character
     private final int MAX_HEALTH;
     private short reputation; // reputation from [-100,100]
     private Inventory storage; //TODO decide on how inventory size works
+
+    private ImageView profileImage =new ImageView(new Image("image/creachae.png"));
 
     /**
      * Constructor that sets the character's name, money, and health
@@ -116,6 +120,8 @@ public class Character
      * @return return storage
      */
     public Inventory getInventory(){return storage;}
+
+    public ImageView getPFP(){return profileImage;}
 
 
 }

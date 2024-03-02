@@ -3,12 +3,12 @@ package edu.sdccd.cisc191.template.Characters;
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
 import javafx.scene.canvas.Canvas;
 import  javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class Player extends Character {
-    Canvas profilee;
-    GraphicsContext pfp; //?????????????
+
 
     int score;
     public Player(String name, int money, int health, short rep){
@@ -26,6 +26,10 @@ public class Player extends Character {
         return score;
     }
 
+    public void changeExpression(int type){
+        getPFP().setImage(new Image("image/creachae.png")); // set it to diff picture
+    }
+
 
     public GridPane displayProfile(){
         //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
@@ -37,11 +41,9 @@ public class Player extends Character {
 
         GridPane profile = new GridPane();
         profile.add(stats, 0,2,2,1);
-        //todo add profile pic of player in (0,1)
-
         //adds the name to (0,0) of gridpane
         GameLabel playerName = new GameLabel(getName(),40);
-        profile.add(playerName,0,0);
+        profile.add(playerName,0,0,1,2);
 
         return profile;
 }

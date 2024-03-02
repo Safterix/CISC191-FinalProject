@@ -10,6 +10,8 @@ import javafx.util.Duration;
 import javax.tools.Tool;
 
 public class GameButton extends Button {
+
+
     /**
      * default button with text label
      * @param name the text displayed on the button
