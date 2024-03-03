@@ -20,7 +20,7 @@ import static edu.sdccd.cisc191.template.GameAssets.GameScreen.defaultScreen;
 public class ViewGame extends Application {
 
     //default size
-    private int sceneWidth=0; //this way, the class itself keeps track of the screen's size
+    private static int sceneWidth=0; //this way, the class itself keeps track of the screen's size
     private int sceneHeight=0;
     private BorderPane layout;
     //so u can switch the scene...
@@ -96,6 +96,9 @@ public class ViewGame extends Application {
         sceneWidth = width;
         sceneHeight = height;
         start(gameStage);
+    }
+    public static int getScreenDimensions(){
+        return sceneWidth;
     }
     /**
      * makes credit page

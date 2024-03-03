@@ -10,14 +10,13 @@ public class GameLabel extends Label {
 
     public GameLabel(String text, int size, String color) {
         setText(text);getStylesheets().add("colorPalette.css");
-        getStyleClass().add("color-label");
-        setStyle("-fx-font-size: "+ size);
-        setStyle("-fx-text-fill: "+color);
+        getStyleClass().add(color+"-label");
+        setStyle("-fx-font-size: " +size);
     }
     public GameLabel(String text,int size){
         setText(text);
         getStylesheets().add("colorPalette.css");
-        getStyleClass().add("color-label");
+        getStyleClass().add("game-label");
         setStyle("-fx-font-size: " +size);
     }
 }

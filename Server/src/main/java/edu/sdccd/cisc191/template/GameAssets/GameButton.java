@@ -1,6 +1,8 @@
 package edu.sdccd.cisc191.template.GameAssets;
 
+import edu.sdccd.cisc191.template.ItemTypes.Item;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,15 +36,15 @@ public class GameButton extends Button {
      * @param name of item
      * @param description of item
      * @param size of button (it is square)
-     * @param icon possible image
      */
-    public GameButton(String name, String description, int size,  ImageView icon) {
+    public GameButton(String name,String description, int size) {
         setText(name);
         setPrefWidth(size);
         setPrefHeight(size);
         getStylesheets().add("colorPalette.css");
         getStyleClass().add("item-button");
-        setGraphic(icon);
+        setGraphic(new GameImageView(name));
+        setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         setStyle("-fx-font-size: "+ size/5);
         Tooltip hoverText = new Tooltip(description);
         hoverText.setStyle("-fx-font-size: "+ size/3);

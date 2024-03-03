@@ -60,9 +60,7 @@ public class Item {
     }
 
     public GameButton displayItem(int sizeSquare) {
-        GameButton itemButton = new GameButton(name, description, sizeSquare, icon);
-
-        return itemButton;
+        return new GameButton(getName(),getDescription(),sizeSquare);
 
     }
 }

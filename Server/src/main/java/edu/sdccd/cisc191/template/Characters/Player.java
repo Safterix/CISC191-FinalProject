@@ -1,8 +1,7 @@
 package edu.sdccd.cisc191.template.Characters;
 
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
-import javafx.scene.canvas.Canvas;
-import  javafx.scene.canvas.GraphicsContext;
+import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -27,22 +26,23 @@ public class Player extends Character {
     }
 
     public void changeExpression(int type){
-        getPFP().setImage(new Image("image/creachae.png")); // set it to diff picture
+        getPFP().setImage(new Image("image/charcaterSprites/creachae.png")); // set it to diff picture
     }
 
 
     public GridPane displayProfile(){
         //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
-        GameLabel health = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),20,"#AA0C0C");
-        GameLabel money = new GameLabel("Money: "+ getMoney(),20, "#9FB425");
-        GameLabel reputation = new GameLabel("Rep: "+ getReputation(),20);
+        int size = ViewGame.getScreenDimensions()/25;
+        GameLabel health = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),size,"red");
+        GameLabel money = new GameLabel("Money: "+ getMoney(),size, "green");
+        GameLabel reputation = new GameLabel("Rep: "+ getReputation(),size);
         //TODO IDK WHY the font is smalelr....
         VBox stats = new VBox(health,money,reputation);
 
         GridPane profile = new GridPane();
         profile.add(stats, 0,2,2,1);
         //adds the name to (0,0) of gridpane
-        GameLabel playerName = new GameLabel(getName(),40);
+        GameLabel playerName = new GameLabel(getName(),size*2);
         profile.add(playerName,0,0,1,2);
 
         return profile;
