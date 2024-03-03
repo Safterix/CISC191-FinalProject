@@ -24,7 +24,7 @@ public class ViewGame extends Application {
     private int sceneHeight=0;
     private BorderPane layout;
     //so u can switch the scene...
-    private Stage gameStage;
+    private static Stage gameStage;
 
     public static void main(String[] args) {
         launch();
@@ -99,6 +99,10 @@ public class ViewGame extends Application {
     }
     public static int getScreenDimensions(){
         return sceneWidth;
+    }
+
+    public static Stage getStage(){
+        return gameStage;
     }
     /**
      * makes credit page
@@ -204,7 +208,7 @@ public class ViewGame extends Application {
      * @param scene the scene/page that will be switched to
      * @param title the name/title of the page
      */
-    public void switchScene(GameScene scene, String title){
+    public static void switchScene(GameScene scene, String title){
         gameStage.setScene(scene);
         gameStage.setTitle(title);
     }
