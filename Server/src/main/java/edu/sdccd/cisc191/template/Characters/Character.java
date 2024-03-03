@@ -11,7 +11,7 @@ public class Character
     private int health; // amount of hp they have
     private final int MAX_HEALTH;
     private short reputation; // reputation from [-100,100]
-    private Inventory storage; //TODO decide on how inventory size works
+    private Inventory storage;
 
     private GameImageView profileImage;
 
@@ -87,7 +87,7 @@ public class Character
         return MAX_HEALTH;
     }
     /**
-     * heals cahracter by healAmount
+     * heals character by healAmount
      */
     public void heal(int healAmount)
     {
@@ -96,7 +96,7 @@ public class Character
     }
 
     /**
-     * @param damage take damge amount
+     * @param damage take damage amount
      */
     public void damage(int damage)
     {
@@ -122,6 +122,9 @@ public class Character
      */
     public Inventory getInventory(){return storage;}
 
+    /**
+     * @return pfp
+     */
     public ImageView getPFP(){return profileImage;}
 
 

@@ -7,6 +7,9 @@ import javafx.scene.layout.TilePane;
 public class Inventory {
     private Item[][] storage = new Item[6][4];
 
+    /**
+     * adds default Nothing item to each cell
+     */
     public Inventory(){
         for(int row=0; row<storage.length;row++){
             for(int col=0;col<storage[row].length;col++){
@@ -21,7 +24,7 @@ public class Inventory {
      * adds one item
      * @param row which row will item be in
      * @param col which col
-     * @param item what ist he item
+     * @param item what is the item
      */
     public void addItem(int row, int col, Item item){
         storage[row][col]= item;

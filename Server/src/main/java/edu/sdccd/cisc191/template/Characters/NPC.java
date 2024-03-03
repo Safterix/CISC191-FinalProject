@@ -10,7 +10,7 @@ public class NPC extends Character {
     private int health; // amount of hp they have
     private final int MAX_HEALTH = 100;
     private short reputation; // reputation from [-100,100]
-    private Inventory storage; //TODO decide on how inventory size works
+    private Inventory storage;
 
     public NPC(String name, int money, int health, short rep, String description) {
         super(name, money, health, rep);

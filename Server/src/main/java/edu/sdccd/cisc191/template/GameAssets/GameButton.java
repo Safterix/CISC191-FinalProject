@@ -39,6 +39,7 @@ public class GameButton extends Button {
      */
     public GameButton(String name,String description, int size) {
         setText(name);
+        //sets size to correct size on page..... image on item...
         setPrefSize(ViewGame.getScreenDimensions()*9/192-25,ViewGame.getScreenDimensions()*9/192);
         setMaxSize(ViewGame.getScreenDimensions()*9/192-25,ViewGame.getScreenDimensions()*9/192);
         getStylesheets().add("colorPalette.css");

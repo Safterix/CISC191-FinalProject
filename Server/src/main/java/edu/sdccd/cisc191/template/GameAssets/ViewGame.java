@@ -21,10 +21,11 @@ public class ViewGame extends Application {
 
     //default size
     private static int sceneWidth=0; //this way, the class itself keeps track of the screen's size
-    private int sceneHeight=0;
-    private BorderPane layout;
+    private static int sceneHeight=0;
+    private static BorderPane layout;
     //so u can switch the scene...
     private static Stage gameStage;
+    private static Player player;
 
     public static void main(String[] args) {
         launch();
@@ -41,7 +42,6 @@ public class ViewGame extends Application {
             sceneHeight=720;
         }
 
-        //TODO make start button do something lol
         GameButton start = new GameButton("Start", sceneWidth / 2, sceneHeight / 10, sceneWidth/30);
         start.setOnAction((ActionEvent startIt)->{
             startGame();
@@ -65,7 +65,7 @@ public class ViewGame extends Application {
         VBox buttonsHolder = new VBox(5, start, credits,settings, quit);
         buttonsHolder.setAlignment(Pos.CENTER);
 
-        // add title and subtitle and TODO other labels?
+        // add title and subtitle
         GameLabel gameTitle  = new GameLabel("Silk Road", sceneWidth/7);
         GameLabel subtitle = new GameLabel("hehehe yaaay", sceneWidth/30);
 
@@ -87,8 +87,8 @@ public class ViewGame extends Application {
 
 
     /**
-     * Sets the screen's size TODO make this actually change the scene's size IDK HWO TO DO THIS
-     *TODO
+     * Sets the screen's size
+     *
      * @param width  new width
      * @param height new height
      */
@@ -127,7 +127,7 @@ public class ViewGame extends Application {
     }
 
     /**
-     * TODO SETTINSG APGE TO CHANGE SCREEN IDK HW TO DO THIS
+     *
      */
     public void showSettings() {
         //creates window options
@@ -168,14 +168,9 @@ public class ViewGame extends Application {
         namePlayer.getStyleClass().add("text-field");
 
 
-        //TODO DELETE LATER ITEM TEST ONLY
-        Heal test = new Heal(Heal.HealingItems.GINSENG);
-        GameButton lala = test.displayItem(sceneHeight/10);
-
-
         //puts confirmation button and textfield next to each other and centers it
         GameButton confirm = new GameButton("Confirm", sceneWidth/5,sceneHeight/5,sceneWidth/35);
-        HBox nameEnter = new HBox(namePlayer, confirm,lala); //TODO DELTE ITEM TEST ONLY
+        HBox nameEnter = new HBox(namePlayer, confirm);
         nameEnter.setAlignment(Pos.CENTER);
         //asks player to enter name label
         GameLabel askPlayer = new GameLabel("What is your name?",sceneWidth/20);
@@ -194,8 +189,7 @@ public class ViewGame extends Application {
                 askPlayer.setText("That is not your name...");
             }
             else{
-                Player player = new Player(namePlayer.getText(),100,100, (short) 0);
-                //todo do the rest idk...
+                player = new Player(namePlayer.getText(),100,100, (short) 0);
                 switchScene(new GameScene(defaultScreen(player,sceneWidth,sceneHeight),sceneWidth,sceneHeight),"yay");
             }
 
@@ -213,4 +207,50 @@ public class ViewGame extends Application {
         gameStage.setTitle(title);
     }
 
+    //game end
+    public static void endGame(){
+        GameButton save = new GameButton("Save", sceneWidth / 4, sceneHeight / 10, sceneWidth/30);
+        save.setOnAction((ActionEvent saveAchievements) -> {
+            Platform.exit();
+        });
+        GameButton tryAgain = new GameButton("Try Again", sceneWidth / 4, sceneHeight / 10, sceneWidth/30);
+        tryAgain.setOnAction((ActionEvent playAgain) -> {
+            Platform.exit();
+        });
+
+        GameButton quit = new GameButton("Quit", sceneWidth / 4, sceneHeight / 10, sceneWidth/30);
+        quit.setOnAction((ActionEvent exit) -> {
+            Platform.exit();
+        });
+
+        //makes holder for the buttons and centers it
+        HBox buttonsHolder = new HBox(5, save, tryAgain, quit);
+        buttonsHolder.setAlignment(Pos.CENTER);
+
+        GameLabel gameOver  = new GameLabel("GAME OVER", sceneWidth/7);
+        GameLabel subtitle = new GameLabel("YOU WIN! SCORE:"+player.getScore(), sceneWidth/30);
+        VBox titlesHolder = new VBox(sceneHeight/20, gameOver, subtitle);
+
+        //makes borderpane and adds the buttons holder to center
+        layout = new BorderPane(titlesHolder);
+        layout.setStyle("-fx-background-color: #CBD4C2");
+        layout.setBottom(buttonsHolder);
+
+
+        buttonsHolder.setAlignment(Pos.CENTER);
+
+
+        if(player.getHealth()==0){
+            subtitle.setText("YOU DIED...SCORE:"+player.getScore());
+        }
+        //creates scene
+        GameScene scene = new GameScene(layout, sceneWidth, sceneHeight);
+        switchScene(scene,"The End");
+
+    }
+    //TODO use some kind of i/O to save Score and achievemenst (TBD )
+    public void save(){
+
+
+    }
 }
