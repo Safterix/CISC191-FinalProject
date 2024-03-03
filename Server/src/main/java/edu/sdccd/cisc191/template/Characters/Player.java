@@ -32,7 +32,7 @@ public class Player extends Character {
 
     public GridPane displayProfile(){
         //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
-        int size = ViewGame.getScreenDimensions()/25;
+        int size = ViewGame.getScreenDimensions()/30;
         GameLabel health = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),size,"red");
         GameLabel money = new GameLabel("Money: "+ getMoney(),size, "green");
         GameLabel reputation = new GameLabel("Rep: "+ getReputation(),size);

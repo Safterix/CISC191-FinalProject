@@ -39,13 +39,12 @@ public class GameButton extends Button {
      */
     public GameButton(String name,String description, int size) {
         setText(name);
-        setPrefWidth(size);
-        setPrefHeight(size);
+        setPrefSize(ViewGame.getScreenDimensions()*9/192-25,ViewGame.getScreenDimensions()*9/192);
+        setMaxSize(ViewGame.getScreenDimensions()*9/192-25,ViewGame.getScreenDimensions()*9/192);
         getStylesheets().add("colorPalette.css");
         getStyleClass().add("item-button");
         setGraphic(new GameImageView(name));
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        setStyle("-fx-font-size: "+ size/5);
         Tooltip hoverText = new Tooltip(description);
         hoverText.setStyle("-fx-font-size: "+ size/3);
 

@@ -9,15 +9,15 @@ public class GameImageView extends ImageView {
     public GameImageView (Image image){
     super(image);
     //makes it fit a third of the screen
-    setFitHeight(ViewGame.getScreenDimensions()/16*9/3);
-    setFitWidth(ViewGame.getScreenDimensions()/3);
+    setFitHeight(ViewGame.getScreenDimensions()*9/48);
+    setFitWidth(ViewGame.getScreenDimensions()*9/48);
     }
 
     public GameImageView(String name){
 
         super(new Image("image/items/"+name+".png"));
-        setFitHeight(ViewGame.getScreenDimensions()/18);
-        setFitWidth(ViewGame.getScreenDimensions()/18);
+        setFitHeight(ViewGame.getScreenDimensions()*9/192-25);
+        setFitWidth(ViewGame.getScreenDimensions()*9/192-25);
 
     }
 }
