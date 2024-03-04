@@ -5,6 +5,7 @@
 
 .label {
     -fx-font-family: 'Pixellari';
+    -fx-text-fill:#cbd4c2;
 }
 
 .button  {
