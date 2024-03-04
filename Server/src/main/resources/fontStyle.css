@@ -1,18 +1,21 @@
 @font-face {
-    font-family: 'GoodDog';
-    src: url(fonts/GoodDog.otf);
+    font-family: 'Pixellari';
+    src: url(fonts/Pixellari.ttf);
 }
 
 .label {
-    -fx-font-family: 'GoodDog';
+    -fx-font-family: 'Pixellari';
+    -fx-text-fill:#cbd4c2;
 }
 
 .button  {
-    -fx-font-family: 'GoodDog';
+    -fx-font-family: 'Pixellari';
 }
+
 .tooltip .text{
-    -fx-font-family: 'GoodDog';
+    -fx-font-family: 'Pixellari';
 }
+
 .text-field {
-    -fx-font-family: 'GoodDog';
+    -fx-font-family: 'Pixellari';
 }
