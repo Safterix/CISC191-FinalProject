@@ -14,10 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 import static edu.sdccd.cisc191.template.GameAssets.GameScreen.defaultScreen;
 
@@ -45,6 +42,7 @@ public class ViewGame extends Application {
      */
     @Override
     public void start(Stage stage) {
+
         gameStage = stage;
         if ((sceneWidth == 0) && (sceneHeight == 0)) {
             sceneWidth = 1280;
@@ -261,42 +259,39 @@ public class ViewGame extends Application {
     }
 
     //TODO use some kind of i/O to save Score and achievemenst (TBD )
+
+    /**
+     * saves the score and TODO achievements that a player got thru a game session
+     * uses FileChooser for user to pick where to save the TXT file
+     */
     public static void save() {
-
+        //can only make txt files
         FileChooser.ExtensionFilter textFiles = new FileChooser.ExtensionFilter("Text Files", "*txt");
-        FileChooser.ExtensionFilter allFiles = new FileChooser.ExtensionFilter("All Files", "*.*");
-
+        //setup filechooser, defualt file is My_Silk_Road_Score.txt
         FileChooser fc = new FileChooser();
-
         fc.setTitle("Save your Score!");
         fc.setInitialFileName("My_Silk_Road_Score.txt");
-        fc.getExtensionFilters().addAll(textFiles,allFiles);
+        fc.getExtensionFilters().add(textFiles);
+        //set the file that will the score will be saved to
         File saveLocation = fc.showSaveDialog(gameStage);
+        //intialize pw to write on txt file
         PrintWriter output;
+        //try to make a printwriter with saveLocation but must catch filenotfoundexecption
         try {
-            FileWriter stream = new FileWriter(saveLocation);
-            output = new PrintWriter(stream);
-        } catch (Exception e) {
-            // user cant write to file
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR,
-                    "Sorry, but an error occurred while\n" +
-                            "trying to save your score...");
-            errorAlert.showAndWait();
-            return;
-        }
-
-        try {
+            output = new PrintWriter(saveLocation);
+            //write to output file
             output.write("Thank you for playing the silk road game!\nIn your recent run as " + player.getName() +
                     "you played GOAL. You got " + player.getScore() + " points! Good Job!\n\n" +
                     "Your Achievements:\n");
-
             output.close();
-        } catch (Exception e) {
+        }
+
+        catch (FileNotFoundException e) {
+            //  cant write to file, alert (if user closes out or doesn't have perms)
             Alert errorAlert = new Alert(Alert.AlertType.ERROR,
-                    "Sorry, but an error occurred while\n" +
+                    "Sorry!! An error occurred while" +
                             "trying to save your score...");
             errorAlert.showAndWait();
-
+        }
         }
     }
-}
