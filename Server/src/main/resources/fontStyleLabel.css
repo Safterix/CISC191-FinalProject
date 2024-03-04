@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Pixellari';
+    src: url(fonts/Pixellari.ttf);
+}
+
+.label {
+    -fx-font-family: 'Pixellari';
+}
+
+.button  {
+    -fx-font-family: 'Pixellari';
+}
+
+.tooltip .text{
+    -fx-font-family: 'Pixellari';
+}
+
+.text-field {
+    -fx-font-family: 'Pixellari';
+}

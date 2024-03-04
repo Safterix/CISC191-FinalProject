@@ -36,6 +36,7 @@ public class ViewGame extends Application {
      */
     @Override
     public void start(Stage stage) {
+
         gameStage = stage;
         if((sceneWidth==0)&&(sceneHeight==0)){
             sceneWidth=1280;
