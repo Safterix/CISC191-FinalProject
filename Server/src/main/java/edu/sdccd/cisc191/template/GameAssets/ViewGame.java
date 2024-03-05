@@ -279,19 +279,23 @@ public class ViewGame extends Application {
         //try to make a printwriter with saveLocation but must catch filenotfoundexecption
         try {
             output = new PrintWriter(saveLocation);
-            //write to output file
-            output.write("Thank you for playing the silk road game!\nIn your recent run as " + player.getName() +
-                    "you played GOAL. You got " + player.getScore() + " points! Good Job!\n\n" +
-                    "Your Achievements:\n");
-            output.close();
-        }
 
+        }
         catch (FileNotFoundException e) {
-            //  cant write to file, alert (if user closes out or doesn't have perms)
+            //  cant write to file, alert (if user closes out)
             Alert errorAlert = new Alert(Alert.AlertType.ERROR,
                     "Sorry!! An error occurred while" +
-                            "trying to save your score...");
+                            "trying to save your score... Try again!");
             errorAlert.showAndWait();
+            return;
         }
-        }
+
+            //write to output file
+            output.write("Thank you for playing the silk road game!\nIn your recent run as " + player.getName() +
+                    ", you played GOAL. You got " + player.getScore() + " points! Good Job!\n\n" +
+                    "Your Achievements:\n");
+            output.close();
+
+
+    }
     }
