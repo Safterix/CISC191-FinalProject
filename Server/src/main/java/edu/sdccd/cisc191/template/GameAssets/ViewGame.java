@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.application.Platform;
@@ -176,6 +177,7 @@ public class ViewGame extends Application {
         namePlayer.setPrefSize(sceneWidth / 2, sceneHeight / 5);
         namePlayer.getStylesheets().add("colorPalette.css");
         namePlayer.getStyleClass().add("text-field");
+        namePlayer.setStyle("-fx-font-size: "+ ViewGame.getScreenDimensions()/20);
 
 
         //puts confirmation button and textfield next to each other and centers it
@@ -193,17 +195,29 @@ public class ViewGame extends Application {
 
         //confirm button will make a player charcter or tell you to try again
         confirm.setOnAction((ActionEvent createCharacter) -> {
-            if (namePlayer.getText() == null || namePlayer.getText().isEmpty()) {
+            boolean allowed = true;
+            String name = namePlayer.getText();
+
+            if (name == null || name.isEmpty()) {
                 askPlayer.setText("That is not your name...");
-            } else {
-                player = new Player(namePlayer.getText(), 100, 100, (short) 0);
-                switchScene(new GameScene(defaultScreen(player, sceneWidth, sceneHeight), sceneWidth, sceneHeight), "yay");
             }
+            else if(name.length()>8){
+                askPlayer.setText("Your name is too long...");
+            }
+            else if(name.length()<3){
+                askPlayer.setText("Your name is too short...");
+            }
+           else if( !name.matches("[a-zA-Z]+")){
+                    askPlayer.setText("Your name can only have letters...");}
 
-        });
+            else{
+            player = new Player(namePlayer.getText(), 100, 100, (short) 0);
+                switchScene(new GameScene(defaultScreen(player, sceneWidth, sceneHeight), sceneWidth, sceneHeight), "yay");
+                 }
 
+             });
+                }
 
-    }
 
     /**
      * Sets the scene to a new scene and changes the title
