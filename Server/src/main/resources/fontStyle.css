@@ -3,6 +3,10 @@
     src: url(fonts/Pixellari.ttf);
 }
 
+@font-face {
+    font-family: 'Silksceen';
+    src: url(fonts/slkscr.ttf);
+}
 .label {
     -fx-font-family: 'Pixellari';
     -fx-text-fill:#cbd4c2;

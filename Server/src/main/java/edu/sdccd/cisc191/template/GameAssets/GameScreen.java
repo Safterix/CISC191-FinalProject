@@ -24,7 +24,7 @@ public class GameScreen {
         //add charcater
 
         wholeUi.add(player.getPFP(),1,1,1,1);
-        wholeUi.add(player.getInventory().displayInventory(screenWidth/15),2,1,1,1);
+        wholeUi.add(player.getInventory().displayInventory(),2,1,1,1);
         GameButton endGame = new GameButton("End",screenWidth/2,height/2,screenWidth/20);
         endGame.setOnAction((ActionEvent theEnd) ->{
             ViewGame.endGame();
