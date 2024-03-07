@@ -20,10 +20,11 @@
 .text-field:focused{
     -fx-background-color: #586F6B;
     -fx-text-fill: #CBD4C2;
+
 }
 .item-button{
     -fx-text-fill: #CBD4C2;
-    -fx-background-color: #815355;
+    -fx-background-color: #cbd4c2;
     -fx-border-color: #523249;
     -fx-border-width: 2;
     -fx-cursor: hand;
