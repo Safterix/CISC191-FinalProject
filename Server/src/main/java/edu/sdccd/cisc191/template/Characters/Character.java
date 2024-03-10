@@ -28,7 +28,7 @@ public class Character
         this.health = MAX_HEALTH = health; //sets the final field MAX_HEALTH, then sets health
         reputation = rep;
         storage= new Inventory();
-        profileImage=new GameImageView(new Image("image/charcaterSprites/creachae.png"));
+        profileImage=new GameImageView(new Image("image/Sprites/Player.png"));
     }
 
     /**
@@ -125,7 +125,12 @@ public class Character
     /**
      * @return pfp
      */
-    public ImageView getPFP(){return profileImage;}
+    public GameImageView getPFP() {
+        return profileImage;
+    }
+    public void setPFP(String name){profileImage.setImage(new Image(name+".png"));}
 
-
+    public void changeEmotion(String emotion){
+        profileImage.setImage(new Image("image/Sprites/" + getName()+"_"+emotion+".png"));
+    }
 }

@@ -1,8 +1,9 @@
 package edu.sdccd.cisc191.template.GameAssets;
 
 
+import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
-import edu.sdccd.cisc191.template.ItemTypes.Heal;
+import edu.sdccd.cisc191.template.ItemTypes.Consumable;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -74,7 +75,7 @@ public class ViewGame extends Application {
         buttonsHolder.setAlignment(Pos.CENTER);
 
         // add title and subtitle
-        GameLabel gameTitle = new GameLabel("Silk Road", sceneWidth / 7);
+        GameLabel gameTitle = new GameLabel("Silk Road", sceneWidth / 7,true);
         GameLabel subtitle = new GameLabel("hehehe yaaay", sceneWidth / 30);
 
         //makes borderpane and adds the buttons holder to center
@@ -85,7 +86,7 @@ public class ViewGame extends Application {
         layout.setTop(buttonsHolder);
         buttonsHolder.setAlignment(Pos.CENTER);
         //creates scene
-        Scene scene = new GameScene(layout, sceneWidth, sceneHeight);
+        Scene scene = new GameScene(layout, sceneWidth, sceneHeight,true);
         stage.setTitle("Silk Road");
         stage.setScene(scene);
         stage.resizableProperty().set(false);
@@ -212,7 +213,8 @@ public class ViewGame extends Application {
 
             else{
             player = new Player(namePlayer.getText(), 100, 100, (short) 0);
-                switchScene(new GameScene(defaultScreen(player, sceneWidth, sceneHeight), sceneWidth, sceneHeight), "yay");
+                NPC notPlayer = new NPC();
+                switchScene(new GameScene(defaultScreen(player, notPlayer, sceneWidth, sceneHeight), sceneWidth, sceneHeight,true), "yay");
                  }
 
              });

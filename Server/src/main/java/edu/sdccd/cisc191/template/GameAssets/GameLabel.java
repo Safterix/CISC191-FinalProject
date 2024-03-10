@@ -19,6 +19,15 @@ public class GameLabel extends Label {
         getStyleClass().add("game-label");
         setStyle("-fx-font-size: " +size);
     }
+
+    //fancy label
+    public GameLabel(String text,int size,boolean yes){
+        setText(text);
+        getStylesheets().add("colorPalette.css");
+        getStyleClass().add("fancy-label");
+        setStyle("-fx-font-size: " +size);
+    }
+
 }
 
 

@@ -3,7 +3,6 @@ package edu.sdccd.cisc191.template.Characters;
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class Player extends Character {
@@ -24,6 +23,9 @@ public class Player extends Character {
     public void setGoal(){
         //TODO
     }
+    public String getGoal(){
+        return goal;
+    }
     public int getScore(){
         return score;
     }
@@ -33,7 +35,7 @@ public class Player extends Character {
      * @param expression the expression tec hacrater is doing
      */
     public void changeExpression(String expression){
-        getPFP().setImage(new Image("image/charcaterSprites/" +expression));
+        getPFP().setImage(new Image("image/Sprites/" +expression));
         // set it to diff picture
     }
 

@@ -14,7 +14,7 @@ public class Inventory {
         for(int row=0; row<storage.length;row++){
             for(int col=0;col<storage[row].length;col++){
                 //adds Empty item in each cell
-                storage[row][col]= new Item();
+                storage[row][col]= new Item(true);
 
             }
         }

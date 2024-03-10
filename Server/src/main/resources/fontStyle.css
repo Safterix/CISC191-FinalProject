@@ -1,17 +1,22 @@
 @font-face {
+    font-family: 'Venice Classic';
+    src: url(fonts/VeniceClassic.ttf);
+}
+@font-face {
     font-family: 'Pixellari';
     src: url(fonts/Pixellari.ttf);
 }
-
 @font-face {
-    font-family: 'Silksceen';
-    src: url(fonts/slkscr.ttf);
+    font-family: 'SD Auto Pilot';
+    src: url(fonts/sd_auto_pilot.ttf);
 }
-.label {
+@font-face {
+    font-family: 'St26k';
+    src: url(fonts/St26k.ttf);
+}
+.label{
     -fx-font-family: 'Pixellari';
-    -fx-text-fill:#cbd4c2;
 }
-
 .button  {
     -fx-font-family: 'Pixellari';
 }
@@ -22,4 +27,8 @@
 
 .text-field {
     -fx-font-family: 'Pixellari';
+}
+.text-area{
+    -fx-font-family: 'Pixellari';
+    -fx-wrap-text: true;
 }

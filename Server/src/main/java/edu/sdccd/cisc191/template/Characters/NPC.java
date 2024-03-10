@@ -1,17 +1,28 @@
 package edu.sdccd.cisc191.template.Characters;
 
+import edu.sdccd.cisc191.template.GameAssets.GameImageView;
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
+import edu.sdccd.cisc191.template.GameAssets.ViewGame;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 
 public class NPC extends Character {
     private String name; //name of the character
     private String description; // descrption of charcater
-    private int money; //amount of money they have
-    private int health; // amount of hp they have
-    private final int MAX_HEALTH = 100;
+    private GameImageView bodySprite;
     private short reputation; // reputation from [-100,100]
-    private Inventory storage;
 
+
+
+    public NPC(){
+        super("storeCN",100,100, (short) 50);
+        description = "Mysterious";
+        bodySprite = new GameImageView(new Image("image/Sprites/"+getName()+"_body1.png"));
+
+
+
+    }
     public NPC(String name, int money, int health, short rep, String description) {
         super(name, money, health, rep);
         this.description = description;
@@ -23,11 +34,13 @@ public class NPC extends Character {
     }
 
 
-    public GridPane displayProfile() {
-        //TODO stats are hidden so it will just be Name, ToolTip description, and Image
-        //only options should reveal their HP MONEY or INVEN
+    public GameImageView displayProfile() {
 
-        return new GridPane();
+        Tooltip desc = new Tooltip(description);
+        Tooltip.install(bodySprite,desc);
+        bodySprite.setFitWidth(ViewGame.getScreenDimensions()/3);
+        bodySprite.setFitHeight(ViewGame.getScreenDimensions()/3);
+        return bodySprite;
 
 
     }

@@ -20,6 +20,12 @@ public class Item {
 
     }
 
+    public Item(boolean random){
+        Item randomItem = new Consumable();
+       name = randomItem.getName();
+       description =randomItem.getDescription();
+       icon = new GameButton(getName(),getDescription());
+    }
     /**
      * Constructor with name
      *

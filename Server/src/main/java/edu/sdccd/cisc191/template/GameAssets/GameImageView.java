@@ -20,4 +20,11 @@ public class GameImageView extends ImageView {
         setFitWidth(ViewGame.getScreenDimensions()*9/192-25);
 
     }
+
+    public GameImageView (Image image,boolean headsprite){
+        super(image);
+        //makes it fit a third of the screen
+        setFitHeight(ViewGame.getScreenDimensions()/12);
+        setFitWidth(ViewGame.getScreenDimensions()/12);
+    }
 }

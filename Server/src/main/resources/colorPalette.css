@@ -39,7 +39,11 @@
     -fx-text-fill: #815355;
 }
 
-
+.fancy-label {
+    -fx-font-family: "Venice Classic";
+    -fx-text-alignment: left ;
+    -fx-text-fill: #815355;
+}
 .red-label {
     -fx-text-alignment: left ;
     -fx-text-fill: #ab4949;
@@ -49,3 +53,28 @@
     -fx-text-alignment: left ;
     -fx-text-fill: #598563;
 }
+.nervous-label{
+    -fx-font-family: "SD Auto Pilot";
+    -fx-text-alignment: left ;
+    -fx-text-fill: #815355;
+}
+.angry-label{
+    -fx-font-family: "St26k";
+    -fx-text-alignment: left ;
+    -fx-text-fill: #815355;
+}
+.pane {
+    -fx-background-image: url("/image/map.png");
+    -fx-background-position: center center;
+}
+
+.text-area .content {
+    -fx-background-color: #CBD4C2;
+    -fx-border-color: #523249;
+    -fx-border-width: 5;
+    -fx-cursor: hand;
+}
+.text-area{
+    -fx-text-fill: #815355;
+}
+

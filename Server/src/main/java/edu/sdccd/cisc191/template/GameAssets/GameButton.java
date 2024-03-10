@@ -23,8 +23,8 @@ public class GameButton extends Button {
      */
     public GameButton(String name, int width, int height, int size) {
         setText(name);
-        setPrefWidth(width);
-        setPrefHeight(height);
+        setPrefSize(width,height);
+        setMaxSize(width,height);
         getStylesheets().add("colorPalette.css");
         getStyleClass().add("game-button");
         setStyle("-fx-font-size: "+ size);
