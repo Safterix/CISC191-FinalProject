@@ -24,10 +24,15 @@ public class GameScreen {
         //add charcater
 
         wholeUi.add(player.getPFP(),1,1,1,1);
-        wholeUi.add(player.getInventory().displayInventory(screenWidth/15),2,1,1,1);
-
+        wholeUi.add(player.getInventory().displayInventory(),2,1,1,1);
+        GameButton endGame = new GameButton("End",screenWidth/2,height/2,screenWidth/20);
+        endGame.setOnAction((ActionEvent theEnd) ->{
+            ViewGame.endGame();
+        });
 
         wholeUi.add(player.displayProfile(),0,1,1,1);
+
+        wholeUi.add(endGame,0,0);
 
         wholeUi.setAlignment(Pos.BOTTOM_CENTER);
         //todo map backhtund, npc/event, options, dialog

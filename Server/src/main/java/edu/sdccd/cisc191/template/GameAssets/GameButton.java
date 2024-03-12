@@ -35,9 +35,8 @@ public class GameButton extends Button {
      * item  BUTTON
      * @param name of item
      * @param description of item
-     * @param size of button (it is square)
      */
-    public GameButton(String name,String description, int size) {
+    public GameButton(String name,String description) {
         setText(name);
         //sets size to correct size on page..... image on item...
         setPrefSize(ViewGame.getScreenDimensions()*9/192-25,ViewGame.getScreenDimensions()*9/192);
@@ -47,7 +46,7 @@ public class GameButton extends Button {
         setGraphic(new GameImageView(name));
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         Tooltip hoverText = new Tooltip(description);
-        hoverText.setStyle("-fx-font-size: "+ size/3);
+        hoverText.setStyle("-fx-font-size: "+ ViewGame.getScreenDimensions()/45);
 
         setTooltip(hoverText);
 

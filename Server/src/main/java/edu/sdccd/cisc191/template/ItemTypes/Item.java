@@ -11,12 +11,12 @@ import javafx.scene.image.ImageView;
  */
 public class Item {
     private String name, description;
-    ImageView icon = new ImageView(new Image("https://cdn.discordapp.com/attachments/1202075313882796082/1206410053448507422/andrew_huang.png?ex=65e5226a&is=65d2ad6a&hm=d9d627ff87f9c95e733a9b2830a69bc00ed0a7886c7f9c1e8f9d715389061b45&"));
-
+    GameButton icon;
 
     public Item() {
         name = "Nothing";
         description = "Empty!";
+        icon = new GameButton(getName(),getDescription());
 
     }
 
@@ -28,6 +28,7 @@ public class Item {
     public Item(String name, String description) {
         this.name = name;
         this.description = description;
+        icon= new GameButton(getName(),getDescription());
     }
 
     /**
@@ -59,8 +60,8 @@ public class Item {
         this.description = description;
     }
 
-    public GameButton displayItem(int sizeSquare) {
-        return new GameButton(getName(),getDescription(),sizeSquare);
+    public GameButton displayItem() {
+        return icon;
 
     }
 }

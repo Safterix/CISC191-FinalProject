@@ -9,18 +9,21 @@ import javafx.scene.layout.VBox;
 public class Player extends Character {
 
 
-    int score;
+    private int score;
+    private String goal;
     public Player(String name, int money, int health, short rep){
         super(name,money,health,rep);
         score  = 0;
-
+        goal= "None";
     }
 
     public void addScore(int score){
         this.score += score;
 
     }
-
+    public void setGoal(){
+        //TODO
+    }
     public int getScore(){
         return score;
     }

@@ -36,15 +36,14 @@ public class Inventory {
 
     /**
      * displays the inventory on a gridpane of buttons
-     * @param itemSize size of button
      * @return gridpane of buttons, visual of inventory
      */
-    public GridPane displayInventory(int itemSize){
+    public GridPane displayInventory(){
         GridPane inventoryCells = new GridPane();
         for(int row=0; row<storage.length;row++){
             for(int col=0;col<storage[row].length;col++){
                 //adds everycell
-                inventoryCells.add(storage[row][col].displayItem(itemSize),row,col,1,1);
+                inventoryCells.add(storage[row][col].displayItem(),row,col,1,1);
 
             }
         }

@@ -7,10 +7,15 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.application.Platform;
+
+import java.io.*;
 
 import static edu.sdccd.cisc191.template.GameAssets.GameScreen.defaultScreen;
 
@@ -114,18 +119,15 @@ public class ViewGame extends Application {
      */
     public void showCredits() {
         //creates people buttons TODO make it lead to our github pages or somethign?
-        GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 30, sceneWidth / 30);
-        GameButton angeliz = new GameButton("Angeliz", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
-        GameButton kyle = new GameButton("Kyle", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
-        GameButton aleister = new GameButton("Aleister", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
-        GameButton jason = new GameButton("Jason", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
+        GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 10, sceneWidth / 20);
+        GameButton angeliz = new GameButton("angeliz", sceneWidth / 2, sceneHeight / 10, sceneWidth / 20);
         //creates a button to go back to the start screen
-        GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 30, sceneWidth / 25);
+        GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 10, sceneWidth / 25);
         goBack.setOnAction((ActionEvent back) -> {
             start(gameStage);
         });
         //adds buttons to a button holder then centers it
-        VBox buttonHolder = new VBox(2, angeliz, kyle, kim, aleister, jason, goBack);
+        VBox buttonHolder = new VBox(5, angeliz, kim, goBack);
         buttonHolder.setAlignment(Pos.CENTER);
 
         //makes borderpane and adds the buttons holder
@@ -168,13 +170,14 @@ public class ViewGame extends Application {
         switchScene(new GameScene(layout, sceneWidth, sceneHeight), "Settings!");
     }
 
-    public void startGame() {
+    public static void startGame() {
 
         //text field that player enters name in next to confirmation button
         TextField namePlayer = new TextField();
         namePlayer.setPrefSize(sceneWidth / 2, sceneHeight / 5);
         namePlayer.getStylesheets().add("colorPalette.css");
         namePlayer.getStyleClass().add("text-field");
+        namePlayer.setStyle("-fx-font-size: "+ ViewGame.getScreenDimensions()/20);
 
 
         //puts confirmation button and textfield next to each other and centers it
@@ -192,17 +195,29 @@ public class ViewGame extends Application {
 
         //confirm button will make a player charcter or tell you to try again
         confirm.setOnAction((ActionEvent createCharacter) -> {
-            if (namePlayer.getText() == null || namePlayer.getText().isEmpty()) {
+            boolean allowed = true;
+            String name = namePlayer.getText();
+
+            if (name == null || name.isEmpty()) {
                 askPlayer.setText("That is not your name...");
-            } else {
-                player = new Player(namePlayer.getText(), 100, 100, (short) 0);
-                switchScene(new GameScene(defaultScreen(player, sceneWidth, sceneHeight), sceneWidth, sceneHeight), "yay");
             }
+            else if(name.length()>8){
+                askPlayer.setText("Your name is too long...");
+            }
+            else if(name.length()<3){
+                askPlayer.setText("Your name is too short...");
+            }
+           else if( !name.matches("[a-zA-Z]+")){
+                    askPlayer.setText("Your name can only have letters...");}
 
-        });
+            else{
+            player = new Player(namePlayer.getText(), 100, 100, (short) 0);
+                switchScene(new GameScene(defaultScreen(player, sceneWidth, sceneHeight), sceneWidth, sceneHeight), "yay");
+                 }
 
+             });
+                }
 
-    }
 
     /**
      * Sets the scene to a new scene and changes the title
@@ -219,11 +234,11 @@ public class ViewGame extends Application {
     public static void endGame() {
         GameButton save = new GameButton("Save", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
         save.setOnAction((ActionEvent saveAchievements) -> {
-            Platform.exit();
+            save();
         });
         GameButton tryAgain = new GameButton("Try Again", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
         tryAgain.setOnAction((ActionEvent playAgain) -> {
-            Platform.exit();
+            startGame();
         });
 
         GameButton quit = new GameButton("Quit", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
@@ -238,7 +253,7 @@ public class ViewGame extends Application {
         GameLabel gameOver = new GameLabel("GAME OVER", sceneWidth / 7);
         GameLabel subtitle = new GameLabel("YOU WIN! SCORE:" + player.getScore(), sceneWidth / 30);
         VBox titlesHolder = new VBox(sceneHeight / 20, gameOver, subtitle);
-
+        titlesHolder.setAlignment(Pos.CENTER);
         //makes borderpane and adds the buttons holder to center
         layout = new BorderPane(titlesHolder);
         layout.setStyle("-fx-background-color: #CBD4C2");
@@ -258,8 +273,43 @@ public class ViewGame extends Application {
     }
 
     //TODO use some kind of i/O to save Score and achievemenst (TBD )
-    public void save() {
+
+    /**
+     * saves the score and TODO achievements that a player got thru a game session
+     * uses FileChooser for user to pick where to save the TXT file
+     */
+    public static void save() {
+        //can only make txt files
+        FileChooser.ExtensionFilter textFiles = new FileChooser.ExtensionFilter("Text Files", "*txt");
+        //setup filechooser, defualt file is My_Silk_Road_Score.txt
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save your Score!");
+        fc.setInitialFileName("My_Silk_Road_Score.txt");
+        fc.getExtensionFilters().add(textFiles);
+        //set the file that will the score will be saved to
+        File saveLocation = fc.showSaveDialog(gameStage);
+        //intialize pw to write on txt file
+        PrintWriter output;
+        //try to make a printwriter with saveLocation but must catch filenotfoundexecption
+        try {
+            output = new PrintWriter(saveLocation);
+
+        }
+        catch (FileNotFoundException e) {
+            //  cant write to file, alert (if user closes out)
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR,
+                    "Sorry!! An error occurred while" +
+                            "trying to save your score... Try again!");
+            errorAlert.showAndWait();
+            return;
+        }
+
+            //write to output file
+            output.write("Thank you for playing the silk road game!\nIn your recent run as " + player.getName() +
+                    ", you played GOAL. You got " + player.getScore() + " points! Good Job!\n\n" +
+                    "Your Achievements:\n");
+            output.close();
 
 
     }
-}
+    }
