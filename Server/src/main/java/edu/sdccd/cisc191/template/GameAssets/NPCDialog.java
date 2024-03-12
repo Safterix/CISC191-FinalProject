@@ -11,23 +11,24 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 import javax.swing.text.View;
+import java.util.Stack;
 
 public class NPCDialog {
     GameTextArea chatBox;
-    TextArea nameBox;
+    GameTextArea nameBox;
     String speakerName;
     GameImageView emotionSprite;
     StackPane dialog;
     public NPCDialog(NPC speaker, String text, String mood){
         speakerName = speaker.getName().replaceAll("\\s", "");;
-        nameBox = new TextArea(speaker.getName());
-        nameBox.getStylesheets().add("colorPalette.css");
-        nameBox.getStyleClass().add("text-area");
-        nameBox.setStyle("-fx-font-size: "+ ViewGame.getScreenDimensions()/40);
+        nameBox = new GameTextArea(speaker.getName());
+        nameBox.setStyle("-fx-font-size: "+ ViewGame.getScreenDimensions()/45);
         nameBox. setMaxSize(ViewGame.getScreenDimensions()/3,ViewGame.getScreenDimensions()/30);
         nameBox.editableProperty().set(false);
 
-        emotionSprite = new GameImageView(new Image("image/Sprites/"+speakerName+"_neutral.png"),true);
+        emotionSprite = new GameImageView(new Image("image/Sprites/"+speakerName+"_"+mood+".png"),true);
+        GameTooltip emotion = new GameTooltip(mood);
+        GameTooltip.install(emotionSprite,emotion);
 
         chatBox = new GameTextArea(text,mood);
 
@@ -39,9 +40,13 @@ public class NPCDialog {
     }
 
     public StackPane displayText(){
+
+        StackPane profileReal = new StackPane(nameBox,emotionSprite);
+        profileReal.setAlignment(Pos.BOTTOM_LEFT);
+
+        profileReal.setMaxSize(ViewGame.getScreenDimensions()/3,ViewGame.getScreenDimensions()*108/16);
         GridPane profile = new GridPane();
-        profile.add(emotionSprite,0,0,1,1);
-        profile.add(nameBox,1,0,1,1);
+        profile.add(profileReal,0,0,1,1);
         profile.setMaxSize(ViewGame.getScreenDimensions()/3,ViewGame.getScreenDimensions()/5);
         profile.add(chatBox,0,1,1,1);
 

@@ -38,7 +38,10 @@
     -fx-text-alignment: left ;
     -fx-text-fill: #815355;
 }
-
+.neutral-label {
+    -fx-text-alignment: left ;
+    -fx-text-fill: #815355;
+}
 .fancy-label {
     -fx-font-family: "Venice Classic";
     -fx-text-alignment: left ;
@@ -75,9 +78,11 @@
     -fx-border-color: #523249;
     -fx-border-width: 5;
     -fx-cursor: hand;
+    -fx-text-alignment: right;
 }
 .text-area{
     -fx-text-fill: #815355;
+    -fx-text-alignment: right;
 }
 .tooltip {
     -fx-background-color: #CBD4C2;

@@ -5,7 +5,7 @@ import javafx.scene.control.TextArea;
 public class GameTextArea extends TextArea {
         int width= ViewGame.getScreenDimensions();
       public GameTextArea(String text, String mood){
-            setText("\n\t"+text);
+            setText(text);
             getStylesheets().add("colorPalette.css");
             getStyleClass().add("text-area");
             getStyleClass().add(mood+"-label");
@@ -14,6 +14,13 @@ public class GameTextArea extends TextArea {
            setStyle("-fx-font-size: "+ width/20);
         }
 
+    public GameTextArea(String text){
+        setText("\t"+text);
+        getStylesheets().add("colorPalette.css");
+        getStyleClass().add("text-area");
+        getStyleClass().add("game-label");
+        setEditable(false);
+    }
         public void changeMood(String mood){
           getStyleClass().add(mood+"-label");
         }
