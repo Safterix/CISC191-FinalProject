@@ -16,8 +16,8 @@ public class GameImageView extends ImageView {
     public GameImageView(String name){
     //sets image size for item
         super(new Image("image/items/"+name+".png"));
-        setFitHeight(ViewGame.getScreenDimensions()*9/192-25);
-        setFitWidth(ViewGame.getScreenDimensions()*9/192-25);
+        setFitHeight(ViewGame.getScreenDimensions()*9/192-ViewGame.getScreenDimensions()*25/1280);
+        setFitWidth(ViewGame.getScreenDimensions()*9/192-ViewGame.getScreenDimensions()*25/1280);
 
     }
 

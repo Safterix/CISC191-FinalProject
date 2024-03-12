@@ -42,8 +42,10 @@
 .fancy-label {
     -fx-font-family: "Venice Classic";
     -fx-text-alignment: left ;
-    -fx-text-fill: #815355;
+    -fx-text-fill: #815355   ;
+
 }
+
 .red-label {
     -fx-text-alignment: left ;
     -fx-text-fill: #ab4949;

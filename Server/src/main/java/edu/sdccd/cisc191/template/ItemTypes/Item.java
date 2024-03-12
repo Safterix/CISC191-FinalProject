@@ -16,15 +16,16 @@ public class Item {
     public Item() {
         name = "Nothing";
         description = "Empty!";
-        icon = new GameButton(getName(),getDescription());
+        icon = new GameButton(this);
 
     }
 
     public Item(boolean random){
-        Item randomItem = new Consumable();
+        //only pics from china rn
+        Item randomItem = new Consumable(Consumable.china);
        name = randomItem.getName();
        description =randomItem.getDescription();
-       icon = new GameButton(getName(),getDescription());
+       icon = new GameButton(this);
     }
     /**
      * Constructor with name
@@ -34,7 +35,7 @@ public class Item {
     public Item(String name, String description) {
         this.name = name;
         this.description = description;
-        icon= new GameButton(getName(),getDescription());
+        icon= new GameButton(this);
     }
 
     /**

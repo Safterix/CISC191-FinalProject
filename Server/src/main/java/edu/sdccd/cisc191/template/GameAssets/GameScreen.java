@@ -45,7 +45,7 @@ public class GameScreen {
 
 
         wholeUi.add(npc.displayProfile(),0,0,1,1);
-        wholeUi.add(new NPCDialog(npc,"i...love...tea...","nervous").displayText(),1,0,1,1);
+        wholeUi.add(new NPCDialog(npc,"ouioui","game").displayText(),1,0,1,1);
 
         wholeUi.add(endGame,2,0,1,1);
         wholeUi.alignmentProperty().set(Pos.BOTTOM_CENTER);

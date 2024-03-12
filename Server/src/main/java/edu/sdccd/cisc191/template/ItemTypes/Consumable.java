@@ -6,12 +6,22 @@ package edu.sdccd.cisc191.template.ItemTypes;
  */
 public class Consumable extends Goods{
         //options of items
-        public ConsumableItems itemOptions;
-        public enum ConsumableItems {
+        public static ConsumableItems[] china = new ConsumableItems[]{ConsumableItems.Apricot,ConsumableItems.Peach, ConsumableItems.Tea,
+                                                        ConsumableItems.Rice,ConsumableItems.Plum};
+    public static ConsumableItems[] india = new ConsumableItems[]{ConsumableItems.Tea,ConsumableItems.Watermelon, ConsumableItems.Eggplant,
+            ConsumableItems.Cucumber};
+    public static ConsumableItems[] persia = new ConsumableItems[]{ConsumableItems.Dates,ConsumableItems.Pistachio, ConsumableItems.Wine};
+
+
+    public enum ConsumableItems {
             Apricot,Peach,Plum,Tea,Wine,Rice,Watermelon,Eggplant,Cucumber,Dates,Pistachio;
         }
 
         private int heal;
+    public Consumable(ConsumableItems[] region){
+        this(region[(int)(Math.random()*region.length)]);
+    }
+
         //picks random item
         public Consumable(){
             int pick = (int) (Math.random() * ConsumableItems.values().length);
@@ -56,8 +66,7 @@ public class Consumable extends Goods{
      * @param item the name of the item from HealingItems enum
      */
     public Consumable(ConsumableItems item){
-        itemOptions= item;
-        switch(itemOptions){
+        switch(item){
             case Apricot:
                 setName("Apricot");
                 setDescription("Eat it to restore 10 HP!");
@@ -79,7 +88,7 @@ public class Consumable extends Goods{
                 break;
             case Tea:
                 setName("Tea");
-                setDescription("SlurpSlurp...Heal 10HP");
+                setDescription("SlurpSlurp...Heal 10HP\nWorth "+getValue()+" coins");
                 heal =10;
                 setValue(5);
                 break;
@@ -89,14 +98,16 @@ public class Consumable extends Goods{
                 heal =10;
                 setValue(5);
                 break;
+            case Rice:
+                setName("Rice");
+                setDescription("Fluffy rice! Heal 50HP");
+                heal =50;
+                setValue(1);
+                break;
 
         }
     }
 
-        public Consumable(String name, String  description, int price, int heal){
-            super(name,description,price);
-            this.heal = heal;
-        }
         public int getHeal() {
             return heal;
         }

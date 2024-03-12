@@ -10,6 +10,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -75,14 +77,18 @@ public class ViewGame extends Application {
         buttonsHolder.setAlignment(Pos.CENTER);
 
         // add title and subtitle
-        GameLabel gameTitle = new GameLabel("Silk Road", sceneWidth / 7,true);
+        GameLabel gameTitle = new GameLabel("Silk ", sceneWidth / 5,true);
+        GameLabel gameTitle2 = new GameLabel("Road", sceneWidth / 5,true);
+        gameTitle.setStyle("-fx-text-fill:#523249  ; -fx-font-size: "+sceneWidth/5);
+        HBox title = new HBox(gameTitle,gameTitle2);
+        title.setAlignment(Pos.CENTER);
         GameLabel subtitle = new GameLabel("hehehe yaaay", sceneWidth / 30);
 
         //makes borderpane and adds the buttons holder to center
         layout = new BorderPane(buttonsHolder);
         layout.setStyle("-fx-background-color: #CBD4C2");
         //adds title and subtitle to holder and centers at the top
-        buttonsHolder = new VBox(sceneHeight / 20, gameTitle, subtitle);
+        buttonsHolder = new VBox(sceneHeight / 20, title, subtitle);
         layout.setTop(buttonsHolder);
         buttonsHolder.setAlignment(Pos.CENTER);
         //creates scene
