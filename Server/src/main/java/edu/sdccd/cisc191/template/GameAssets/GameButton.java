@@ -44,8 +44,7 @@ public class GameButton extends Button {
         getStyleClass().add("item-button");
         setGraphic(new GameImageView((item.getName())));
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        Tooltip hoverText = new Tooltip(item.getDescription());
-        hoverText.setStyle("-fx-font-size: "+ ViewGame.getScreenDimensions()/45);
+        GameTooltip hoverText = new GameTooltip(true,item.getDescription());
 
         setTooltip(hoverText);
 

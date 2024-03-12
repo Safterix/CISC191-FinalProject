@@ -19,7 +19,7 @@ public class NPCDialog {
     GameImageView emotionSprite;
     StackPane dialog;
     public NPCDialog(NPC speaker, String text, String mood){
-        speakerName = speaker.getName();
+        speakerName = speaker.getName().replaceAll("\\s", "");;
         nameBox = new TextArea(speaker.getName());
         nameBox.getStylesheets().add("colorPalette.css");
         nameBox.getStyleClass().add("text-area");

@@ -79,4 +79,9 @@
 .text-area{
     -fx-text-fill: #815355;
 }
-
+.tooltip {
+    -fx-background-color: #CBD4C2;
+    -fx-border-color: #523249;
+    -fx-text-fill: #815355;
+    -fx-border-width: 5;
+}

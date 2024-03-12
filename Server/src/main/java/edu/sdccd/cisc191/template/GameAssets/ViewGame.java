@@ -220,10 +220,30 @@ public class ViewGame extends Application {
             else{
             player = new Player(namePlayer.getText(), 100, 100, (short) 0);
                 NPC notPlayer = new NPC();
-                switchScene(new GameScene(defaultScreen(player, notPlayer, sceneWidth, sceneHeight), sceneWidth, sceneHeight,true), "yay");
-                 }
+                GameTextArea goal = new GameTextArea("What is your goal in life...?","nervous");
+                goal.setMaxSize(sceneWidth/2,sceneHeight/3);
+                goal.setPrefSize(sceneWidth/2,sceneHeight/3);
+                GameButton moneyGoal = new GameButton("Make lots of money", sceneWidth / 3, sceneHeight / 10, sceneWidth / 30);
+                moneyGoal.setOnAction((ActionEvent setMoneyGoal) -> {
+                    player.setGoal("Make lots of money");
+                    switchScene(new GameScene(defaultScreen(player, notPlayer, sceneWidth, sceneHeight), sceneWidth, sceneHeight,true), "yay");
+                });
+                GameButton explore = new GameButton("Explore the world", sceneWidth / 3, sceneHeight / 10, sceneWidth / 30);
+                explore.setOnAction((ActionEvent setExploreGoal) -> {
+                    player.setGoal("Explore the world");
+                    switchScene(new GameScene(defaultScreen(player, notPlayer, sceneWidth, sceneHeight), sceneWidth, sceneHeight,true), "yay");
+                });
+                GameButton fame = new GameButton("Become famous", sceneWidth / 3, sceneHeight / 10, sceneWidth / 30);
+                fame.setOnAction((ActionEvent fameREp) -> {
+                    player.setGoal("Become famous");
+                    switchScene(new GameScene(defaultScreen(player, notPlayer, sceneWidth, sceneHeight), sceneWidth, sceneHeight,true), "yay");
+                });
 
-             });
+                HBox goals = new HBox(moneyGoal,explore,fame);
+                layout.getChildren().remove(askPlayer);
+                layout.setCenter(goal);
+                layout.setBottom(goals);
+                 }});
                 }
 
 
@@ -314,7 +334,7 @@ public class ViewGame extends Application {
 
             //write to output file
             output.write("Thank you for playing the silk road game!\nIn your recent run as " + player.getName() +
-                    ", you played GOAL. You got " + player.getScore() + " points! Good Job!\n\n" +
+                    ", you wanted to "+player.getGoal().toLowerCase()+". You got " + player.getScore() + " points! Good Job!\n\n" +
                     "Your Achievements:\n");
             output.close();
 

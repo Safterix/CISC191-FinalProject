@@ -24,7 +24,9 @@
 .tooltip .text{
     -fx-font-family: 'Pixellari';
 }
-
+.tooltip {
+    -fx-font-family: 'Pixellari';
+}
 .text-field {
     -fx-font-family: 'Pixellari';
 }

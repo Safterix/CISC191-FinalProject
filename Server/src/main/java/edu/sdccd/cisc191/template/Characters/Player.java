@@ -1,6 +1,7 @@
 package edu.sdccd.cisc191.template.Characters;
 
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
+import edu.sdccd.cisc191.template.GameAssets.GameTooltip;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -20,8 +21,10 @@ public class Player extends Character {
         this.score += score;
 
     }
-    public void setGoal(){
-        //TODO
+    public void setGoal(String goal){
+        this.goal = goal;
+        GameTooltip hoverGoal = new GameTooltip("I want to "+getGoal().toLowerCase()+"!");
+        GameTooltip.install(getPFP(),hoverGoal);
     }
     public String getGoal(){
         return goal;

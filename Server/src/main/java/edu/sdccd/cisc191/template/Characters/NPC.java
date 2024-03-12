@@ -2,6 +2,7 @@ package edu.sdccd.cisc191.template.Characters;
 
 import edu.sdccd.cisc191.template.GameAssets.GameImageView;
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
+import edu.sdccd.cisc191.template.GameAssets.GameTooltip;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -16,9 +17,9 @@ public class NPC extends Character {
 
 
     public NPC(){
-        super("storeCN",100,100, (short) 50);
+        super("Tao Yu",100,100, (short) 50);
         description = "Mysterious";
-        bodySprite = new GameImageView(new Image("image/Sprites/"+getName()+"_body1.png"));
+        bodySprite = new GameImageView(new Image("image/Sprites/"+getName().replaceAll("\\s", "")+"_body1.png"));
 
 
 
@@ -36,8 +37,8 @@ public class NPC extends Character {
 
     public GameImageView displayProfile() {
 
-        Tooltip desc = new Tooltip(description);
-        Tooltip.install(bodySprite,desc);
+        GameTooltip desc = new GameTooltip(description);
+        GameTooltip.install(bodySprite,desc);
         bodySprite.setFitWidth(ViewGame.getScreenDimensions()/3);
         bodySprite.setFitHeight(ViewGame.getScreenDimensions()/3);
         return bodySprite;
