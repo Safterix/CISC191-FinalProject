@@ -9,3 +9,4 @@ String mp3File = "/chinabgm.mp3";
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         // Play the audio
         mediaPlayer.play();
+        //add this to the main at start stage
