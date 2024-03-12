@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -46,6 +47,18 @@ public class ViewGame extends Application {
      */
     @Override
     public void start(Stage stage) {
+
+        String mp3File = "/chinabgm.mp3";
+        Media media = new Media(getClass().getResource(mp3File).toString());
+
+        // Create a MediaPlayer with the Media object
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+
+        // Lower the volume (0.5 means 50% of maximum volume)
+        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        // Play the audio
+        mediaPlayer.play();
 
         gameStage = stage;
         if ((sceneWidth == 0) && (sceneHeight == 0)) {
