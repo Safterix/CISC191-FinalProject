@@ -3,18 +3,16 @@ package edu.sdccd.cisc191.template.GameAssets;
 
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
-import edu.sdccd.cisc191.template.ItemTypes.Consumable;
+import edu.sdccd.cisc191.template.Networking.Client;
+import edu.sdccd.cisc191.template.Networking.ScoreRequest;
+import edu.sdccd.cisc191.template.Networking.ScoreResponse;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.application.Platform;
@@ -35,6 +33,8 @@ public class ViewGame extends Application {
     //so u can switch the scene...
     private static Stage gameStage;
     private static Player player;
+    private static VBox scoresHolder;
+    static Client client = new Client();
 
     public static void main(String[] args) {
         launch();
@@ -290,8 +290,20 @@ public class ViewGame extends Application {
         layout = new BorderPane(titlesHolder);
         layout.setStyle("-fx-background-color: #CBD4C2");
         layout.setBottom(buttonsHolder);
+        GameButton highscore = new GameButton("Publish Score?", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
+        highscore.setOnAction((ActionEvent scoresave) -> {
 
+            try {
 
+                client.startConnection("192.168.1.31", 5000 );
+                System.out.println(client.sendRequest(player.getName(), player.getScore()).toString());
+                client.stopConnection();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+        });
+        layout.setTop(highscore);
         buttonsHolder.setAlignment(Pos.CENTER);
 
 
@@ -342,6 +354,18 @@ public class ViewGame extends Application {
                     "Your Achievements:\n");
             output.close();
 
+
+    }
+
+    public static void makeHighScore(String recieve) {
+
+        //makes holder for the buttons and centers it
+
+        scoresHolder.getChildren().add(new GameTextArea(recieve));
+
+            layout.setCenter(scoresHolder);
+        GameScene scene = new GameScene(layout, sceneWidth, sceneHeight);
+        switchScene(scene, "The End");
 
     }
     }

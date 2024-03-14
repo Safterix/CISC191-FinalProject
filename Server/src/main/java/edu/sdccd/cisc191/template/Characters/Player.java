@@ -1,5 +1,7 @@
 package edu.sdccd.cisc191.template.Characters;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
 import edu.sdccd.cisc191.template.GameAssets.GameTooltip;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
@@ -16,7 +18,14 @@ public class Player extends Character {
         score  = 0;
         goal= "None";
     }
-
+    @JsonIgnore
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+    public static String toJSON(Player Player) throws Exception {
+        return objectMapper.writeValueAsString(Player);
+    }
+    public static Player fromJSON(String input) throws Exception{
+        return objectMapper.readValue(input, Player.class);
+    }
     public void addScore(int score){
         this.score += score;
 
