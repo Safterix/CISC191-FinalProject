@@ -39,7 +39,7 @@ public class Server {
     public static void main(String[] args) {
         Server server = new Server();
         try {
-            server.start(5000);
+            server.start(6000);
             server.stop();
         } catch(Exception e) {
             e.printStackTrace();

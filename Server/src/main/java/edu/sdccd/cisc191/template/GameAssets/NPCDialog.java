@@ -26,9 +26,8 @@ public class NPCDialog {
         nameBox. setMaxSize(ViewGame.getScreenDimensions()/3,ViewGame.getScreenDimensions()/30);
         nameBox.editableProperty().set(false);
 
-        emotionSprite = new GameImageView(new Image("image/Sprites/"+speakerName+"_"+mood+".png"),true);
-        GameTooltip emotion = new GameTooltip(mood);
-        GameTooltip.install(emotionSprite,emotion);
+        emotionSprite = new GameImageView(speakerName, mood);
+
 
         chatBox = new GameTextArea(text,mood);
 

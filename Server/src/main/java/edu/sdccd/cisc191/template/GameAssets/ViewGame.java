@@ -78,8 +78,8 @@ public class ViewGame extends Application {
         buttonsHolder.setAlignment(Pos.CENTER);
 
         // add title and subtitle
-        GameLabel gameTitle = new GameLabel("Silk ", sceneWidth / 5,true);
-        GameLabel gameTitle2 = new GameLabel("Road", sceneWidth / 5,true);
+        GameLabel gameTitle = new GameLabel("Silk ", sceneWidth / 5,"fancy");
+        GameLabel gameTitle2 = new GameLabel("Road", sceneWidth / 5,"fancy");
         gameTitle.setStyle("-fx-text-fill:#523249  ; -fx-font-size: "+sceneWidth/5);
         HBox title = new HBox(gameTitle,gameTitle2);
         title.setAlignment(Pos.CENTER);
@@ -295,7 +295,7 @@ public class ViewGame extends Application {
 
             try {
 
-                client.startConnection("192.168.1.31", 5000 );
+                client.startConnection("172.25.66.187", 6000 );
                 System.out.println(client.sendRequest(player.getName(), player.getScore()).toString());
                 client.stopConnection();
             } catch(Exception e) {

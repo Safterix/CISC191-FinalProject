@@ -11,6 +11,11 @@ import javafx.util.Duration;
 
 import javax.tools.Tool;
 
+/**
+ * Gamebutton extends button and makes a presetted button in various ways
+ * can be used for any text label
+ * can be used to display item
+ */
 public class GameButton extends Button {
 
 
@@ -22,9 +27,11 @@ public class GameButton extends Button {
      * @param size size of the font
      */
     public GameButton(String name, int width, int height, int size) {
+        //sets text to what you want to be displayed
         setText(name);
         setPrefSize(width,height);
         setMaxSize(width,height);
+        //add style border, backgorund, font
         getStylesheets().add("colorPalette.css");
         getStyleClass().add("game-button");
         setStyle("-fx-font-size: "+ size);
@@ -32,20 +39,22 @@ public class GameButton extends Button {
     }
 
     /**
-     * item  BUTTON
+     * item  BUTTON, makes button with item icon
      * @param item the item
      */
     public GameButton(Item item) {
-        setText(item.getName());
-        //sets size to correct size on page..... image on item...
+        //no text b/c u cant even see it
+        //sets icon size based on screen dimensions
         setPrefSize(ViewGame.getScreenDimensions()*9/192,ViewGame.getScreenDimensions()*9/192);
         setMaxSize(ViewGame.getScreenDimensions()*9/192,ViewGame.getScreenDimensions()*9/192);
+        //add css style, border, background.
         getStylesheets().add("colorPalette.css");
         getStyleClass().add("item-button");
+        //sets picture to icon fo the game
         setGraphic(new GameImageView((item.getName())));
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        //tool tip that when you hoverr it has the descriptioin of the item
         GameTooltip hoverText = new GameTooltip(true,item.getDescription());
-
         setTooltip(hoverText);
 
 

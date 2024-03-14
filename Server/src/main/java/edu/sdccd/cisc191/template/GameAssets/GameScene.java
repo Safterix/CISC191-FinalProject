@@ -4,6 +4,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
+/**
+ * creates a scene object with specified style sheet, font andd bckground piciture
+ */
 public class GameScene extends Scene {
     /**
      * makes gamescene with borderpane
@@ -27,6 +30,7 @@ public class GameScene extends Scene {
     }
 
     /**
+     * only used with something tht hsa a map bacogrund
      * makes gamescene with borderpane
      * @param layout borderpane with eveyrthign inside
      * @param sceneWidth width
@@ -42,6 +46,7 @@ public class GameScene extends Scene {
     }
 
     /**
+     * only used with something tht hsa a map bacogrund
      * makes gamescene with gridpane
      * @param layout gridpane with eveyrthign inside
      * @param sceneWidth width
