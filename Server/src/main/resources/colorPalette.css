@@ -1,9 +1,10 @@
+
 .game-button {
     -fx-text-fill: #815355;
     -fx-background-color: #CBD4C2;
     -fx-border-color: #523249;
-    -fx-border-width: 5;
     -fx-cursor: hand;
+    -fx-border-width: 5;
     }
 .game-button:hover {
     -fx-background-color: #586F6B;
@@ -14,8 +15,8 @@
         -fx-text-fill: #815355;
         -fx-background-color: #CBD4C2;
         -fx-border-color: #523249;
-        -fx-border-width: 5;
         -fx-cursor: hand;
+    -fx-border-width: 5;
     }
 .text-field:focused{
     -fx-background-color: #586F6B;
@@ -34,29 +35,25 @@
     -fx-text-fill: #CBD4C2;
 }
 
+
+
+
 .game-label {
+    -fx-font-family: "Pixellari";
     -fx-text-alignment: left ;
     -fx-text-fill: #815355;
-}
-.neutral-label {
-    -fx-text-alignment: left ;
-    -fx-text-fill: #815355;
+    -fx-border-width: 5;
 }
 .fancy-label {
     -fx-font-family: "Venice Classic";
     -fx-text-alignment: left ;
     -fx-text-fill: #815355   ;
-
 }
 
-.red-label {
+.neutral-label {
+    -fx-font-family: "Pixellari";
     -fx-text-alignment: left ;
-    -fx-text-fill: #ab4949;
-}
-
-.green-label {
-    -fx-text-alignment: left ;
-    -fx-text-fill: #598563;
+    -fx-text-fill: #815355;
 }
 .nervous-label{
     -fx-font-family: "SD Auto Pilot";
@@ -68,6 +65,45 @@
     -fx-text-alignment: left ;
     -fx-text-fill: #815355;
 }
+.excited-label{
+    -fx-font-family: "SD Auto Pilot";
+    -fx-text-alignment: left ;
+    -fx-text-fill: #815355;
+}
+.happy-label{
+
+    -fx-font-family: "Pixellari";
+    -fx-text-alignment: left ;
+    -fx-text-fill: #815355;
+}
+.indifferent-label{
+
+    -fx-font-family: "Pixellari";
+    -fx-text-alignment: left ;
+    -fx-text-fill: #815355;
+}
+.silly-label{
+
+    -fx-font-family: "SD Auto Pilot";
+    -fx-text-alignment: left ;
+    -fx-text-fill: #815355;
+}
+
+.red-label {
+    -fx-text-alignment: left ;
+    -fx-text-fill: #ab4949;
+}
+
+.green-label {
+    -fx-text-alignment: left ;
+    -fx-text-fill: #598563;
+}
+
+
+
+
+
+
 .pane {
     -fx-background-image: url("/image/map.png");
     -fx-background-position: center center;
@@ -76,13 +112,14 @@
 .text-area .content {
     -fx-background-color: #CBD4C2;
     -fx-border-color: #523249;
-    -fx-border-width: 5;
     -fx-cursor: hand;
     -fx-text-alignment: right;
+    -fx-border-width: 5;
 }
 .text-area{
     -fx-text-fill: #815355;
     -fx-text-alignment: right;
+    -fx-border-width: 5;
 }
 .tooltip {
     -fx-background-color: #CBD4C2;

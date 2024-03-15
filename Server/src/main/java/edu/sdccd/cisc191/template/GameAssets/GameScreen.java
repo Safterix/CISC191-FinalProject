@@ -19,7 +19,7 @@ public class GameScreen {
     private static GridPane playerLayout;
     //the screen layout
     private static GridPane wholeUi;
-
+    private static ViewGame game = new ViewGame();
     /**
      * sets the player layout with their stats, pfp, and inventory on the bottom
      * @param player the player object
@@ -63,7 +63,7 @@ public class GameScreen {
         //TODO temp end button that ends thhe game
         GameButton endGame = new GameButton("End",screenWidth/3,screenHeight/5,screenWidth/20);
         endGame.setOnAction((ActionEvent theEnd) ->{
-            ViewGame.endGame();
+            game.endGame();
         });
         wholeUi.add(endGame,2,0,1,1);
 
