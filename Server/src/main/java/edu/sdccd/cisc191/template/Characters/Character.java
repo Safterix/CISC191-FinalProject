@@ -1,9 +1,14 @@
 package edu.sdccd.cisc191.template.Characters;
 
 import edu.sdccd.cisc191.template.GameAssets.GameImageView;
+import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * makes a ahrcater with name, money, health, rep, and inventory
+ *
+ */
 public class Character
 {
     private String name; //name of the character
@@ -13,7 +18,7 @@ public class Character
     private short reputation; // reputation from [-100,100]
     private Inventory storage;
 
-    private GameImageView profileImage;
+
 
     /**
      * Constructor that sets the character's name, money, and health
@@ -28,7 +33,7 @@ public class Character
         this.health = MAX_HEALTH = health; //sets the final field MAX_HEALTH, then sets health
         reputation = rep;
         storage= new Inventory();
-        profileImage=new GameImageView(new Image("image/Sprites/Player.png"));
+
     }
 
     /**
@@ -52,6 +57,7 @@ public class Character
         }
         //This way, if spendMoney is ever used to go below zero, we will know
         //can be removed if we change how this works
+        //todo probaly have an ingame alert maybe and you cant spend the money u have to do somthign else
     }
 
     /**
@@ -64,13 +70,22 @@ public class Character
     }
 
     /**
-     * @return name
+     * @return name of charcater
      */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * ONLY USED FOR NPCS TO REVEAL THEIR NAMES, EQUIV OF SET NAME.
+     * player shoudlnt be able to change name me thinky but not sure
+     * @param newName
+     */
+   public void revealName(String newName){
+        name= newName;
+       //this is for when you ahve a "Mysterious Man" and you reveal who they are i guess
+   }
     /**
      * @return health
      */
@@ -96,14 +111,18 @@ public class Character
     }
 
     /**
+     * take damage, and if it is player the game ends
      * @param damage take damage amount
      */
     public void damage(int damage)
     {
         health -= damage;
-        if (health < 0)
+        //if the health is 0 and it is the player, then they die
+        if (health < 0&&( this.getClass() == Player.class))
         {
-            //TODO porbably ViewGame.Lose() havent been made yet but YOU DIE!!!!!!!!!!!
+           ViewGame lala = new ViewGame();
+           lala.endGame(); //end game screen
+
         }
     }
 
@@ -118,19 +137,10 @@ public class Character
         return reputation;
     }
     /**
-     * @return return storage
+     * @return return inventory
      */
     public Inventory getInventory(){return storage;}
 
-    /**
-     * @return pfp
-     */
-    public GameImageView getPFP() {
-        return profileImage;
-    }
-    public void setPFP(String name){profileImage.setImage(new Image(name+".png"));}
 
-    public void changeEmotion(String emotion){
-        profileImage.setImage(new Image("image/Sprites/" + getName()+"_"+emotion+".png"));
-    }
+
 }

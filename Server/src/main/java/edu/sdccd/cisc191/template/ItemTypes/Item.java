@@ -6,13 +6,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * iitems TODO WIP make displayItem() acutalyl show a picture lol
- * also what items would be there that are not goods? (some expampels pls)
+ * creates a general items, things you can have in an inventory
+ * has a name and descrption and gameBUtton icon
  */
 public class Item {
-    private String name, description;
-    GameButton icon;
+    private String name, description; //name and desc of item
+    GameButton icon; //pic of item on button
 
+    /**
+     * empty item conscutor that makes an empty item
+     */
     public Item() {
         name = "Nothing";
         description = "Empty!";
@@ -20,6 +23,11 @@ public class Item {
 
     }
 
+    /**
+     * constroctor that makes a random item
+     * TODO RN JUST GENERATES CHINA ITEMS
+     * @param random
+     */
     public Item(boolean random){
         //only pics from china rn
         Item randomItem = new Consumable(Consumable.china);
@@ -27,25 +35,15 @@ public class Item {
        description =randomItem.getDescription();
        icon = new GameButton(this);
     }
-    /**
-     * Constructor with name
-     *
-     * @param name the item's name
-     */
-    public Item(String name, String description) {
-        this.name = name;
-        this.description = description;
-        icon= new GameButton(this);
-    }
 
     /**
-     * Uses the item
+     * Uses the item TODO
      *
      * @param character the character who is using the item
      */
     public void useItem(Character character) //maybe make this abstract so that each type of item has to implement it separately?
     {
-        //do stuff
+        //do stuff TODO
     }
 
     /**
@@ -55,18 +53,32 @@ public class Item {
         return name;
     }
 
+    /**
+     * @return item descrption
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param name sets name of item, used by Goods and consumable classes
+     */
     public void setName(String name) {
         this.name = name;
     }
-
+    /**
+     *
+     * @param description sets description of item, used by Goods and consumable classes
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     *
+     * @return gamebutton, the little item square
+     */
     public GameButton displayItem() {
         return icon;
 

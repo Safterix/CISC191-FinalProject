@@ -39,7 +39,7 @@ public class GameButton extends Button {
     }
 
     /**
-     * item  BUTTON, makes button with item icon
+     * item  BUTTON, makes button with item, gets the name and desc of item
      * @param item the item
      */
     public GameButton(Item item) {

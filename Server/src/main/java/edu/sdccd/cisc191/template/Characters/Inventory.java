@@ -4,8 +4,12 @@ import edu.sdccd.cisc191.template.ItemTypes.Item;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 
+/**
+ * makes inventory which is a 6x4 array of items
+ * displayed as a grid of items
+ */
 public class Inventory {
-    private Item[][] storage = new Item[6][4];
+    private Item[][] storage = new Item[6][4]; // inventory is 6x4 item array
 
     /**
      * adds default Nothing item to each cell
@@ -29,8 +33,13 @@ public class Inventory {
     public void addItem(int row, int col, Item item){
         storage[row][col]= item;
     }
+    /**
+     * removes one item
+     * @param row which row is in
+     * @param col which col
+     */
     public void removeItem(int row, int col){
-        //empty item
+        //makes empty item in place of it
         storage[row][col]= new Item();
     }
 

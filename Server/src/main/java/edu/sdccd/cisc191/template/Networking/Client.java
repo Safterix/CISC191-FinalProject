@@ -1,6 +1,5 @@
 package edu.sdccd.cisc191.template.Networking;
 
-import edu.sdccd.cisc191.template.CustomerResponse;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 
 import java.io.BufferedReader;

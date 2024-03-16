@@ -36,7 +36,7 @@ public class Server {
          clientSock.close();
          serverSock.close();
     }
-    public static void main(String[] args) {
+    public static void launch() {
         Server server = new Server();
         try {
             server.start(6000);

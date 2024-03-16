@@ -2,28 +2,47 @@ package edu.sdccd.cisc191.template.ItemTypes;
 
 /**
  * goods item TODO WIP WIP
- * has value to be sold
+ * has value and everythign Item
  *
  */
 public class Goods extends Item{
 
+    //all the commicerial goods in china
     public static CommercialGoods[] china = new CommercialGoods[]{CommercialGoods.Silk,CommercialGoods.Porcelain,CommercialGoods.Gunpowder};
+    //all the commicerial goods in india
     public static CommercialGoods[] india = new CommercialGoods[]{CommercialGoods.Fabric,CommercialGoods.Spices,CommercialGoods.Dye,
                     CommercialGoods.Ivory};
+    //all the commicerial goods in persia
     public static CommercialGoods[] persia = new CommercialGoods[]{CommercialGoods.Gold,CommercialGoods.Silver,CommercialGoods.Iron
                     ,CommercialGoods.Copper,CommercialGoods.Dye,CommercialGoods.Limestone};
+    //all the commicerial goods in arabia
     public static CommercialGoods[] arabia = new CommercialGoods[]{CommercialGoods.Frankincense,CommercialGoods.Incense
     ,CommercialGoods.Pearls,CommercialGoods.Copper};
 
+    /**
+     * commerical goods enum with all the commerial goods options
+     */
     public enum CommercialGoods {
         Silk,Porcelain,Gunpowder,Fabric,Spices,Dye,Ivory,Gold,Silver,Iron,Copper,Limestone,Frankincense,Incense,Pearls;
     }
-    private int value;
+    private int value; // price of the item
 
+    /**
+     * picks random commerical good from a region, ex. put china pics a random chinese item
+     * @param region
+     */
     public Goods(CommercialGoods[] region){
         this(region[(int)(Math.random()*region.length)]);
     }
+
+    /**
+     * goods constructor that accepts an item from the comcerialgoods enum
+     * makes item with name, and edscrption
+     * sets the value of the item
+     * @param item
+     */
     public Goods(CommercialGoods item){
+        //goes thru all the enums and checks if it is the right item
         switch(item){
             case Silk:
                 setName("Silk");
@@ -59,7 +78,11 @@ public class Goods extends Item{
         }
     }
 
+    /**
+     * random constructor that pics a random item rfom all the consumable items
+     */
     public Goods(){
+        //picks a random number and that number will determine what the item is
         int pick = (int) (Math.random() * Consumable.ConsumableItems.values().length);
         switch(pick){
             case 1:
@@ -94,14 +117,18 @@ public class Goods extends Item{
                 break;
         }}
 
-    public Goods(String name, String  description, int price){
-        super(name,description);
-        value = price;
-    }
+    /**
+     * gets the monetary value of the item
+     * @return the price of item
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * sets the value price
+     * @param value the price of item
+     */
     public void setValue(int value) {
         this.value = value;
     }

@@ -8,33 +8,47 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 
+/**
+ * creates an npc with a everything in character, a descrption ,and body sprite
+ */
 public class NPC extends Character {
-    private String name; //name of the character
     private String description; // descrption of charcater
-    private GameImageView bodySprite;
-    private short reputation; // reputation from [-100,100]
+    private GameImageView bodySprite; // half body sprite u see of them
 
 
-
+    /**
+     * makes an NPC
+     * TODO this just makes Tao Yu for now
+     */
     public NPC(){
         super("Tao Yu",100,100, (short) 50);
         description = "Mysterious";
+        //adds their image sprite based on heir name, but without any spaces
         bodySprite = new GameImageView(new Image("image/Sprites/"+getName().replaceAll("\\s", "")+"_body1.png"));
 
 
 
     }
+
+    /**
+     * makes NPC with specific name and stats
+     * @param name of npc
+     * @param money that npc has
+     * @param health of npc
+     * @param rep of npc
+     * @param description of npc
+     */
     public NPC(String name, int money, int health, short rep, String description) {
         super(name, money, health, rep);
         this.description = description;
 
     }
 
-    public void changeName(String newName) {
-        name = newName; //this is for when you ahve a "Mysterious Man" and you reveal who they are i guess
-    }
-
-
+    /**
+     * displays the NPC's profile, which is their picture
+     * tooltip over to see their descrption
+     * @return image sprite of NPC
+     */
     public GameImageView displayProfile() {
 
         GameTooltip desc = new GameTooltip(description);
@@ -45,10 +59,19 @@ public class NPC extends Character {
 
 
     }
+
+    /**
+     * reveal the health of npc, normally hidden
+     * @return health of npc
+     */
     public GameLabel showHealth(){
         GameLabel health = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),20,"#AA0C0C");
         return health;
     }
+    /**
+     * reveal the money of npc, normally hidden
+     * @return money of npc
+     */
     public GameLabel showMoney(){
         GameLabel money = new GameLabel("Money: "+ getMoney(),20, "#9FB425");
         return money;

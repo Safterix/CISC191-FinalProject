@@ -35,7 +35,7 @@ public class ViewGame extends Application {
     private  VBox scoresHolder; // TODO THIS IS FOR THE NETWORKING AND HIGH SCORE
     static Client client = new Client(); //TODO THIS IS FOR THE NETWORKING AND HIGH SCORE
 
-
+    public ViewGame(){};
     /**
      * app lauch
      * @param args app launch
@@ -243,7 +243,7 @@ public class ViewGame extends Application {
                     askPlayer.setText("Your name can only have letters...");} //if name has non chars NO
 
             else{//if it is allowed make player
-            player = new Player(namePlayer.getText(), 0, 100, (short) 0);
+            player = new Player(namePlayer.getText());
 
 
             //TODO TEMP just makes an NPC for now to display the GameScreen as demo
@@ -296,7 +296,7 @@ public class ViewGame extends Application {
      * the game end screen, has a save, try again, and quit button
      * TODO also has a publish score button that is WIP networking
      */
-    protected void endGame() {
+    public void endGame() {
         //makes save button that calls save() to save your score
         GameButton save = new GameButton("Save", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
         save.setOnAction((ActionEvent saveAchievements) -> {

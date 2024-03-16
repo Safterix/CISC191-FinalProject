@@ -2,28 +2,42 @@ package edu.sdccd.cisc191.template.ItemTypes;
 
 /**
  * heal items with enums to pick TODO MAKE OTHER ITEMS HAVE ENUMS TOO
- * has heal the heal amount number
+ * has heal the heal amount number and everything in goods
  */
 public class Consumable extends Goods{
-        //options of items
+        //options of items from china
         public static ConsumableItems[] china = new ConsumableItems[]{ConsumableItems.Apricot,ConsumableItems.Peach, ConsumableItems.Tea,
                                                         ConsumableItems.Rice,ConsumableItems.Plum};
+    //options of items from india
     public static ConsumableItems[] india = new ConsumableItems[]{ConsumableItems.Tea,ConsumableItems.Watermelon, ConsumableItems.Eggplant,
             ConsumableItems.Cucumber};
+    //options of items from persia
     public static ConsumableItems[] persia = new ConsumableItems[]{ConsumableItems.Dates,ConsumableItems.Pistachio, ConsumableItems.Wine};
+//TODO ITEMS FROM ARABIA
 
-
+    /**
+     * enum of all the avialable consumable items
+     */
     public enum ConsumableItems {
             Apricot,Peach,Plum,Tea,Wine,Rice,Watermelon,Eggplant,Cucumber,Dates,Pistachio;
         }
 
-        private int heal;
+        private int heal; // the heal value of the item
+
+    /**
+     * constructor that picks random item based on region
+     * @param region
+     */
     public Consumable(ConsumableItems[] region){
         this(region[(int)(Math.random()*region.length)]);
     }
 
-        //picks random item
-        public Consumable(){
+    /**
+     * consturctor taht picks random item regardless of region
+     */
+    public Consumable(){
+        //picks a random number that is no more than the consumable items enum options
+        //each umber is assigned an item so picks one based on number
             int pick = (int) (Math.random() * ConsumableItems.values().length);
             switch(pick){
                 case 1:
@@ -60,9 +74,9 @@ public class Consumable extends Goods{
 
             }
         }
-    //makes intentional item
+
     /**
-     * makes item with enum
+     * makes item with enum, picks specific item
      * @param item the name of the item from HealingItems enum
      */
     public Consumable(ConsumableItems item){
@@ -108,6 +122,10 @@ public class Consumable extends Goods{
         }
     }
 
+    /**
+     * get the heal
+     * @return heal amount
+     */
         public int getHeal() {
             return heal;
         }
