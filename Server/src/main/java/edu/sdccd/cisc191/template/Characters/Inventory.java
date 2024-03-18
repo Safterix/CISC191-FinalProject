@@ -2,7 +2,6 @@ package edu.sdccd.cisc191.template.Characters;
 
 import edu.sdccd.cisc191.template.ItemTypes.Item;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
 
 /**
  * makes inventory which is a 6x4 array of items
@@ -12,12 +11,12 @@ public class Inventory {
     private Item[][] storage = new Item[6][4]; // inventory is 6x4 item array
 
     /**
-     * adds default Nothing item to each cell
+     * adds random Nothing item to each cell
      */
     public Inventory(){
         for(int row=0; row<storage.length;row++){
             for(int col=0;col<storage[row].length;col++){
-                //adds Empty item in each cell
+                //adds random item in each cell
                 storage[row][col]= new Item(true);
 
             }
@@ -58,5 +57,26 @@ public class Inventory {
         }
     return inventoryCells;
 
+    }
+
+    /**
+     * Checks if the inventory contains a certain item (could be used for NPC dialogue options)
+     * @param itemName the item to check for
+     * @return true if the inventory contains the item, false otherwise
+     */
+    public boolean containsItem(String itemName)
+    {
+        for (Item[] row : storage)
+        {
+            for (Item item : row)
+            {
+                if (item.getName().equals(itemName))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
