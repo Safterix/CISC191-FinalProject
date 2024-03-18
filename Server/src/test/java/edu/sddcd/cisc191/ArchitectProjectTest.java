@@ -23,7 +23,10 @@ public class ArchitectProjectTest
     }
 
 
-
+    /**
+     * Tests the method containsItem by creating a random inventory, adding a default "Nothing" item, and checking if
+     * it is in the inventory
+     */
     @Test public void testInventoryContainsItem()
     {
         JFXPanel fxPanel = new JFXPanel(); //test doesn't work without this for some reason
