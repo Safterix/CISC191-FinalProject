@@ -12,7 +12,7 @@ public class Inventory {
     public Inventory(){
         for(int row=0; row<storage.length;row++){
             for(int col=0;col<storage[row].length;col++){
-                //adds random item in each cell
+                //adds default Nothing item in each cell
                 storage[row][col]= new Item();
 
             }

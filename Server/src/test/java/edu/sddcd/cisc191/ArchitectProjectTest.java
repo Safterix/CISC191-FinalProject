@@ -10,12 +10,10 @@ import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import edu.sdccd.cisc191.template.Networking.Client;
 import edu.sdccd.cisc191.template.Networking.Server;
 import javafx.embed.swing.JFXPanel;
-import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import javax.swing.text.View;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
