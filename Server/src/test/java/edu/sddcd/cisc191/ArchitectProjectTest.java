@@ -17,8 +17,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ArchitectProjectTest
@@ -44,7 +43,8 @@ public class ArchitectProjectTest
         JFXPanel fxPanel = new JFXPanel();  //test doesn't work without this for some reason, probably because it
                                             //initializes what is necessary to create JavaFX components outside an
                                             //application
-        Inventory inventory = new Inventory(); //creates inventory
+        Inventory inventory = new Inventory(true); //creates inventory
+        assertFalse(inventory.containsItem("Nothing"));
         inventory.addItem(2, 3, new Item()); //adds default "Nothing" item to inventory
         assertTrue(inventory.containsItem("Nothing"));
     }
