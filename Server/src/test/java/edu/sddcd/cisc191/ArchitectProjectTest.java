@@ -41,7 +41,9 @@ public class ArchitectProjectTest
      */
     @Test public void testInventoryContainsItem()
     {
-        JFXPanel fxPanel = new JFXPanel(); //test doesn't work without this for some reason
+        JFXPanel fxPanel = new JFXPanel();  //test doesn't work without this for some reason, probably because it
+                                            //initializes what is necessary to create JavaFX components outside an
+                                            //application
         Inventory inventory = new Inventory(); //creates inventory
         inventory.addItem(2, 3, new Item()); //adds default "Nothing" item to inventory
         assertTrue(inventory.containsItem("Nothing"));
