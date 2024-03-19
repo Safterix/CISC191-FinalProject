@@ -96,5 +96,22 @@ public class ArchitectProjectTest
 
     }
 
+    /**
+     * tests to see if Player really does extend Character
+     * uses methods in Character on a player object
+     */
+    @Test public void testPlayerCharacterMethods(){
+
+        JFXPanel fxPanel = new JFXPanel(); //test doesn't work without this for some reason
+        Player character = new Player("Lala");
+        character.gainMoney(1000);
+        character.damage(60);
+        assertEquals("Lala",character.getName());
+        assertEquals(40,character.getHealth());
+        assertEquals(1000,character.getMoney());
+
+
+
+    }
 
 }
