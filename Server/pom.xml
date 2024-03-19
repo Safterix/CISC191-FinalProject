@@ -12,11 +12,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>edu.sdccd.cisc191.template</groupId>
-            <artifactId>Common</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.16.1</version>
         </dependency>
-        
+
+<!--        <dependency>-->
+<!--            <groupId>edu.sdccd.cisc191.template</groupId>-->
+<!--            <artifactId>Common</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -58,7 +63,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>edu.sdccd.cisc191.template.Server</mainClass>
+                                    <mainClass>edu.sdccd.cisc191.template.GameAssets.ViewGame</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>
