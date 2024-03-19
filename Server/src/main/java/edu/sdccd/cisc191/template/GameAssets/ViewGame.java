@@ -10,6 +10,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.application.Platform;
@@ -23,7 +25,10 @@ import static edu.sdccd.cisc191.template.GameAssets.GameScreen.defaultScreen;
  */
 public class ViewGame extends Application {
 
-    //default size
+    private Media media = new Media(getClass().getResource("/chinabgm.mp3").toString()); //music file
+    // Create a MediaPlayer with the Media object
+    private MediaPlayer mediaPlayer = new MediaPlayer(media);
+    private boolean isPlaying;
     protected static int sceneWidth = 0; //this way, the class itself keeps track of the screen's size
     private  static int sceneHeight = 0;
     private BorderPane layout;//so u can switch the scene...
@@ -49,6 +54,14 @@ public class ViewGame extends Application {
      */
     @Override
     public void start(Stage stage) {
+        // Lower the volume of BGM (0.05 means 5% of maximum volume)
+        mediaPlayer.setVolume(0.05);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); //loop music
+        mediaPlayer.play(); //playmusic
+
+
+
+        //add this to the main at start stage
         //default size of the stage/window is 1280x720px
         //this is for when you switch the size to something else usign settings it will stay correct!
         gameStage = stage;
@@ -286,6 +299,7 @@ public class ViewGame extends Application {
      * @param title the name/title of the page
      */
     protected void switchScene(GameScene scene, String title) {
+
         gameStage.setScene(scene);
         gameStage.setTitle(title);
     }
@@ -303,7 +317,7 @@ public class ViewGame extends Application {
         //makes try again button that sends you back to the start screen back to when u started game...
         GameButton tryAgain = new GameButton("Try Again", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
         tryAgain.setOnAction((ActionEvent playAgain) -> {
-            start(gameStage);
+            restart();
         });
         //makes quit button that closes agme
         GameButton quit = new GameButton("Quit", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
@@ -362,6 +376,16 @@ public class ViewGame extends Application {
         GameScene scene = new GameScene(layout, sceneWidth, sceneHeight);
         switchScene(scene, "The End");
 
+    }
+
+    /**
+     * restart the game by using start()
+     * but first mute and stop the music so it can start again!
+     */
+    private void restart() {
+        mediaPlayer.setMute(true);
+        mediaPlayer.stop();
+        start(gameStage);
     }
 
 
