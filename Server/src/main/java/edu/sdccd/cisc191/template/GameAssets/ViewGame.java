@@ -30,8 +30,9 @@ public class ViewGame extends Application {
     private static Stage gameStage;//the stage so u can switch it
     private static Player player;//player when the player makes themselves
     private  String scoresHolder; // TODO make this string array instead and make it work
-    public static Client client = new Client(); //TODO THIS IS FOR THE NETWORKING AND HIGH SCORE
+    public static Client client = new Client(); //for networking and highscore
     private File scores = new File(getClass().getResource("/Scores.txt").getPath());
+    //TODO eventualyl for networking and high scores....an attempt was made...
     public ViewGame(){};
     /**
      * app lauch
@@ -100,12 +101,12 @@ public class ViewGame extends Application {
         //creates  a GAMEscene with a map as the background
         GameScene scene = new GameScene(layout, sceneWidth, sceneHeight,true);
         //sets stage title and to the scene
-        stage.setTitle("Silk Road");
-        stage.setScene(scene);
+        gameStage.setTitle("Silk Road");
+        gameStage.setScene(scene);
         //cannot resize so that the settings will work...
-        stage.resizableProperty().set(false);
+        gameStage.resizableProperty().set(false);
         //shows the stage
-        stage.show();
+        gameStage.show();
 
     }
 
@@ -116,7 +117,7 @@ public class ViewGame extends Application {
      * @param width  new width
      * @param height new height
      */
-    protected void setScreenDimensions(int width, int height) {
+    public void setScreenDimensions(int width, int height) {
         sceneWidth = width;
         sceneHeight = height;
         start(gameStage);
@@ -130,7 +131,7 @@ public class ViewGame extends Application {
         return sceneWidth;
     }
 
-    protected Stage getStage() {
+    public Stage getStage() {
         return gameStage;
     }
 
@@ -337,11 +338,12 @@ public class ViewGame extends Application {
 //            highscore.setOnAction(null);
 //            });
 //
-        //TODO HIGH SCORE STUFF
+        //TODO HIGH SCORE
         GameButton highscore = new GameButton("Publish Score?", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
         highscore.setOnAction((ActionEvent scoresave) -> {
 
-            try {
+            try { //client send request with player info and get player info back but formated
+                //useless networking
                 client.startConnection("127.0.0.1", 6000 );
                 makeHighScore(client.sendRequest(player.getName(), player.getScore()).toString());
                 System.out.println(client.sendRequest(player.getName(), player.getScore()).toString());
@@ -382,6 +384,12 @@ public class ViewGame extends Application {
 
 
     }
+
+    /**
+     * writes to a file player information
+     * @param playername player that information will be taken from
+     * @param saveLocation the file that is saved to
+     */
     public void writeFile( Player playername,File saveLocation){
         PrintWriter output;
         //try to make a printwriter with saveLocation but must catch filenotfoundexecption
@@ -412,8 +420,6 @@ public class ViewGame extends Application {
     public void makeHighScore(String score) {
         scoresHolder = score;
 
-            }
-
 //        System.out.print(scores.canWrite());
 //        try {
 //            PrintWriter out = new PrintWriter(new FileWriter(scores));
@@ -423,6 +429,12 @@ public class ViewGame extends Application {
 //        } catch (IOException e) {
 //            e.printStackTrace(); }
 
+            }
+
+    /**
+     * returns the scores TODO rn just a string but will be string array
+     * @return
+     */
     public String getScoresHolder(){
         return scoresHolder;
     }

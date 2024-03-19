@@ -1,24 +1,28 @@
 package edu.sddcd.cisc191;
 
 import edu.sdccd.cisc191.template.Characters.Inventory;
+import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
+import edu.sdccd.cisc191.template.GameAssets.GameLabel;
+import edu.sdccd.cisc191.template.ItemTypes.Consumable;
 import edu.sdccd.cisc191.template.ItemTypes.Item;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import edu.sdccd.cisc191.template.Networking.Client;
 import edu.sdccd.cisc191.template.Networking.Server;
 import javafx.embed.swing.JFXPanel;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import javax.swing.text.View;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ArchitectProjectTest
@@ -42,9 +46,10 @@ public class ArchitectProjectTest
     @Test public void testInventoryContainsItem()
     {
         JFXPanel fxPanel = new JFXPanel();  //test doesn't work without this for some reason, probably because it
-                                            //initializes what is necessary to create JavaFX components outside an
-                                            //application
-        Inventory inventory = new Inventory(); //creates inventory
+        //initializes what is necessary to create JavaFX components outside an
+        //application
+        Inventory inventory = new Inventory(true); //creates inventory with randomised item
+        assertFalse(inventory.containsItem("Nothing"));
         inventory.addItem(2, 3, new Item()); //adds default "Nothing" item to inventory
         assertTrue(inventory.containsItem("Nothing"));
     }
@@ -114,4 +119,30 @@ public class ArchitectProjectTest
 
     }
 
+    /**
+     * test to see of the ConsumableItems in the china consumable items array are
+     * the correct ConsumableItems
+     */
+    @Test public void testRegionArrays() {
+        assertEquals(Consumable.ConsumableItems.Apricot, Consumable.china[0]);
+        assertEquals(Consumable.ConsumableItems.Peach, Consumable.china[1]);
+        assertEquals(Consumable.ConsumableItems.Tea, Consumable.china[2]);
+        assertEquals(Consumable.ConsumableItems.Rice, Consumable.china[3]);
+        assertEquals(Consumable.ConsumableItems.Plum, Consumable.china[4]);
+    }
+
+    /**
+     * tests to see if the NPC health label shows up correctly
+     */
+    @Test public void testNPCHealthLabel(){
+        JFXPanel fxPanel = new JFXPanel(); //test doesn't work without this for some reason
+       NPC npc = new NPC(); //make a new NPC
+       npc.damage(10); // damage them by 10 hp, so 100-90 = 10 HP
+       GameLabel health = npc.showHealth(); //show their health label
+       assertEquals("Health: 90/100",health.getText()); //check of the label words are correct
+
+
+
+
+    }
 }

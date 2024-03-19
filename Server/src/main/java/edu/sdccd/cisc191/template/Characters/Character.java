@@ -32,7 +32,7 @@ public class Character
         this.money = money;
         this.health = MAX_HEALTH = health; //sets the final field MAX_HEALTH, then sets health
         reputation = rep;
-        storage= new Inventory();
+        storage= new Inventory(true);
 
     }
 
