@@ -56,6 +56,12 @@ public class Player extends Character {
     public int getScore(){
         return score;
     }
+    /**
+     *adds score to player
+     */
+    public void addScore(int add){
+        score+=add;
+    }
 
     /**
      * TODO but changes expression of player

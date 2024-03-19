@@ -4,12 +4,9 @@ package edu.sdccd.cisc191.template.GameAssets;
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
 import edu.sdccd.cisc191.template.Networking.Client;
-import edu.sdccd.cisc191.template.Networking.ScoreRequest;
-import edu.sdccd.cisc191.template.Networking.ScoreResponse;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -32,9 +29,9 @@ public class ViewGame extends Application {
     private BorderPane layout;//so u can switch the scene...
     private static Stage gameStage;//the stage so u can switch it
     private static Player player;//player when the player makes themselves
-    private  VBox scoresHolder; // TODO THIS IS FOR THE NETWORKING AND HIGH SCORE
-    static Client client = new Client(); //TODO THIS IS FOR THE NETWORKING AND HIGH SCORE
-
+    private  String scoresHolder; // TODO make this string array instead and make it work
+    public static Client client = new Client(); //TODO THIS IS FOR THE NETWORKING AND HIGH SCORE
+    private File scores = new File(getClass().getResource("/Scores.txt").getPath());
     public ViewGame(){};
     /**
      * app lauch
@@ -332,23 +329,31 @@ public class ViewGame extends Application {
         layout.setStyle("-fx-background-color: #CBD4C2");
         layout.setBottom(buttonsHolder);
 
-
+//
+//        GameButton highscore = new GameButton("Publish Score?", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
+//        highscore.setOnAction((ActionEvent scoresave) -> {
+//            makeHighScore();
+//            highscore.setText("Thank you!");
+//            highscore.setOnAction(null);
+//            });
+//
         //TODO HIGH SCORE STUFF
         GameButton highscore = new GameButton("Publish Score?", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
         highscore.setOnAction((ActionEvent scoresave) -> {
 
             try {
-
-                client.startConnection("172.25.66.187", 6000 );
+                client.startConnection("127.0.0.1", 6000 );
+                makeHighScore(client.sendRequest(player.getName(), player.getScore()).toString());
                 System.out.println(client.sendRequest(player.getName(), player.getScore()).toString());
                 client.stopConnection();
+                highscore.setText("Thank you!");
+                   highscore.setOnAction(null);
             } catch(Exception e) {
                 e.printStackTrace();
             }
 
         });
         layout.setTop(highscore);
-        buttonsHolder.setAlignment(Pos.CENTER);
 
 
         //creates scene
@@ -362,7 +367,7 @@ public class ViewGame extends Application {
      * saves the score and TODO achievements that a player got thru a game session
      * uses FileChooser for user to pick where to save the TXT file
      */
-    protected void save() {
+    public void save() {
         //can only make txt files
         FileChooser.ExtensionFilter textFiles = new FileChooser.ExtensionFilter("Text Files", "*txt");
         //setup filechooser, defualt file is My_Silk_Road_Score.txt
@@ -373,6 +378,11 @@ public class ViewGame extends Application {
         //set the file that will the score will be saved to
         File saveLocation = fc.showSaveDialog(gameStage);
         //intialize pw to write on txt file
+        writeFile(player,saveLocation);
+
+
+    }
+    public void writeFile( Player playername,File saveLocation){
         PrintWriter output;
         //try to make a printwriter with saveLocation but must catch filenotfoundexecption
         try {
@@ -388,27 +398,33 @@ public class ViewGame extends Application {
             return;
         }
 
-            //write to output file
-            output.write("Thank you for playing the silk road game!\nIn your recent run as " + player.getName() +
-                    ", you wanted to "+player.getGoal().toLowerCase()+". You got " + player.getScore() + " points! Good Job!\n\n" +
-                    "Your Achievements:\n");
-            output.close();
-
+        //write to output file
+        output.write("Thank you for playing the silk road game!\nIn your recent run as " + playername.getName() +
+                ", you wanted to "+playername.getGoal().toLowerCase()+". You got " + playername.getScore() + " points! Good Job!\n\n" +
+                "Your Achievements:\n");
+        output.close();
     }
-
     /**
-     * TODO for networking make the highscore board
-     * @param recieve
+     * TODO writes your highscore to the file, need to sort from high to low!
+     * TODO writes to a Target file not sure what that is rn...
+     *  TODO have string array....
      */
-    protected void makeHighScore(String recieve) {
+    public void makeHighScore(String score) {
+        scoresHolder = score;
 
-        //makes holder for the buttons and centers it
+            }
 
-        scoresHolder.getChildren().add(new GameTextArea(recieve));
+//        System.out.print(scores.canWrite());
+//        try {
+//            PrintWriter out = new PrintWriter(new FileWriter(scores));
+//            out.write(string);
+//            out.close();
+//            System.out.print("i have written");
+//        } catch (IOException e) {
+//            e.printStackTrace(); }
 
-            layout.setCenter(scoresHolder);
-        GameScene scene = new GameScene(layout, sceneWidth, sceneHeight);
-        switchScene(scene, "The End");
-
+    public String getScoresHolder(){
+        return scoresHolder;
     }
+
     }

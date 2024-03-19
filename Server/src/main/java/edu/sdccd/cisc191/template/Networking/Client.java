@@ -31,7 +31,7 @@ public class Client {
         Client client = new Client();
         try {
 
-            client.startConnection("192.168.1.31", 5000 );
+            client.startConnection("127.0.0.1", 6000 );
             System.out.println(client.sendRequest("Lala",100).toString());
             client.stopConnection();
         } catch(Exception e) {

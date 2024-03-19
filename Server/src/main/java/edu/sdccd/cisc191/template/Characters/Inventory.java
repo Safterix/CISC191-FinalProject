@@ -9,11 +9,20 @@ import javafx.scene.layout.GridPane;
  */
 public class Inventory {
     private Item[][] storage = new Item[6][4]; // inventory is 6x4 item array
+    public Inventory(){
+        for(int row=0; row<storage.length;row++){
+            for(int col=0;col<storage[row].length;col++){
+                //adds random item in each cell
+                storage[row][col]= new Item();
+
+            }
+        }
+    }
 
     /**
      * adds random Nothing item to each cell
      */
-    public Inventory(){
+    public Inventory(boolean random){
         for(int row=0; row<storage.length;row++){
             for(int col=0;col<storage[row].length;col++){
                 //adds random item in each cell

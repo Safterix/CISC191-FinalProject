@@ -15,28 +15,39 @@ public class Server {
     private Socket clientSock;
     private PrintWriter out;
     private BufferedReader in;
-    public void start(int port) throws Exception {
-        serverSock = new ServerSocket(port);
-        clientSock = serverSock.accept();
+    public void start(int port) {
+        try {
+            serverSock = new ServerSocket(port);
 
-        out = new PrintWriter(clientSock.getOutputStream(), true); //send to client both strings
-        in = new BufferedReader(new InputStreamReader(clientSock.getInputStream())); //read what client sends
+            clientSock = serverSock.accept();
 
-        String inputLine;
-        while ((inputLine = in.readLine()) != null) {
-            ScoreRequest request = ScoreRequest.fromJSON(inputLine);
-            ScoreResponse response = new ScoreResponse(request.getScore(),request.getName());
-            out.println(ScoreResponse.toJSON(response));
-        }
+            out = new PrintWriter(clientSock.getOutputStream(), true); //send to client both strings
+            in = new BufferedReader(new InputStreamReader(clientSock.getInputStream())); //read what client sends
 
-        } //makes server socket that accepts client
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                ScoreRequest request = ScoreRequest.fromJSON(inputLine);
+                ScoreResponse response = new ScoreResponse(request.getScore(),request.getName());
+                out.println(ScoreResponse.toJSON(response));
+        }} catch (Exception e) {
+            throw new RuntimeException(e);}}
+
+         //makes server socket that accepts client
 
         public void stop() throws IOException{
         in.close();
          clientSock.close();
          serverSock.close();
     }
-    public static void launch() {
+    public static void main(String[] args) {
+        Server server = new Server();
+        try {
+            server.start(6000);
+            server.stop();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }public static void launch() {
         Server server = new Server();
         try {
             server.start(6000);
@@ -46,6 +57,7 @@ public class Server {
         }
     }
 
-    }
+
+}
 
 
