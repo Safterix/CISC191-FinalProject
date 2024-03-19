@@ -1,5 +1,5 @@
 # CISC191
-Intermediate Java Programming Final Project Template
+Silk Road: a WIP Oregon Trail-style game set along the silk road
 ## Prerequisites
 1. Maven
 2. Git
