@@ -25,8 +25,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ArchitectProjectTest
 {
-
-
+    JFXPanel fxPanel = new JFXPanel(); //test doesn't work without this for some reason, probably because it
+    //initializes what is necessary to create JavaFX components outside an
 
     /**
      * This method is called before every test case method.
@@ -43,8 +43,7 @@ public class ArchitectProjectTest
      */
     @Test public void testInventoryContainsItem()
     {
-        JFXPanel fxPanel = new JFXPanel();  //test doesn't work without this for some reason, probably because it
-        //initializes what is necessary to create JavaFX components outside an
+
         //application
         Inventory inventory = new Inventory(true); //creates inventory with randomised item
         assertFalse(inventory.containsItem("Nothing"));
@@ -69,7 +68,6 @@ public class ArchitectProjectTest
      */
     @Test public void testSaveScoreWorks(){
 
-        JFXPanel fxPanel = new JFXPanel(); //test doesn't work without this for some reason
         //make a view game to use the nonstatic writeFile()
         ViewGame game = new ViewGame();
         //makes a player named "Lala" who wants to explore the world and also has a score of 1000
@@ -105,7 +103,6 @@ public class ArchitectProjectTest
      */
     @Test public void testPlayerCharacterMethods(){
 
-        JFXPanel fxPanel = new JFXPanel(); //test doesn't work without this for some reason
         Player character = new Player("Lala");
         character.gainMoney(1000);
         character.damage(60);
@@ -133,14 +130,18 @@ public class ArchitectProjectTest
      * tests to see if the NPC health label shows up correctly
      */
     @Test public void testNPCHealthLabel(){
-        JFXPanel fxPanel = new JFXPanel(); //test doesn't work without this for some reason
        NPC npc = new NPC(); //make a new NPC
        npc.damage(10); // damage them by 10 hp, so 100-90 = 10 HP
        GameLabel health = npc.showHealth(); //show their health label
        assertEquals("Health: 90/100",health.getText()); //check of the label words are correct
 
 
-
-
     }
+
+    @Test public void testCompareTo(){
+        Consumable rice = new Consumable(Consumable.ConsumableItems.Rice);
+        Consumable apricot = new Consumable(Consumable.ConsumableItems.Apricot);
+        assertEquals(-1,rice.compareTo(apricot));
+        }
+
 }

@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
  * creates a general items, things you can have in an inventory
  * has a name and descrption and gameBUtton icon
  */
-public class Item {
+public class Item{
     private String name, description; //name and desc of item
     GameButton icon; //pic of item on button
 

@@ -7,7 +7,7 @@ import javafx.scene.layout.GridPane;
  * makes inventory which is a 6x4 array of items
  * displayed as a grid of items
  */
-public class Inventory {
+public class Inventory{
     private Item[][] storage = new Item[6][4]; // inventory is 6x4 item array
     public Inventory(){
         for(int row=0; row<storage.length;row++){

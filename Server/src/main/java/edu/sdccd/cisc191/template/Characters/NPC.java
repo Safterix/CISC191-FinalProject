@@ -13,8 +13,11 @@ import javafx.scene.layout.GridPane;
  */
 public class NPC extends Character {
     private String description; // descrption of charcater
+    private Personality personality;
     private GameImageView bodySprite; // half body sprite u see of them
-
+        public enum Personality{
+            angry,excited,happy,indifferent,nervous,neutral,silly;
+        }
 
     /**
      * makes an NPC
@@ -25,7 +28,7 @@ public class NPC extends Character {
         description = "Mysterious";
         //adds their image sprite based on heir name, but without any spaces
         bodySprite = new GameImageView(new Image("image/Sprites/"+getName().replaceAll("\\s", "")+"_body1.png"));
-
+        personality = Personality.happy;
 
 
     }
@@ -75,6 +78,10 @@ public class NPC extends Character {
     public GameLabel showMoney(){
         GameLabel money = new GameLabel("Money: "+ getMoney(),20, "#9FB425");
         return money;
+    }
+
+    public Personality getPersonality() {
+        return personality;
     }
 }
 

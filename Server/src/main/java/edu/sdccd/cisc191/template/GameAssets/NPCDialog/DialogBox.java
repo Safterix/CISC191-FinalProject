@@ -1,24 +1,20 @@
-package edu.sdccd.cisc191.template.GameAssets;
+package edu.sdccd.cisc191.template.GameAssets.NPCDialog;
 
 import edu.sdccd.cisc191.template.Characters.NPC;
-import edu.sdccd.cisc191.template.Characters.Player;
+import edu.sdccd.cisc191.template.GameAssets.GameImageView;
+import edu.sdccd.cisc191.template.GameAssets.GameTextArea;
+import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.geometry.Pos;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-
-import javax.swing.text.View;
-import java.util.Stack;
 
 /**
  * npc dialog class that makes the dialog box for NPCS
  * shows the name, little profile picture with their emotion, and their dialog in a stackpane
  * USED FOR WHEN NPCS ARE SPEAKING
  */
-public class NPCDialog {
+public class DialogBox {
 
     GameTextArea chatBox;//dialog box
     GameTextArea nameBox;  //the NPC name display
@@ -26,16 +22,21 @@ public class NPCDialog {
     GameImageView emotionSprite; // profile picture with NPC's expression
     StackPane dialog; // stackpane that has all of the above
 
+
     /**
      * makes the NPCdialog box with a profile picture, name, and dialog box
+     * @param intro character intro
      * @param speaker the NPC that is speaking, will have to get their name
-     * @param text their dialog, what they are speaking
      * @param mood the mood of the conversation, used for the font style and also expression face
+     * @param mysterious  if they are mysterious or not
      */
-    public NPCDialog(NPC speaker, String text, String mood){
-
+    public DialogBox(NPC speaker, String intro, String mood, boolean mysterious){
         //adds the speakers name to the name box and sets its size
-        nameBox = new GameTextArea(speaker.getName());
+        if(!mysterious){
+        nameBox = new GameTextArea(speaker.getName());}
+        else{
+            nameBox = new GameTextArea("Unknown");
+        }
         nameBox.setStyle("-fx-font-size: "+ ViewGame.getScreenDimensions()/45);
         nameBox. setMaxSize(ViewGame.getScreenDimensions()/3,ViewGame.getScreenDimensions()/30);
         nameBox.editableProperty().set(false); // so that users cannot type in it
@@ -49,7 +50,7 @@ public class NPCDialog {
 
         //makes the chatbox, a gametextarea with the dialog and mood
         //the mood determines the font style
-        chatBox = new GameTextArea(text,mood);
+        chatBox = new GameTextArea(intro,mood);
 
     }
 

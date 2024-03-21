@@ -1,15 +1,12 @@
 package edu.sdccd.cisc191.template.GameAssets;
 
-import edu.sdccd.cisc191.template.Characters.Character;
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
+import edu.sdccd.cisc191.template.GameAssets.NPCDialog.DialogBox;
+import edu.sdccd.cisc191.template.GameAssets.NPCDialog.Speech;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * creatres a game screen with the player layout on the bottom and everythiing else on top
@@ -69,7 +66,7 @@ public class GameScreen {
 
         //put the npc picture and dialog
         wholeUi.add(npc.displayProfile(),0,0,1,1);
-        wholeUi.add(new NPCDialog(npc,"ouioui","neutral").displayText(),1,0,1,1);
+        wholeUi.add(new Speech(npc).getDialogBox().displayText(),1,0,1,1);
 
         wholeUi.alignmentProperty().set(Pos.BOTTOM_CENTER);
 

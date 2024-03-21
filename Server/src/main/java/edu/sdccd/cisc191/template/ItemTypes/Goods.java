@@ -5,7 +5,7 @@ package edu.sdccd.cisc191.template.ItemTypes;
  * has value and everythign Item
  *
  */
-public class Goods extends Item{
+public class Goods extends Item implements Comparable{
 
     //all the commicerial goods in china
     public static CommercialGoods[] china = new CommercialGoods[]{CommercialGoods.Silk,CommercialGoods.Porcelain,CommercialGoods.Gunpowder};
@@ -18,6 +18,20 @@ public class Goods extends Item{
     //all the commicerial goods in arabia
     public static CommercialGoods[] arabia = new CommercialGoods[]{CommercialGoods.Frankincense,CommercialGoods.Incense
     ,CommercialGoods.Pearls,CommercialGoods.Copper};
+
+    @Override
+    public int compareTo(Object o) {
+
+        if(o.getClass()==Goods.class){
+        if(this.getValue()>((Goods) o).getValue()){
+                return 1;}
+        else if (this.getValue()==((Goods) o).getValue()) {
+            return 0;
+        }
+        }
+
+        return -1;
+    }
 
     /**
      * commerical goods enum with all the commerial goods options
