@@ -19,6 +19,7 @@ public class Player extends Character {
     private int score;
     private String goal;
     private GameImageView profileImage;
+    private KnowlegeBar knowlege;
 
     /**
      * make player, they have a name
@@ -28,6 +29,7 @@ public class Player extends Character {
         super(name,0,100,(short)0);
         score  = 0;
         goal= "None";
+        knowlege = new KnowlegeBar();
         profileImage=new GameImageView(new Image("image/Sprites/Player.png"));
     }
 
@@ -80,6 +82,8 @@ public class Player extends Character {
         return profileImage;
     }
 
+
+    public KnowlegeBar getKnowlege(){return knowlege;}
 
     /**
      * formats the name and stats of the player

@@ -5,7 +5,7 @@ package edu.sdccd.cisc191.template.ItemTypes;
  * has value and everythign Item
  *
  */
-public class Goods extends Item implements Comparable{
+public class Goods extends Item{
 
     //all the commicerial goods in china
     public static CommercialGoods[] china = new CommercialGoods[]{CommercialGoods.Silk,CommercialGoods.Porcelain,CommercialGoods.Gunpowder};

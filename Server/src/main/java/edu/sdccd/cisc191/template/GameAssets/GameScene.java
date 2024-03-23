@@ -28,6 +28,7 @@ public class GameScene extends Scene {
     public GameScene(GridPane layout, int sceneWidth, int sceneHeight){
         super(layout,sceneWidth,sceneHeight);
         getStylesheets().add(getClass().getResource("/fontStyle.css").toExternalForm());
+
     }
 
     /**

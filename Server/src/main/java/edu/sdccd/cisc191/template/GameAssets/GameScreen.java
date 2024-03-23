@@ -33,9 +33,11 @@ public class GameScreen {
         //adds profile pictuure and inventory
         playerLayout.add(player.getPFP(),1,0,2,1);
         playerLayout.add(player.getInventory().displayInventory(),3,0,1,1);
+        playerLayout.add(player.getKnowlege().displayKnowlege(),4,0,1,1);
         //adds the textual stats
         playerLayout.add(player.displayProfile(),0,0,1,1);
         playerLayout.setAlignment(Pos.BOTTOM_CENTER);
+        playerLayout.setHgap(25);
         //makes thhe background color
         playerLayout.setStyle("-fx-background-color: #eca7b6");
 
