@@ -40,17 +40,50 @@ public class Inventory{
                 storage.get(row).add(new Item(true));
 
             }
+
         }
     }
 
     /**
      * adds one item
      * @param row which row will item be in
-     * @param col which col
+     * @param item what is the item
+     */
+    public void addItem(int row, Item item){
+            for(int i=0; i<rowSize;i++){
+                if(rowIsEmpty(i))
+                    storage.get(row).add(item);
+                }
+    }
+    /**
+     * adds one item, replaces actaully
+     * @param row which row will item be in
+     * @param col what col is the item being removed from
      * @param item what is the item
      */
     public void addItem(int row, int col, Item item){
-        storage.get(row).add(item);
+
+                storage.get(row).remove(col);
+                storage.get(row).add(item);
+        }
+    /**
+     * gets item from specic row and col
+     * @param row which row will item be in
+     * @param col what col
+     * @return the item
+     */
+    public Item getItem(int row, int col){
+
+        return storage.get(row).get(col);
+    }
+    /**
+     * gets row
+     * @param row the row that you want to get
+     * @return the row arraylist
+     */
+    public ArrayList<Item> getRow(int row){
+
+        return storage.get(row);
     }
     /**
      * removes one item
@@ -60,6 +93,8 @@ public class Inventory{
     public void removeItem(int row, int col){
         //makes empty item in place of it
         storage.get(row).remove(col);
+        storage.get(row).add(new Item());
+        sortInv();
     }
 
     /**
@@ -67,8 +102,8 @@ public class Inventory{
      * @return gridpane of buttons, visual of inventory
      */
     public GridPane displayInventory(){
-        GridPane inventoryCells = new GridPane();
         sortInv();
+        GridPane inventoryCells = new GridPane();
         for(int row=0; row<rowSize;row++){
             for(int col=0;col<colSize;col++){
                 //adds everycell
@@ -85,12 +120,25 @@ public class Inventory{
      */
     public void sortInv(){
         for(int row=0; row<rowSize;row++){
-                Collections.sort(storage.get(row));
+            //sorts items
+                storage.get(row).sort(Item::compareTo);
 
     }}
+    public boolean rowIsEmpty(int row){
+
+        if(row<rowSize){
+            for(Item item: storage.get(row)){
+            if(!item.getName().equals("Nothing")){
+                return false;
+            }
+        }
+    }
+        return true;
+    }
+
     /**
      * Checks if the inventory contains a certain item (could be used for NPC dialogue options)
-     * @param itemName the item to check for
+     * @param itemName the name of the item
      * @return true if the inventory contains the item, false otherwise
      */
     public boolean containsItem(String itemName)
@@ -100,6 +148,27 @@ public class Inventory{
             for (Item item : row)
             {
                 if (item.getName().equals(itemName))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    /**
+     * Checks if the inventory contains a certain item (could be used for NPC dialogue options)
+     * instead of based on the name of the item it uses an item
+     * @param item the item to check for
+     * @return true if the inventory contains the item, false otherwise
+     */
+    public boolean containsItem(Item item)
+    {
+        for (ArrayList<Item> row : storage)
+        {
+            for (Item exist : row)
+            {
+                if (exist.equals(item))
                 {
                     return true;
                 }

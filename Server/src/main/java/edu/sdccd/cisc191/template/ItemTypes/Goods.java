@@ -20,14 +20,15 @@ public class Goods extends Item{
     ,CommercialGoods.Pearls,CommercialGoods.Copper};
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Item item) {
 
-        if(o.getClass()==Goods.class){
-        if(this.getValue()>((Goods) o).getValue()){
-                return 1;}
-        else if (this.getValue()==((Goods) o).getValue()) {
-            return 0;
-        }
+        if(item.getClass()==Goods.class||item.getClass()==Consumable.class){
+
+            if(this.getValue()>((Goods) item).getValue()){
+                    return 1;}
+            else if (this.getValue()==((Goods) item).getValue()) {
+                return 0;
+            }
         }
 
         return -1;
@@ -37,7 +38,7 @@ public class Goods extends Item{
      * commerical goods enum with all the commerial goods options
      */
     public enum CommercialGoods {
-        Silk,Porcelain,Gunpowder,Fabric,Spices,Dye,Ivory,Gold,Silver,Iron,Copper,Limestone,Frankincense,Incense,Pearls;
+        Silk,Porcelain,Gunpowder,Fabric,Spices,Dye,Ivory,Gold,Silver,Iron,Copper,Limestone,Frankincense,Incense,Pearls
     }
     private int value; // price of the item
 

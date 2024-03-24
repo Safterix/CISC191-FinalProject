@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
  * creates a general items, things you can have in an inventory
  * has a name and descrption and gameBUtton icon
  */
-public class Item implements Comparable {
+public class Item implements Comparable<Item> {
     private String name, description; //name and desc of item
     GameButton icon; //pic of item on button
 
@@ -85,18 +85,24 @@ public class Item implements Comparable {
     }
 
     /**
-     * "compares" all items in Item are equal
-     * @param o the object to be compared.
+     * checks to see if two items are equal based on their names
+     * @param item that isbeing compared to
+     * @return true or false if they are equal
+     */
+    public boolean equals(Item item){
+        return this.getName().equals(item.getName());
+    }
+    /**
+     * compares to see if item is less, greater, or eqwual
+     * @param item the object to be compared.
      * @return 0
      */
     @Override
-    public int compareTo(Object o) {
-        if(o.getClass()==Item.class){
-            if(((Item) o).getName().equals("Nothing")){
-                return -1;}
-            else if (((Item) o).getClass().toString().equals("Goods")) {
-                return 1;
-            }
+    public int compareTo(Item item) {
+        if(item.getName().equals("Nothing")){
+            return 1;}
+        else if (((Item) item).getClass().toString().equals("Goods")) {
+            return -1;
         }
         return 0;
     }

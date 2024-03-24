@@ -17,7 +17,9 @@ import org.junit.jupiter.api.TestInstance;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,7 +49,7 @@ public class ArchitectProjectTest
         //application
         Inventory inventory = new Inventory(true); //creates inventory with randomised item
         assertFalse(inventory.containsItem("Nothing"));
-        inventory.addItem(2, 3, new Item()); //adds default "Nothing" item to inventory
+        inventory.addItem(2,3, new Item()); //adds default "Nothing" item to inventory
         assertTrue(inventory.containsItem("Nothing"));
     }
 
@@ -138,10 +140,60 @@ public class ArchitectProjectTest
 
     }
 
+    /**
+     * tests to see of the compareTo methods work
+     */
     @Test public void testCompareTo(){
         Consumable rice = new Consumable(Consumable.ConsumableItems.Rice);
         Consumable apricot = new Consumable(Consumable.ConsumableItems.Apricot);
         assertEquals(-1,rice.compareTo(apricot));
+        assertEquals(1,apricot.compareTo(rice));
+        }
+    /**
+     * tests to see of item sorting works
+     *
+     */
+        @Test public void testSort(){
+        ArrayList<Item> testList = new ArrayList<Item>();
+            testList.add(new Consumable(Consumable.ConsumableItems.Rice));
+            testList.add(new Consumable(Consumable.ConsumableItems.Apricot));
+            testList.add(new Consumable(Consumable.ConsumableItems.Rice));
+            testList.add(new Consumable(Consumable.ConsumableItems.Apricot));
+            testList.add(new Item());
+            testList.add(new Item());
+            testList.sort(Item::compareTo);
+            //rice -> apricots -> nothing
+            assertEquals("Rice", testList.get(0).getName());
+            assertEquals("Rice", testList.get(1).getName());
+            assertEquals("Apricot", testList.get(2).getName());
+            assertEquals("Apricot", testList.get(3).getName());
+            assertEquals("Nothing",testList.get(4).getName());
+            assertEquals("Nothing",testList.get(5).getName());
         }
 
+    /**
+     * tests if row is empty works
+     */
+    @Test public void testRowisEmpty(){
+        Inventory inv = new Inventory(true);
+        Inventory inv2 = new Inventory();
+        assertFalse(inv.rowIsEmpty(1));
+        assertTrue(inv2.rowIsEmpty(1));
+
+    }
+
+    /**
+     * tests to see if adding items works
+     * what happens when inv is full?
+     */
+    @Test public void testAddItemInventory(){
+        Inventory inv = new Inventory(true);
+        inv.addItem(4,3,new Consumable(Consumable.ConsumableItems.Rice));
+        assertEquals("Rice",inv.getItem(4,3).getName());
+
+        Inventory inv2 = new Inventory(true); //make full inv
+        inv2.addItem(3,new Item(true)); //try to add item
+        assertEquals(4,inv.getRow(3).size()); //shouldnt have added
+
+    }
 }
