@@ -52,9 +52,8 @@ public class GameScreen {
      * @return the layout of tthe screen
      */
     public static GridPane defaultScreen(Player player, NPC npc, int screenWidth, int screenHeight){
-        //make playerLayout if notalready made
-        if(playerLayout ==null){
-        setPlayerLayout(player,screenWidth,screenHeight);}
+
+        setPlayerLayout(player,screenWidth,screenHeight);
         //set up the layout of the scene
         wholeUi = new GridPane();
         //add layout in thhe bottom
@@ -75,5 +74,4 @@ public class GameScreen {
         return wholeUi;
 
     }
-
 }

@@ -21,12 +21,16 @@ public class Player extends Character {
     private GameImageView profileImage;
     private KnowlegeBar knowlege;
 
+
+    public Player(){
+       this("None");
+    }
     /**
      * make player, they have a name
      * @param name of player that is set
      */
     public Player(String name){
-        super(name,0,100,(short)0);
+        super(name,0,100,0);
         score  = 0;
         goal= "None";
         knowlege = new KnowlegeBar();

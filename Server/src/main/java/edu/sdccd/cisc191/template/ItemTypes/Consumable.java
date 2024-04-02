@@ -44,9 +44,8 @@ public class Consumable extends Goods{
                     setName("Apricot");
                     setDescription("Eat it to restore 10 HP!");
                     heal= 10;
-                    setValue(5);
+                    setValue(3);
                     break;
-
                 case 2:
                     setName("Peach");
                     setDescription("Tasty Chinese classic! Heal 10HP");
@@ -57,19 +56,25 @@ public class Consumable extends Goods{
                     setName("Plum");
                     setDescription("Delicious fruit...Heal 10HP");
                     heal =10;
-                    setValue(5);
+                    setValue(4);
                     break;
                 case 4:
                     setName("Tea");
-                    setDescription("SlurpSlurp...Heal 10HP");
+                    setDescription("SlurpSlurp...Heal 10HP\nWorth 5 silver");
                     heal =10;
-                    setValue(5);
+                    setValue(2);
                     break;
                 case 5:
                     setName("Wine");
                     setDescription("Delicious...Heal 10HP");
                     heal =10;
-                    setValue(5);
+                    setValue(10);
+                    break;
+                case 6:
+                    setName("Rice");
+                    setDescription("Fluffy rice! Heal 50HP");
+                    heal =50;
+                    setValue(1);
                     break;
 
             }
@@ -85,7 +90,7 @@ public class Consumable extends Goods{
                 setName("Apricot");
                 setDescription("Eat it to restore 10 HP!");
                 heal= 10;
-                setValue(5);
+                setValue(3);
                 break;
 
             case Peach:
@@ -98,19 +103,19 @@ public class Consumable extends Goods{
                 setName("Plum");
                 setDescription("Delicious fruit...Heal 10HP");
                 heal =10;
-                setValue(5);
+                setValue(4);
                 break;
             case Tea:
                 setName("Tea");
-                setDescription("SlurpSlurp...Heal 10HP\nWorth "+getValue()+" coins");
+                setDescription("SlurpSlurp...Heal 10HP\nWorth 5 silver");
                 heal =10;
-                setValue(5);
+                setValue(2);
                 break;
             case Wine:
                 setName("Wine");
                 setDescription("Delicious...Heal 10HP");
                 heal =10;
-                setValue(5);
+                setValue(10);
                 break;
             case Rice:
                 setName("Rice");

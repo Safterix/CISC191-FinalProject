@@ -15,7 +15,7 @@ public class Character
     private int money; //amount of money they have
     private int health; // amount of hp they have
     private final int MAX_HEALTH;
-    private short reputation; // reputation from [-100,100]
+    private int reputation; // reputation from [-100,100]
     private Inventory storage;
 
 
@@ -26,7 +26,7 @@ public class Character
      * @param money the character's money
      * @param health the character's health
      */
-    public Character(String name, int money, int health, short rep)
+    public Character(String name, int money, int health, int rep)
     {
         this.name = name;
         this.money = money;

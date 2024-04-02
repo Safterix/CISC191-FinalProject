@@ -16,7 +16,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import static edu.sdccd.cisc191.template.GameAssets.GameScreen.defaultScreen;
 
@@ -154,10 +160,25 @@ public class ViewGame extends Application {
     protected void showCredits() {
         //creates people buttons TODO make it lead to our github pages or somethign?
         GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 30, sceneWidth / 30);
+       kim.setOnAction((ActionEvent goToKim)->{
+           goToGithub("kimwong000");
+       });
         GameButton angeliz = new GameButton("Angeliz", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
+        angeliz.setOnAction((ActionEvent goToAngeliz)->{
+            goToGithub("angelizn");
+        });
         GameButton kyle = new GameButton("Kyle", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
+        kyle.setOnAction((ActionEvent goToKyle)->{
+            goToGithub("KyleNNguyen");
+        });
         GameButton aleister = new GameButton("Aleister", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
+        aleister.setOnAction((ActionEvent goToAleister)->{
+            goToGithub("safterix");
+        });
         GameButton jason = new GameButton("Jason", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
+        jason.setOnAction((ActionEvent goToJason)->{
+            goToGithub("jasonphan1234");
+        });
         //creates a button to go back to the start screen
         GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 30, sceneWidth / 25);
         goBack.setOnAction((ActionEvent back) -> {
@@ -169,8 +190,31 @@ public class ViewGame extends Application {
 
         //makes borderpane and adds the buttons holder
         layout = new BorderPane(buttonHolder);
-        layout.setStyle("-fx-background-color: gray");
         switchScene(new GameScene(layout, sceneWidth, sceneHeight), "Credits!");
+    }
+
+    /**
+     * tries to opens the link to our github page
+     * @param username of our github account
+     */
+    public static void goToGithub(String username) {
+        URI openLink;
+        try {
+            //turn the URL to our github into a URI
+            URL lala = new URL("https://github.com/"+username);
+            openLink = lala.toURI();
+        } catch (MalformedURLException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        //is desktop supported? yes -> get desktop, no null
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.browse(openLink);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

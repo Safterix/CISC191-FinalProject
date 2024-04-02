@@ -12,16 +12,17 @@ import java.util.Collections;
  */
 public class Inventory{
     private ArrayList<ArrayList<Item>> storage= new ArrayList<ArrayList<Item>>();
+    private GridPane inventoryCells= new GridPane(); //gridpane visual of iventory with item buttons inside
     // inventory is a 2d arraylist with items
-    private final int rowSize = 6; int colSize = 4; //arraylist is 6x4
+    private final int colSize = 6; int rowSize = 4; //arraylist is 6x4
     public Inventory(){
 
-        for(int row=0; row<rowSize;row++){
+        for(int col=0; col<colSize;col++){
             //make the rows
             storage.add(new ArrayList<Item>());
-            for(int col=0;col<colSize;col++){
+            for(int row=0;row<rowSize;row++){
                 //adds default Nothing item in each cell
-                storage.get(row).add(new Item());
+                storage.get(col).add(new Item());
 
             }
         }
@@ -32,12 +33,12 @@ public class Inventory{
      */
     public Inventory(boolean random){
 
-        for(int row=0; row<rowSize;row++){
+        for(int col=0; col<colSize;col++){
             //make the rows
             storage.add(new ArrayList<Item>());
-            for(int col=0;col<colSize;col++){
+            for(int row=0;row<rowSize;row++){
                 //adds random item in each cell
-                storage.get(row).add(new Item(true));
+                storage.get(col).add(new Item(true));
 
             }
 
@@ -46,13 +47,13 @@ public class Inventory{
 
     /**
      * adds one item
-     * @param row which row will item be in
+     * @param col which row will item be in
      * @param item what is the item
      */
-    public void addItem(int row, Item item){
-            for(int i=0; i<rowSize;i++){
+    public void addItem(int col, Item item){
+            for(int i=0; i<colSize;i++){
                 if(rowIsEmpty(i))
-                    storage.get(row).add(item);
+                    storage.get(col).add(item);
                 }
     }
     /**
@@ -61,10 +62,10 @@ public class Inventory{
      * @param col what col is the item being removed from
      * @param item what is the item
      */
-    public void addItem(int row, int col, Item item){
+    public void addItem(int col, int row, Item item){
 
-                storage.get(row).remove(col);
-                storage.get(row).add(item);
+                storage.get(col).remove(row);
+                storage.get(col).add(item);
         }
     /**
      * gets item from specic row and col
@@ -72,28 +73,28 @@ public class Inventory{
      * @param col what col
      * @return the item
      */
-    public Item getItem(int row, int col){
+    public Item getItem(int col, int row){
 
-        return storage.get(row).get(col);
+        return storage.get(col).get(row);
     }
     /**
-     * gets row
-     * @param row the row that you want to get
-     * @return the row arraylist
+     * gets col
+     * @param col the row that you want to get
+     * @return the col arraylist
      */
-    public ArrayList<Item> getRow(int row){
+    public ArrayList<Item> getCol(int col){
 
-        return storage.get(row);
+        return storage.get(col);
     }
     /**
      * removes one item
      * @param row which row is in
      * @param col which col
      */
-    public void removeItem(int row, int col){
+    public void removeItem(int col, int row){
         //makes empty item in place of it
-        storage.get(row).remove(col);
-        storage.get(row).add(new Item());
+        storage.get(col).remove(row);
+        storage.get(col).add(new Item());
         sortInv();
     }
 
@@ -103,11 +104,12 @@ public class Inventory{
      */
     public GridPane displayInventory(){
         sortInv();
-        GridPane inventoryCells = new GridPane();
-        for(int row=0; row<rowSize;row++){
-            for(int col=0;col<colSize;col++){
+        inventoryCells.getChildren().removeAll();
+        for(int col=0; col<colSize;col++){
+            for(int row=0;row<rowSize;row++){
                 //adds everycell
-                inventoryCells.add(storage.get(row).get(col).displayItem(),row,col,1,1);
+
+                inventoryCells.add(storage.get(col).get(row).displayItem(),col,row,1,1);
 
             }
         }
@@ -119,15 +121,15 @@ public class Inventory{
      * TODO attempt at sorting inv items
      */
     public void sortInv(){
-        for(int row=0; row<rowSize;row++){
+        for(int col=0; col<colSize;col++){
             //sorts items
-                storage.get(row).sort(Item::compareTo);
+                storage.get(col).sort(Item::compareTo);
 
     }}
-    public boolean rowIsEmpty(int row){
+    public boolean rowIsEmpty(int col){
 
-        if(row<rowSize){
-            for(Item item: storage.get(row)){
+        if(col<colSize){
+            for(Item item: storage.get(col)){
             if(!item.getName().equals("Nothing")){
                 return false;
             }
@@ -143,9 +145,9 @@ public class Inventory{
      */
     public boolean containsItem(String itemName)
     {
-        for (ArrayList<Item> row : storage)
+        for (ArrayList<Item> col : storage)
         {
-            for (Item item : row)
+            for (Item item : col)
             {
                 if (item.getName().equals(itemName))
                 {
@@ -164,9 +166,9 @@ public class Inventory{
      */
     public boolean containsItem(Item item)
     {
-        for (ArrayList<Item> row : storage)
+        for (ArrayList<Item> col : storage)
         {
-            for (Item exist : row)
+            for (Item exist : col)
             {
                 if (exist.equals(item))
                 {
@@ -176,5 +178,8 @@ public class Inventory{
         }
 
         return false;
+    }
+    public Item getItemIn(int col, int row){
+        return storage.get(col).get(row);
     }
 }

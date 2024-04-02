@@ -193,7 +193,21 @@ public class ArchitectProjectTest
 
         Inventory inv2 = new Inventory(true); //make full inv
         inv2.addItem(3,new Item(true)); //try to add item
-        assertEquals(4,inv.getRow(3).size()); //shouldnt have added
+        assertEquals(4,inv.getCol(3).size()); //shouldnt have added
+
+    }
+    /**
+     * tests to see if sorting inventory work
+     * TODO technically works but it only sorts 1 Colum
+     */
+    @Test public void testSortInv(){
+        Inventory inv = new Inventory();
+        inv.addItem(4,3,new Consumable(Consumable.ConsumableItems.Rice));
+        inv.addItem(4,2,new Consumable(Consumable.ConsumableItems.Apricot));
+         inv.sortInv();
+       assertTrue(inv.containsItem("Rice"));
+       assertEquals("Rice",inv.getItem(4,0).getName());
+        assertEquals("Apricot",inv.getItem(4,1).getName());
 
     }
 }
