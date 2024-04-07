@@ -26,6 +26,7 @@ public class Inventory{
 
             }
         }
+        sortInv();
     }
 
     /**
@@ -43,6 +44,7 @@ public class Inventory{
             }
 
         }
+        sortInv();
     }
 
     /**

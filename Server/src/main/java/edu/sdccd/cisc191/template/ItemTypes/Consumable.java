@@ -60,7 +60,7 @@ public class Consumable extends Goods{
                     break;
                 case 4:
                     setName("Tea");
-                    setDescription("SlurpSlurp...Heal 10HP\nWorth 5 silver");
+                    setDescription("SlurpSlurp...Heal 10HP\nWorth 2 silver");
                     heal =10;
                     setValue(2);
                     break;
@@ -107,7 +107,7 @@ public class Consumable extends Goods{
                 break;
             case Tea:
                 setName("Tea");
-                setDescription("SlurpSlurp...Heal 10HP\nWorth 5 silver");
+                setDescription("SlurpSlurp...Heal 10HP\nWorth 2 silver");
                 heal =10;
                 setValue(2);
                 break;

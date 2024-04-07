@@ -4,6 +4,7 @@ import edu.sdccd.cisc191.template.Characters.Inventory;
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
+import edu.sdccd.cisc191.template.GameAssets.Map.Location;
 import edu.sdccd.cisc191.template.ItemTypes.Consumable;
 import edu.sdccd.cisc191.template.ItemTypes.Item;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
@@ -208,6 +209,49 @@ public class ArchitectProjectTest
        assertTrue(inv.containsItem("Rice"));
        assertEquals("Rice",inv.getItem(4,0).getName());
         assertEquals("Apricot",inv.getItem(4,1).getName());
+        assertEquals("Nothing",inv.getItem(4,2).getName());
 
+    }
+
+    /**
+     * tests to see if Locations works as intended, checks if the previous, current, and next are correct
+     * starts from china
+     */
+    @Test public void testLocationChinaStart(){
+        //makes a location that starts in china
+        Location chinaStart = new Location(true);
+
+        //should start at Xian
+        assertEquals(Location.SpecificLocation.Xian,chinaStart.getLocation());
+        //checks to see if the next location is at Zhangye
+        assertEquals(Location.SpecificLocation.Zhangye,chinaStart.getNext());
+        //move up one
+        chinaStart.move();
+        //next should NOT be zhangye anymore
+        assertNotEquals(Location.SpecificLocation.Zhangye,chinaStart.getNext());
+        //shouldve been at Xian before
+        assertEquals(Location.SpecificLocation.Xian,chinaStart.getPrevious());
+    }
+    /**
+     * tests to see if Locations works as intended, checks if the previous, current, and next are correct
+     * starts from europe
+     */
+    @Test public void testLocationEuropeStart(){
+        //makes a location that starts in china
+        Location europeStart = new Location(false);
+
+        //should NOT start at Xian but start at constantinople
+        assertNotEquals(Location.SpecificLocation.Xian,europeStart.getLocation());
+        assertEquals(Location.SpecificLocation.Constaninople,europeStart.getLocation());
+        //checks to see if the next location is at Zhangye
+        assertEquals(Location.SpecificLocation.Zhangye,europeStart.getNext());
+
+        //move up one
+        europeStart.move();
+
+        //next should NOT be zhangye anymore
+        assertNotEquals(Location.SpecificLocation.Zhangye,europeStart.getNext());
+        //shouldve been at Constantinople before
+        assertEquals(Location.SpecificLocation.Constaninople,europeStart.getPrevious());
     }
 }
