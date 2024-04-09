@@ -199,7 +199,7 @@ public class ArchitectProjectTest
     }
     /**
      * tests to see if sorting inventory work
-     * TODO technically works but it only sorts 1 Colum
+     * TODO idk why it doesnt work
      */
     @Test public void testSortInv(){
         Inventory inv = new Inventory();
@@ -227,6 +227,7 @@ public class ArchitectProjectTest
         assertEquals(Location.SpecificLocation.Zhangye,chinaStart.getNext());
         //move up one
         chinaStart.move();
+        assertEquals(Location.SpecificLocation.Zhangye,chinaStart.getLocation());
         //next should NOT be zhangye anymore
         assertNotEquals(Location.SpecificLocation.Zhangye,chinaStart.getNext());
         //shouldve been at Xian before
