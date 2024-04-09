@@ -5,25 +5,27 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * TODO
- * linked data structure of Locations on a map
- * has a current, previous, and next location
+ * TODO wip
+ * recursive of Locations on a map
+ * has a current, previous, and next locations
  */
 public class Location {
     /**
+     * TODO
      * cities and different points of interest on the map
      */
     public enum SpecificLocation{
         Xian, Zhangye, Constaninople
     }
 
-    private SpecificLocation[] locations; //array of the location point , required because of reverse route
+    private SpecificLocation[] locations; //array of the location point , required for reverse route
     private SpecificLocation locationPoint; //where the player is right now
-    private Location next;
-    private Location previous;
+    private Location next; // the next location player goes to
+    private Location previous; //the location the player was at before
 
     /**
-     *
+     * creates a location object based on where the player starts
+     * sets the current and next location
      * @param chinaStart if the player starts in china
      */
     public Location(boolean chinaStart){
@@ -63,10 +65,10 @@ public class Location {
 
     /**
      * sets the next location
-     * @return make the next Location
+     * @return the next Location
      */
     public Location setNextLocation(){
-        //goes through the Enum to find where the location is at
+        //goes through the location array to find where the location is at
         int i = 0;
         while(!locations[i].equals(locationPoint)){
             i++;
@@ -85,12 +87,16 @@ public class Location {
      * to the next SpecificLocation
      */
     public void move() {
+        //find where current location is
         int i = 0;
         while(!locations[i].equals(locationPoint)){
             i++;
         }
+        //sets prev to what it is right now
         previous = new Location(locationPoint);
+        //get the next location
         locationPoint = next.getLocation();
+        //set next location
         next = setNextLocation();
 
     }
