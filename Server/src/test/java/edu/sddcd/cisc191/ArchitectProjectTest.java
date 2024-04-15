@@ -1,6 +1,6 @@
 package edu.sddcd.cisc191;
 
-import edu.sdccd.cisc191.template.Characters.Inventory;
+import edu.sdccd.cisc191.template.ItemTypes.Inventory;
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
@@ -8,8 +8,7 @@ import edu.sdccd.cisc191.template.GameAssets.Map.Location;
 import edu.sdccd.cisc191.template.ItemTypes.Consumable;
 import edu.sdccd.cisc191.template.ItemTypes.Item;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
-import edu.sdccd.cisc191.template.Networking.Client;
-import edu.sdccd.cisc191.template.Networking.Server;
+import edu.sdccd.cisc191.template.ItemTypes.SortInventory;
 import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,10 +16,7 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -254,5 +250,13 @@ public class ArchitectProjectTest
         assertNotEquals(Location.SpecificLocation.Zhangye,europeStart.getNext());
         //shouldve been at Constantinople before
         assertEquals(Location.SpecificLocation.Constaninople,europeStart.getPrevious());
+    }
+
+
+    @Test public void testInventoryTree(){
+        Inventory inventory = new Inventory(true);
+        SortInventory sorting = new SortInventory(inventory);
+        sorting.addNodes();
+        sorting.inOrderTraverse(sorting.getRoot());
     }
 }

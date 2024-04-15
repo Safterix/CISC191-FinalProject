@@ -1,18 +1,12 @@
 package edu.sddcd.cisc191;
 
-import edu.sdccd.cisc191.template.Characters.Inventory;
 import edu.sdccd.cisc191.template.Characters.Player;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
-import edu.sdccd.cisc191.template.ItemTypes.Item;
 import edu.sdccd.cisc191.template.Networking.Client;
 import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

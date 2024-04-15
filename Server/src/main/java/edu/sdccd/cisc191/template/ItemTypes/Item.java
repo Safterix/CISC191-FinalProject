@@ -99,6 +99,9 @@ public class Item implements Comparable<Item> {
      */
     @Override
     public int compareTo(Item item) {
+        if(item.getName().equals(this.getName())){
+            return 0;
+        }
         if(item.getName().equals("Nothing")){
             return 1;}
         else if (((Item) item).getClass().toString().equals("Goods")) {

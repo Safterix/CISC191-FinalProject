@@ -1,8 +1,9 @@
-package edu.sdccd.cisc191.template.Characters;
+package edu.sdccd.cisc191.template.ItemTypes;
 
 import edu.sdccd.cisc191.template.ItemTypes.Item;
 import javafx.scene.layout.GridPane;
 
+import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -123,11 +124,12 @@ public class Inventory{
      * TODO attempt at sorting inv items
      */
     public void sortInv(){
-        for(int col=0; col<colSize;col++){
-            //sorts items
-                storage.get(col).sort(Item::compareTo);
 
-    }}
+        for(ArrayList<Item> col: storage){
+            Collections.sort(col,Item::compareTo);
+            }
+
+    }
     public boolean rowIsEmpty(int col){
 
         if(col<colSize){
@@ -183,5 +185,9 @@ public class Inventory{
     }
     public Item getItemIn(int col, int row){
         return storage.get(col).get(row);
+    }
+
+    public ArrayList<ArrayList<Item>> getAllItems(){
+        return storage;
     }
 }

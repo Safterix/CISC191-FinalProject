@@ -21,8 +21,10 @@ public class Goods extends Item{
 
     @Override
     public int compareTo(Item item) {
-
-        if(item.getClass()==Goods.class||item.getClass()==Consumable.class){
+        if(item.getName().equals(this.getName())){
+            return 0;
+        }
+        else if(item.getClass()==Goods.class||item.getClass()==Consumable.class){
 
             if(this.getValue()>((Goods) item).getValue()){
                     return 1;}

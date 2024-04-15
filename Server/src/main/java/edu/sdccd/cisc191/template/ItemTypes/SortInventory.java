@@ -1,14 +1,11 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
-import javafx.embed.swing.JFXPanel;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class SortInventory{
-    private ArrayList<ArrayList<edu.sdccd.cisc191.template.ItemTypes.Item>> inventory;
+     final private ArrayList<ArrayList<edu.sdccd.cisc191.template.ItemTypes.Item>> inventory;
     private ArrayList<Item> allItemsFlattened;
-    private Node root;
+    private ItemNode root;
 
 
     public SortInventory(Inventory inventory){
@@ -24,20 +21,19 @@ public class SortInventory{
             allItemsFlattened.addAll(col);
     }}
     public void addNodes(){
-
-        if(!allItemsFlattened.isEmpty()){
+        while(!allItemsFlattened.isEmpty()){
             addNodes(allItemsFlattened);
         }
     }
     public void addNodes(ArrayList<Item> arrayList){
-        Node focus, parent;
+        ItemNode focus, parent;
             //new node becomes the first item
-        Node newNode = new Node(arrayList.get(0));
-        arrayList.remove(0);
+        ItemNode newItemNode = new ItemNode(arrayList.remove(0));
+
         //if the root doesnt have anything, the root is the new item
             //and remove the first item
         if (root==null){
-            root =newNode;
+            root = newItemNode;
             //go add things again
             //this makes root real
         }
@@ -50,13 +46,18 @@ public class SortInventory{
             while(!allItemsFlattened.isEmpty()){
                 //go to the parent
                 parent = focus;
-                //if the current item in is less than the one in parent,
-                //put it on the left and remove it from the list
-                if(newNode.getItem().compareTo(focus.getItem()) < 0){
-
+               //TODO IDK WHY DOESNT WORK... makes a count if theres multple of same item
+//                if(newItemNode.getItem().compareTo(focus.getItem())==0){
+//                    focus.addCount();
+//                    return;
+//                }
+//                else
+                    if(newItemNode.getItem().compareTo(focus.getItem()) == -1){
+                    focus = focus.leftChild;
                     //if left child is null
                     if(focus.leftChild ==null){
-                        parent.leftChild= newNode;
+                        parent.leftChild= newItemNode;
+                        return;
 
                     }
                 }
@@ -67,23 +68,24 @@ public class SortInventory{
                     //but if the right child doesnt exist
                     //make the newNode the right child and remove
                     if(focus==null){
-                        parent.rightChild=newNode;
+                        parent.rightChild= newItemNode;
+                        return;
                     }
                 }
             }
-        } }
+        }}
 
 
 
-    public void inOrderTraverse(Node focus){
+    public void inOrderTraverse(ItemNode focus){
        if(focus!=null){
            inOrderTraverse(focus.leftChild);
-           System.out.print(focus);
+           System.out.print(focus+" ");
 
            inOrderTraverse(focus.rightChild);
        }
     }
-    public Node getRoot(){
+    public ItemNode getRoot(){
         return root;
     }
 

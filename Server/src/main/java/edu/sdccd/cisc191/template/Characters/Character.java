@@ -1,9 +1,7 @@
 package edu.sdccd.cisc191.template.Characters;
 
-import edu.sdccd.cisc191.template.GameAssets.GameImageView;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import edu.sdccd.cisc191.template.ItemTypes.Inventory;
 
 /**
  * makes a ahrcater with name, money, health, rep, and inventory
