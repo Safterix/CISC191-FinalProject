@@ -24,6 +24,9 @@ public class Goods extends Item{
         if(item.getName().equals(this.getName())){
             return 0;
         }
+        else if(item.getName().equals("Nothing")){
+            return 1;
+        }
         else if(item.getClass()==Goods.class||item.getClass()==Consumable.class){
 
             if(this.getValue()>((Goods) item).getValue()){

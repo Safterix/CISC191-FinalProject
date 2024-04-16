@@ -252,11 +252,61 @@ public class ArchitectProjectTest
         assertEquals(Location.SpecificLocation.Constaninople,europeStart.getPrevious());
     }
 
-
-    @Test public void testInventoryTree(){
-        Inventory inventory = new Inventory(true);
+    @Test public void testConvertingnode(){
+        Inventory inventory = new Inventory();
+        inventory.addItem(0,0, new Consumable(Consumable.ConsumableItems.Rice));
+        inventory.addItem(1,0, new Consumable(Consumable.ConsumableItems.Rice));
+        inventory.addItem(2,0, new Consumable(Consumable.ConsumableItems.Rice));
+        inventory.addItem(3,0, new Consumable(Consumable.ConsumableItems.Rice));
         SortInventory sorting = new SortInventory(inventory);
+        sorting.convertToNode(null);
+
+    }
+
+    /**tests to see if counting duplicates work
+     *
+     */
+    @Test public void testCountingDoopsEmpty(){
+        //make empty inventory
+        Inventory inventory = new Inventory();
+        SortInventory sorting = new SortInventory(inventory);
+        sorting.convertToNode(null);
         sorting.addNodes();
         sorting.inOrderTraverse(sorting.getRoot());
+        //there should be 24 nothings
+        assertEquals("Nothing 24", sorting.getRoot().toString());
+    }
+    /**tests to see if counting duplicates work
+     * with 20 nothing, and 4 rice
+     */
+    @Test public void testCountingDoops(){
+        //make empty inventory
+        Inventory inventory = new Inventory();
+        inventory.addItem(0,0, new Consumable(Consumable.ConsumableItems.Rice));
+        inventory.addItem(1,0, new Consumable(Consumable.ConsumableItems.Rice));
+        inventory.addItem(2,0, new Consumable(Consumable.ConsumableItems.Rice));
+        inventory.addItem(3,0, new Consumable(Consumable.ConsumableItems.Rice));
+        SortInventory sorting = new SortInventory(inventory);
+        sorting.convertToNode(null);
+        sorting.addNodes();
+        sorting.inOrderTraverse(sorting.getRoot());
+        //check system out if Nothing 20 Rice 4
+
+    }
+    /**tests to see if counting duplicates work
+     * with random items
+     * TODO DOESNT WORK IDEALLY
+     */
+    @Test public void testCountingDoopsRandom(){
+        //make empty inventory
+        Inventory inventory = new Inventory(true);
+        SortInventory sorting = new SortInventory(inventory);
+        sorting.convertToNode(null);
+        sorting.addNodes();
+        sorting.inOrderTraverse(sorting.getRoot());
+        //has 24 items
+        // proper order is
+        //rice, tea, apricot, plum , peach, wine
+
     }
 }

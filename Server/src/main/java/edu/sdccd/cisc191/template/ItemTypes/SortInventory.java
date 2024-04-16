@@ -5,86 +5,165 @@ import java.util.ArrayList;
 public class SortInventory{
      final private ArrayList<ArrayList<edu.sdccd.cisc191.template.ItemTypes.Item>> inventory;
     private ArrayList<Item> allItemsFlattened;
+    private ArrayList<ItemNode> allItemNodes;
     private ItemNode root;
 
-
+    /**
+     * constructor that makes a SortInventory
+     * flattens inventory into an ArrayList
+     * @param inventory that will be flattened and sorted
+     */
     public SortInventory(Inventory inventory){
-
+        //gets 2d arraylist of inv
         this.inventory=inventory.getAllItems();
-
+        //initallize allItemNodes and allItemsFlattened
+        allItemNodes = new ArrayList<>();
         allItemsFlattened = new ArrayList<>();
+        //fill allItemsFlattened and print size
         for(ArrayList<Item> col: this.inventory){
             allItemsFlattened.addAll(col);
-        }}
+        }
+        System.out.println("Og Size: "+allItemsFlattened.size());
+    }
+
+    /**
+     * resets allItemFlattened to what is in inventory
+     */
     public void reset(){
         for(ArrayList<Item> col: inventory){
             allItemsFlattened.addAll(col);
     }}
+
+    /**
+     * converts the allItemsFlattened ArrayList<Item> to ArrayList<ItemNode>
+     * @param preDup the array that will be gone through
+     */
+    public void convertToNode(ArrayList<Item> preDup) {
+        //makes preDuplicatesCopy
+        ArrayList<Item> preDuplicatesCopy = new ArrayList<>();
+        //if it is null, preDuplicatesCopy is allItemsFlattened clone
+        if (preDup == null) {
+            preDuplicatesCopy = (ArrayList<Item>) allItemsFlattened.clone();
+            System.out.println("Clone size: "+preDuplicatesCopy.size());
+
+        }
+        else {
+        preDuplicatesCopy=preDup;}
+
+        if(!preDuplicatesCopy.isEmpty()) {
+            //get an item from the start
+            ItemNode focus = new ItemNode(preDuplicatesCopy.remove(0));
+            System.out.println("Target: " + focus);
+
+            //go thru the rest of the array, checking if there are duplicates of the item
+            //if it is equal, add one count to the itemNode and remove from preDuplicatesCopy
+            int i = 0;
+            while (i < preDuplicatesCopy.size()) {
+                //if items are the same add one and remove that item from the list
+                if (!preDuplicatesCopy.get(i).equals((focus.getItem()))) {
+
+                    System.out.println(i + "Not Doop: " + preDuplicatesCopy.get(i).getName());
+                    i++;
+                }
+                //else dont remove it but add 1 to i to go to the next
+                else {
+                    focus.addCount();
+                    preDuplicatesCopy.remove(i);
+                    System.out.println(i + "Doop: " + focus);
+                }
+            }
+            //add the item with the count to  allItemNodes
+            allItemNodes.add(focus);
+
+        }
+        if(!preDuplicatesCopy.isEmpty()){
+        convertToNode(preDuplicatesCopy);}
+    }
+
+    /**
+     * noargs addNodes which inputs the allItemNodes
+     */
     public void addNodes(){
-        while(!allItemsFlattened.isEmpty()){
-            addNodes(allItemsFlattened);
+        while(!allItemNodes.isEmpty()){
+            addNodes(allItemNodes);
         }
     }
-    public void addNodes(ArrayList<Item> arrayList){
-        ItemNode focus, parent;
-            //new node becomes the first item
-        ItemNode newItemNode = new ItemNode(arrayList.remove(0));
 
-        //if the root doesnt have anything, the root is the new item
-            //and remove the first item
+    /**
+     * make a binary search tree out of the ItemNode arraylist that already
+     * has duplicates dealt with
+     * @param arrayList arraylist with duplicates dealt with
+     */
+    public void addNodes(ArrayList<ItemNode> arrayList){
+        ItemNode focus, parent;
+            //new node becomes the first item in list, remove it from list
+        ItemNode newItemNode = arrayList.remove(0);
+        //if the root doesnt have anything, the new item is the root
         if (root==null){
             root = newItemNode;
-            //go add things again
-            //this makes root real
         }
 
         //but if root already has something
         else{
             //start from the root
            focus = root;
-            //do processes
-            while(!allItemsFlattened.isEmpty()){
-                //go to the parent
+            //do processes until u return...
+            while(!(newItemNode ==null)){
+                //set parent to focus/root
                 parent = focus;
-               //TODO IDK WHY DOESNT WORK... makes a count if theres multple of same item
-//                if(newItemNode.getItem().compareTo(focus.getItem())==0){
-//                    focus.addCount();
-//                    return;
-//                }
-//                else
+                //if the new item is less than the focus item
                     if(newItemNode.getItem().compareTo(focus.getItem()) == -1){
+                        //focus becomes the left child
                     focus = focus.leftChild;
-                    //if left child is null
-                    if(focus.leftChild ==null){
+                    //if focus(now left child) is null
+                    if(focus ==null){
+                        //it is the new item
                         parent.leftChild= newItemNode;
                         return;
 
                     }
-                }
+                      }
                 //if its greater/ equal it goes on the right
-                //remove it from list
                 else{
+                    //focus becomes right child
                     focus =focus.rightChild;
-                    //but if the right child doesnt exist
-                    //make the newNode the right child and remove
+                    //if focus (now right) doesnt exist
                     if(focus==null){
+                        //it is new item
                         parent.rightChild= newItemNode;
                         return;
                     }
+
                 }
-            }
         }}
+        //if allItemsNodes is not empty, recursive
+        while(!arrayList.isEmpty()){
+            addNodes(arrayList);
+        }
+    }
 
 
-
-    public void inOrderTraverse(ItemNode focus){
+    /**
+     * prints out the tree in correct order , least to greatest
+     * @param focus
+     */
+    public String inOrderTraverse(ItemNode focus){
+        //if the starting poitn is not null
        if(focus!=null){
+           //go thru the left side
            inOrderTraverse(focus.leftChild);
            System.out.print(focus+" ");
-
+            //go thru right side
            inOrderTraverse(focus.rightChild);
+           return (focus+" ");
        }
+        return null;
     }
+
+    /**
+     *
+     * @return root of tree
+     */
     public ItemNode getRoot(){
         return root;
     }

@@ -17,10 +17,13 @@ public class ItemNode {
 
     @Override
     public String toString() {
-        return (item.getName()+" " +count+" ");
+        return (item.getName()+" " +count);
     }
 
     public void addCount() {
         count++;
+    }
+    public int getCount(){
+        return count;
     }
 }
