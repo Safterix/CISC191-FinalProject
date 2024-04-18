@@ -16,7 +16,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.net.MalformedURLException;
@@ -31,9 +30,12 @@ import static edu.sdccd.cisc191.template.GameAssets.GameScreen.defaultScreen;
  */
 public class ViewGame extends Application {
 
-    private Media media = new Media(getClass().getResource("/chinabgm.mp3").toString()); //music file
+    private Media media = new Media(getClass().getResource("/music/romebgm.mp3").toString()); //music file
+    private Media media2 = new Media(getClass().getResource("/music/chinabgm.mp3").toString());
     // Create a MediaPlayer with the Media object
     private MediaPlayer mediaPlayer = new MediaPlayer(media);
+
+    private MediaPlayer mediaPlayer2 = new MediaPlayer((media2));
     private boolean isPlaying;
     protected static int sceneWidth = 0; //this way, the class itself keeps track of the screen's size
     private  static int sceneHeight = 0;
@@ -65,8 +67,6 @@ public class ViewGame extends Application {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); //loop music
         mediaPlayer.play(); //playmusic
 
-
-
         //add this to the main at start stage
         //default size of the stage/window is 1280x720px
         //this is for when you switch the size to something else usign settings it will stay correct!
@@ -83,6 +83,8 @@ public class ViewGame extends Application {
         //makes credit buttons which leads you to credit scene, using showCredits()
         GameButton credits = new GameButton("Credits", sceneWidth / 4, sceneHeight / 12, sceneWidth / 30);
         credits.setOnAction((ActionEvent creditsShow) -> {
+            mediaPlayer.setMute(true);
+            mediaPlayer.stop();
             showCredits();
         });
         //creatures setting button that leads you to settings scene, using showSettings
@@ -157,12 +159,20 @@ public class ViewGame extends Application {
     /**
      * makes credit page
      */
+    /**
+     * makes credit page
+     */
     protected void showCredits() {
+
+        mediaPlayer2.setVolume(0.10);
+        mediaPlayer2.setCycleCount(MediaPlayer.INDEFINITE); //loop music
+        mediaPlayer2.play();
+
         //creates people buttons TODO make it lead to our github pages or somethign?
         GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 30, sceneWidth / 30);
-       kim.setOnAction((ActionEvent goToKim)->{
-           goToGithub("kimwong000");
-       });
+        kim.setOnAction((ActionEvent goToKim)->{
+            goToGithub("kimwong000");
+        });
         GameButton angeliz = new GameButton("Angeliz", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
         angeliz.setOnAction((ActionEvent goToAngeliz)->{
             goToGithub("angelizn");
@@ -182,6 +192,7 @@ public class ViewGame extends Application {
         //creates a button to go back to the start screen
         GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 30, sceneWidth / 25);
         goBack.setOnAction((ActionEvent back) -> {
+            mediaPlayer2.stop();
             start(gameStage);
         });
         //adds buttons to a button holder then centers it
@@ -216,6 +227,7 @@ public class ViewGame extends Application {
             }
         }
     }
+
 
     /**
      *show the settings which only has size options for now

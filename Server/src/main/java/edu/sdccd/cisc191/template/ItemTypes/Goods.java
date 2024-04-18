@@ -18,26 +18,39 @@ public class Goods extends Item{
     //all the commicerial goods in arabia
     public static CommercialGoods[] arabia = new CommercialGoods[]{CommercialGoods.Frankincense,CommercialGoods.Incense
     ,CommercialGoods.Pearls,CommercialGoods.Copper};
+//
+//    @Override
+//    public int compareTo(Item item) {
+//        if(item.getName().equals(this.getName())){
+//            return 0;
+//        }
+//        else if(item.getName().equals("Nothing")){
+//            return 1;
+//        }
+//        else if(item.getClass()==Goods.class||item.getClass()==Consumable.class){
+//
+//            if(this.getValue()>((Goods) item).getValue()){
+//                    return 1;}
+//            else if (this.getValue()==((Goods) item).getValue()) {
+//                return 0;
+//            }
+//        }
+//
+//        return -1;
+//    }
+    public int compareTo(Goods item) {
 
-    @Override
-    public int compareTo(Item item) {
         if(item.getName().equals(this.getName())){
             return 0;
         }
-        else if(item.getName().equals("Nothing")){
-            return 1;
-        }
-        else if(item.getClass()==Goods.class||item.getClass()==Consumable.class){
 
-            if(this.getValue()>((Goods) item).getValue()){
-                    return 1;}
-            else if (this.getValue()==((Goods) item).getValue()) {
-                return 0;
+            if(this.getValue()>(item.getValue())){
+                return 1;
             }
-        }
+
 
         return -1;
-    }
+}
 
     /**
      * commerical goods enum with all the commerial goods options
