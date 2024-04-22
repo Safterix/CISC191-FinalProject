@@ -3,7 +3,6 @@ package edu.sdccd.cisc191.template.GameAssets;
 
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
-import edu.sdccd.cisc191.template.Networking.Client;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -43,7 +42,7 @@ public class ViewGame extends Application {
     private static Stage gameStage;//the stage so u can switch it
     private static Player player;//player when the player makes themselves
     private  String scoresHolder; // TODO make this string array instead and make it work
-    public static Client client = new Client(); //for networking and highscore
+
     private File scores = new File(getClass().getResource("/Scores.txt").getPath());
     //TODO eventualyl for networking and high scores....an attempt was made...
     public ViewGame(){};
@@ -410,21 +409,7 @@ public class ViewGame extends Application {
 //
         //TODO HIGH SCORE
         GameButton highscore = new GameButton("Publish Score?", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
-        highscore.setOnAction((ActionEvent scoresave) -> {
-
-            try { //client send request with player info and get player info back but formated
-                //useless networking
-                client.startConnection("127.0.0.1", 6000 );
-                makeHighScore(client.sendRequest(player.getName(), player.getScore()).toString());
-                System.out.println(client.sendRequest(player.getName(), player.getScore()).toString());
-                client.stopConnection();
-                highscore.setText("Thank you!");
-                   highscore.setOnAction(null);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-
-        });
+//
         layout.setTop(highscore);
 
 

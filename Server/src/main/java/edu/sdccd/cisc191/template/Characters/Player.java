@@ -1,7 +1,5 @@
 package edu.sdccd.cisc191.template.Characters;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.sdccd.cisc191.template.GameAssets.GameImageView;
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
 import edu.sdccd.cisc191.template.GameAssets.GameTooltip;
