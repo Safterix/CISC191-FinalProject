@@ -43,6 +43,8 @@ public class ViewGame extends Application {
     private static Player player;//player when the player makes themselves
     private  String scoresHolder; // TODO make this string array instead and make it work
 
+    private static boolean ended;
+
     private File scores = new File(getClass().getResource("/Scores.txt").getPath());
     //TODO eventualyl for networking and high scores....an attempt was made...
     public ViewGame(){};
@@ -54,6 +56,10 @@ public class ViewGame extends Application {
         launch();
     }
 
+    public static boolean isEnd() {
+        return ended;
+    }
+
     /**
      * creates the start screen
      *includes start button, credits ,settings, and quit button  that direct you to different scenes
@@ -61,6 +67,7 @@ public class ViewGame extends Application {
      */
     @Override
     public void start(Stage stage) {
+        ended=false;
         // Lower the volume of BGM (0.05 means 5% of maximum volume)
         mediaPlayer.setVolume(0.05);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); //loop music
@@ -364,6 +371,7 @@ public class ViewGame extends Application {
      * TODO also has a publish score button that is WIP networking
      */
     public void endGame() {
+        ended = true;
         //makes save button that calls save() to save your score
         GameButton save = new GameButton("Save", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
         save.setOnAction((ActionEvent saveAchievements) -> {
@@ -399,18 +407,12 @@ public class ViewGame extends Application {
         layout.setStyle("-fx-background-color: #CBD4C2");
         layout.setBottom(buttonsHolder);
 
+//        DataBaseApplication db = new DataBaseApplication();
+//            db.start(gameStage);
 //
-//        GameButton highscore = new GameButton("Publish Score?", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
-//        highscore.setOnAction((ActionEvent scoresave) -> {
-//            makeHighScore();
-//            highscore.setText("Thank you!");
-//            highscore.setOnAction(null);
-//            });
-//
-        //TODO HIGH SCORE
-        GameButton highscore = new GameButton("Publish Score?", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
-//
-        layout.setTop(highscore);
+////
+//        GameButton highscore = db.getPublishButton();
+//        layout.setTop(highscore);
 
 
         //creates scene
@@ -504,4 +506,9 @@ public class ViewGame extends Application {
         return scoresHolder;
     }
 
+    public static Player getPlayer() {
+        return player;
     }
+}
+
+

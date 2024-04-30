@@ -1,17 +1,16 @@
-package edu.sdccd.cisc191.scoresDatabase.ScoreInfo;
+package edu.sdccd.cisc191.template.ScoreInfo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Score {
+    //unique name and score for a player
     @Id
     private String name;
     private int scoreNumber;
-
-    @OneToMany(fetch = FetchType.EAGER)
 
     public Score() {
     }

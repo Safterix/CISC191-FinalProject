@@ -44,41 +44,29 @@ public class SortInventory{
         //if it is null, preDuplicatesCopy is allItemsFlattened clone
         if (preDup == null) {
             preDuplicatesCopy = (ArrayList<Item>) allItemsFlattened.clone();
-            System.out.println("Clone size: "+preDuplicatesCopy.size());
-
-        }
-        else {
-        preDuplicatesCopy=preDup;}
-
+            System.out.println("Clone size: "+preDuplicatesCopy.size());}
+        else {preDuplicatesCopy=preDup;}
         if(!preDuplicatesCopy.isEmpty()) {
             //get an item from the start
             ItemNode focus = new ItemNode(preDuplicatesCopy.remove(0));
             System.out.println("Target: " + focus);
-
             //go thru the rest of the array, checking if there are duplicates of the item
             //if it is equal, add one count to the itemNode and remove from preDuplicatesCopy
             int i = 0;
             while (i < preDuplicatesCopy.size()) {
                 //if items are the same add one and remove that item from the list
                 if (!preDuplicatesCopy.get(i).equals((focus.getItem()))) {
-
                     System.out.println(i + "Not Doop: " + preDuplicatesCopy.get(i).getName());
-                    i++;
-                }
+                    i++;}
                 //else dont remove it but add 1 to i to go to the next
                 else {
                     focus.addCount();
                     preDuplicatesCopy.remove(i);
-                    System.out.println(i + "Doop: " + focus);
-                }
-            }
+                    System.out.println(i + "Doop: " + focus);}}
             //add the item with the count to  allItemNodes
-            allItemNodes.add(focus);
-
-        }
+            allItemNodes.add(focus);}
         if(!preDuplicatesCopy.isEmpty()){
-        convertToNode(preDuplicatesCopy);}
-    }
+        convertToNode(preDuplicatesCopy);}}
 
     /**
      * noargs addNodes which inputs the allItemNodes

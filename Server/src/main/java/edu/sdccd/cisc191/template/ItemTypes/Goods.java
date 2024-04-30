@@ -38,6 +38,7 @@ public class Goods extends Item{
 //
 //        return -1;
 //    }
+    @Override
     public int compareTo(Goods item) {
 
         if(item.getName().equals(this.getName())){

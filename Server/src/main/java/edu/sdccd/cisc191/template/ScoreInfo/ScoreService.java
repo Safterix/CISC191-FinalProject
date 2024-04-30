@@ -1,4 +1,4 @@
-package edu.sdccd.cisc191.scoresDatabase.ScoreInfo;
+package edu.sdccd.cisc191.template.ScoreInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

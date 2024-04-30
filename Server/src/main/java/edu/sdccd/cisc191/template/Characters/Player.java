@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 public class Player extends Character {
 
 
-    private int score;
+    private int score, id;
     private String goal;
     private GameImageView profileImage;
     private KnowlegeBar knowlege;
@@ -84,6 +84,13 @@ public class Player extends Character {
         return profileImage;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public KnowlegeBar getKnowlege(){return knowlege;}
 

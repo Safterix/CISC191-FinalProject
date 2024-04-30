@@ -2,6 +2,7 @@ package edu.sdccd.cisc191.template.ItemTypes;
 
 import edu.sdccd.cisc191.template.Characters.Character;
 import edu.sdccd.cisc191.template.GameAssets.GameButton;
+import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -109,6 +110,14 @@ public class Item implements Comparable<Item> {
         }
         return 0;
     }
+    public int compareTo(Goods item) {
+        if(item.getName().equals(this.getName())){
+            return 0;
+        }
+        return 1;
+    }
+
+
 }
 
 
