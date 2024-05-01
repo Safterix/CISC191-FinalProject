@@ -3,8 +3,7 @@ package edu.sdccd.cisc191.template.ItemTypes;
 import java.util.ArrayList;
 
 public class SortInventory{
-     final private ArrayList<ArrayList<edu.sdccd.cisc191.template.ItemTypes.Item>> inventory;
-    private ArrayList<Item> allItemsFlattened;
+     final private ArrayList<edu.sdccd.cisc191.template.ItemTypes.Item> inventory;
     private ArrayList<ItemNode> allItemNodes;
     private ItemNode root;
 
@@ -18,21 +17,10 @@ public class SortInventory{
         this.inventory=inventory.getAllItems();
         //initallize allItemNodes and allItemsFlattened
         allItemNodes = new ArrayList<>();
-        allItemsFlattened = new ArrayList<>();
-        //fill allItemsFlattened and print size
-        for(ArrayList<Item> col: this.inventory){
-            allItemsFlattened.addAll(col);
-        }
-        System.out.println("Og Size: "+allItemsFlattened.size());
+
+        System.out.println("Og Size: "+this.inventory.size());
     }
 
-    /**
-     * resets allItemFlattened to what is in inventory
-     */
-    public void reset(){
-        for(ArrayList<Item> col: inventory){
-            allItemsFlattened.addAll(col);
-    }}
 
     /**
      * converts the allItemsFlattened ArrayList<Item> to ArrayList<ItemNode>
@@ -43,7 +31,7 @@ public class SortInventory{
         ArrayList<Item> preDuplicatesCopy = new ArrayList<>();
         //if it is null, preDuplicatesCopy is allItemsFlattened clone
         if (preDup == null) {
-            preDuplicatesCopy = (ArrayList<Item>) allItemsFlattened.clone();
+            preDuplicatesCopy = (ArrayList<Item>) inventory.clone();
             System.out.println("Clone size: "+preDuplicatesCopy.size());}
         else {preDuplicatesCopy=preDup;}
         if(!preDuplicatesCopy.isEmpty()) {

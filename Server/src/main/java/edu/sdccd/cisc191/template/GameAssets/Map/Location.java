@@ -1,9 +1,5 @@
 package edu.sdccd.cisc191.template.GameAssets.Map;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
 /**
  * TODO wip
  * recursive of Locations on a map

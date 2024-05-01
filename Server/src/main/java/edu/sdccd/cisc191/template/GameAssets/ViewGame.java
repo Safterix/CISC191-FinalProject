@@ -3,20 +3,25 @@ package edu.sdccd.cisc191.template.GameAssets;
 
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
+import edu.sdccd.cisc191.template.DataBaseApplication;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.application.Platform;
 
 import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -407,12 +412,12 @@ public class ViewGame extends Application {
         layout.setStyle("-fx-background-color: #CBD4C2");
         layout.setBottom(buttonsHolder);
 
-//        DataBaseApplication db = new DataBaseApplication();
-//            db.start(gameStage);
+        DataBaseApplication db = new DataBaseApplication();
+            db.start(gameStage);
+
 //
-////
-//        GameButton highscore = db.getPublishButton();
-//        layout.setTop(highscore);
+        GameButton highscore = db.getPublishButton();
+        layout.setTop(highscore);
 
 
         //creates scene

@@ -1,10 +1,10 @@
 package edu.sdccd.cisc191.template;
 
-import edu.sdccd.cisc191.template.ScoreInfo.Score;
-import edu.sdccd.cisc191.template.ScoreInfo.ScoreService;
 import edu.sdccd.cisc191.template.Characters.Player;
 import edu.sdccd.cisc191.template.GameAssets.GameButton;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
+import edu.sdccd.cisc191.template.ScoreInfo.Score;
+import edu.sdccd.cisc191.template.ScoreInfo.ScoreService;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
@@ -16,6 +16,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class DataBaseApplication extends Application{
     public ConfigurableApplicationContext springContext;
     private GameButton publishScore;
+
+
     public static void main(String[] args) {
 
         launch(DataBaseApplication.class, args);

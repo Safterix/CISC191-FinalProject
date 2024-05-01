@@ -2,7 +2,6 @@ package edu.sdccd.cisc191.template.GameAssets;
 
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
-import edu.sdccd.cisc191.template.GameAssets.NPCDialog.DialogBox;
 import edu.sdccd.cisc191.template.GameAssets.NPCDialog.Speech;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;

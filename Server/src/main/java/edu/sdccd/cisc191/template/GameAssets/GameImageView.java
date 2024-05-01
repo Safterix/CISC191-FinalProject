@@ -1,6 +1,5 @@
 package edu.sdccd.cisc191.template.GameAssets;
 
-import edu.sdccd.cisc191.template.ItemTypes.Item;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

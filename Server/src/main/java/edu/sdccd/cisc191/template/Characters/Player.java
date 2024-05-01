@@ -7,16 +7,23 @@ import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
 /**
  * makes PLAYER YAYER!!!
  * has score, goal, and pfp
  */
+@Entity
 public class Player extends Character {
 
-
-    private int score, id;
+@Id
+    private int score;
     private String goal;
+    @Transient
     private GameImageView profileImage;
+    @Transient
     private KnowlegeBar knowlege;
 
 
@@ -84,13 +91,6 @@ public class Player extends Character {
         return profileImage;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public KnowlegeBar getKnowlege(){return knowlege;}
 

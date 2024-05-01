@@ -174,8 +174,8 @@ public class ArchitectProjectTest
     @Test public void testRowisEmpty(){
         Inventory inv = new Inventory(true);
         Inventory inv2 = new Inventory();
-        assertFalse(inv.rowIsEmpty(1));
-        assertTrue(inv2.rowIsEmpty(1));
+        assertFalse(inv.isEmpty());
+        assertTrue(inv2.isEmpty());
 
     }
 
@@ -189,8 +189,8 @@ public class ArchitectProjectTest
         assertEquals("Rice",inv.getItem(4,3).getName());
 
         Inventory inv2 = new Inventory(true); //make full inv
-        inv2.addItem(3,new Item(true)); //try to add item
-        assertEquals(4,inv.getCol(3).size()); //shouldnt have added
+        inv2.addItem(new Item(true)); //try to add item
+        assertEquals(24,inv.getAllItems().size()); //shouldnt have added
 
     }
     /**
@@ -203,9 +203,9 @@ public class ArchitectProjectTest
         inv.addItem(4,2,new Consumable(Consumable.ConsumableItems.Apricot));
          inv.sortInv();
        assertTrue(inv.containsItem("Rice"));
-       assertEquals("Rice",inv.getItem(4,0).getName());
-        assertEquals("Apricot",inv.getItem(4,1).getName());
-        assertEquals("Nothing",inv.getItem(4,2).getName());
+       assertEquals("Rice",inv.getItem(0,1).getName());
+        assertEquals("Apricot",inv.getItem(0,2).getName());
+        assertEquals("Nothing",inv.getItem(0,3).getName());
 
     }
 

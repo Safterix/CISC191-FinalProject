@@ -1,9 +1,8 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
-import edu.sdccd.cisc191.template.ItemTypes.Item;
 import javafx.scene.layout.GridPane;
 
-import javax.swing.tree.TreeNode;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -11,65 +10,72 @@ import java.util.Collections;
  * makes inventory which is a 6x4 array list of items
  * displayed as a grid of items
  */
+@Entity
 public class Inventory{
-    private ArrayList<ArrayList<Item>> storage= new ArrayList<ArrayList<Item>>();
+    @Id
+    private boolean isPlayers;
+    @OneToMany(fetch = FetchType.EAGER)
+    private ArrayList<Item> storage= new ArrayList<Item>();
+    @Transient
     private GridPane inventoryCells= new GridPane(); //gridpane visual of iventory with item buttons inside
     // inventory is a 2d arraylist with items
     private final int colSize = 6; int rowSize = 4; //arraylist is 6x4
+    private final int size = colSize * rowSize;
+
     public Inventory(){
+        isPlayers = true;
+        for(int slot=0; slot<size;slot++){
 
-        for(int col=0; col<colSize;col++){
-            //make the rows
-            storage.add(new ArrayList<Item>());
-            for(int row=0;row<rowSize;row++){
-                //adds default Nothing item in each cell
-                storage.get(col).add(new Item());
-
+                storage.add(new Item());
             }
-        }
         sortInv();
     }
 
     /**
-     * adds random Nothing item to each cell
+     * adds random Nothing item to each cell, doesnt matter for now
      */
     public Inventory(boolean random){
+        isPlayers = false;
+        for(int slot=0; slot<size;slot++){
 
-        for(int col=0; col<colSize;col++){
-            //make the rows
-            storage.add(new ArrayList<Item>());
-            for(int row=0;row<rowSize;row++){
-                //adds random item in each cell
-                storage.get(col).add(new Item(true));
-
-            }
-
+            storage.add(new Item(true));
         }
         sortInv();
     }
 
     /**
      * adds one item
-     * @param col which row will item be in
      * @param item what is the item
      */
-    public void addItem(int col, Item item){
-            for(int i=0; i<colSize;i++){
-                if(rowIsEmpty(i))
-                    storage.get(col).add(item);
-                }
+    public void addItem(Item item){
+        if(!isFull()){
+            storage.add(new Item());}
+
+
     }
     /**
-     * adds one item, replaces actaully
-     * @param row which row will item be in
-     * @param col what col is the item being removed from
+     * reaplces one item
      * @param item what is the item
      */
     public void addItem(int col, int row, Item item){
+        int location = col * rowSize + row;
+        storage.set(location,item);
 
-                storage.get(col).remove(row);
-                storage.get(col).add(item);
+
+    }
+
+    /**
+     * checks if inventory is full, there r 24 non Nothing items
+     * @return
+     */
+    public boolean isFull(){
+
+        if(storage.size()==size){
+            return true;
         }
+        return false;
+    }
+
     /**
      * gets item from specic row and col
      * @param row which row will item be in
@@ -77,27 +83,19 @@ public class Inventory{
      * @return the item
      */
     public Item getItem(int col, int row){
-
-        return storage.get(col).get(row);
+        int location = col * rowSize + row;
+        return storage.get(location);
     }
-    /**
-     * gets col
-     * @param col the row that you want to get
-     * @return the col arraylist
-     */
-    public ArrayList<Item> getCol(int col){
 
-        return storage.get(col);
-    }
     /**
      * removes one item
      * @param row which row is in
      * @param col which col
      */
     public void removeItem(int col, int row){
+        int location = col * rowSize + row;
         //makes empty item in place of it
-        storage.get(col).remove(row);
-        storage.get(col).add(new Item());
+        storage.set(location,new Item());
         sortInv();
     }
 
@@ -111,8 +109,8 @@ public class Inventory{
         for(int col=0; col<colSize;col++){
             for(int row=0;row<rowSize;row++){
                 //adds everycell
-
-                inventoryCells.add(storage.get(col).get(row).displayItem(),col,row,1,1);
+                int location1 = col * rowSize + row;
+                inventoryCells.add(storage.get(location1).displayItem(),col,row,1,1);
 
             }
         }
@@ -125,19 +123,15 @@ public class Inventory{
      */
     public void sortInv(){
 
-        for(ArrayList<Item> col: storage){
-            Collections.sort(col,Item::compareTo);
-            }
+            Collections.sort(storage,Item::compareTo);
 
     }
-    public boolean rowIsEmpty(int col){
+    public boolean isEmpty(){
 
-        if(col<colSize){
-            for(Item item: storage.get(col)){
+            for(Item item: storage){
             if(!item.getName().equals("Nothing")){
                 return false;
             }
-        }
     }
         return true;
     }
@@ -149,15 +143,12 @@ public class Inventory{
      */
     public boolean containsItem(String itemName)
     {
-        for (ArrayList<Item> col : storage)
-        {
-            for (Item item : col)
+            for (Item item : storage)
             {
                 if (item.getName().equals(itemName))
                 {
                     return true;
                 }
-            }
         }
 
         return false;
@@ -170,24 +161,22 @@ public class Inventory{
      */
     public boolean containsItem(Item item)
     {
-        for (ArrayList<Item> col : storage)
-        {
-            for (Item exist : col)
+            for (Item exist : storage)
             {
                 if (exist.equals(item))
                 {
                     return true;
                 }
-            }
         }
 
         return false;
     }
     public Item getItemIn(int col, int row){
-        return storage.get(col).get(row);
+        int location = col * rowSize + row;
+        return storage.get(location);
     }
 
-    public ArrayList<ArrayList<Item>> getAllItems(){
+    public ArrayList<Item> getAllItems(){
         return storage;
     }
 }

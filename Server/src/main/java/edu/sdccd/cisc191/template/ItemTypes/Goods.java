@@ -38,6 +38,14 @@ public class Goods extends Item{
 //
 //        return -1;
 //    }
+
+    @Override
+    public int compareTo(Item item) {
+        if(item instanceof Goods){
+            compareTo((Goods)item);
+        }
+        return -1;
+    }
     @Override
     public int compareTo(Goods item) {
 

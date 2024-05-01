@@ -3,12 +3,17 @@ package edu.sdccd.cisc191.template.Characters;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import edu.sdccd.cisc191.template.ItemTypes.Inventory;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * makes a ahrcater with name, money, health, rep, and inventory
  *
  */
+@Entity
 public class Character
 {
+    @Id
     private String name; //name of the character
     private int money; //amount of money they have
     private int health; // amount of hp they have
@@ -32,6 +37,10 @@ public class Character
         reputation = rep;
         storage= new Inventory(true);
 
+    }
+
+    public Character() {
+        MAX_HEALTH = 100;
     }
 
     /**

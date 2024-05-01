@@ -4,19 +4,17 @@ import edu.sdccd.cisc191.template.GameAssets.GameImageView;
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
 import edu.sdccd.cisc191.template.GameAssets.GameTooltip;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
 
 /**
- * creates an npc with a everything in character, a descrption ,and body sprite
+ * creates an npc with everything in character, a descrption ,and body sprite
  */
 public class NPC extends Character {
     private String description; // descrption of charcater
     private Personality personality;
     private GameImageView bodySprite; // half body sprite u see of them
         public enum Personality{
-            angry,excited,happy,indifferent,nervous,neutral,silly;
+            angry,excited,happy,indifferent,nervous,neutral,silly
         }
 
     /**
@@ -68,20 +66,25 @@ public class NPC extends Character {
      * @return health of npc
      */
     public GameLabel showHealth(){
-        GameLabel health = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),20,"#AA0C0C");
-        return health;
+        return new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),20,"#AA0C0C");
+
     }
     /**
      * reveal the money of npc, normally hidden
      * @return money of npc
      */
     public GameLabel showMoney(){
-        GameLabel money = new GameLabel("Money: "+ getMoney(),20, "#9FB425");
-        return money;
+        return new GameLabel("Money: "+ getMoney(),20, "#9FB425");
+
     }
 
     public Personality getPersonality() {
         return personality;
+    }
+
+
+    public void setDescription(String description){
+        this.description =description;
     }
 }
 

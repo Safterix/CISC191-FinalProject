@@ -1,17 +1,22 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
-import edu.sdccd.cisc191.template.Characters.Character;
 import edu.sdccd.cisc191.template.GameAssets.GameButton;
-import javafx.event.ActionEvent;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
  * creates a general items, things you can have in an inventory
  * has a name and descrption and gameBUtton icon
  */
+@Entity
 public class Item implements Comparable<Item> {
-    private String name, description; //name and desc of item
+
+    @Id
+    private String name;
+    private String description; //name and desc of item
+    @Transient
     GameButton icon; //pic of item on button
 
     /**
@@ -100,12 +105,9 @@ public class Item implements Comparable<Item> {
      */
     @Override
     public int compareTo(Item item) {
-        if(item.getName().equals(this.getName())){
-            return 0;
-        }
         if(item.getName().equals("Nothing")){
             return 1;}
-        else if (((Item) item).getClass().toString().equals("Goods")) {
+        else if (("Goods".equals(item.getClass().toString()))) {
             return -1;
         }
         return 0;
@@ -114,7 +116,7 @@ public class Item implements Comparable<Item> {
         if(item.getName().equals(this.getName())){
             return 0;
         }
-        return 1;
+        return -1;
     }
 
 
