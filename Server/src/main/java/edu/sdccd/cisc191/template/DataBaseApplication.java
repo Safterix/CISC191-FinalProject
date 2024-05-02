@@ -5,12 +5,8 @@ import edu.sdccd.cisc191.template.GameAssets.GameButton;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import edu.sdccd.cisc191.template.ScoreInfo.PlayerService;
 import javafx.application.Application;
-
-import javafx.scene.control.Alert;
-import org.h2.tools.Server;
-
-import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import org.h2.tools.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -43,7 +39,9 @@ public DataBaseApplication(){}
         int sceneHeight = (int) primaryStage.getHeight();
         publishScore = new GameButton("Publish Score?", (sceneWidth / 4), (sceneHeight / 10), (sceneWidth /30));
             publishScore.setOnAction(event -> {
+                init();
                 PlayerService playerService = springContext.getBean(PlayerService.class);
+                playerService.save(ViewGame.getPlayer());
                 for(Player player: playerService.findAll()){
                     System.out.print(player.toString());
                 }

@@ -6,12 +6,20 @@ import edu.sdccd.cisc191.template.GameAssets.GameTooltip;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.scene.image.Image;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
 /**
  * creates an npc with everything in character, a descrption ,and body sprite
  */
+@Entity
 public class NPC extends Character {
+    @Id
     private String description; // descrption of charcater
+    @Transient
     private Personality personality;
+    @Transient
     private GameImageView bodySprite; // half body sprite u see of them
         public enum Personality{
             angry,excited,happy,indifferent,nervous,neutral,silly

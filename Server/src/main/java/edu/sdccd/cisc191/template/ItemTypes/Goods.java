@@ -1,10 +1,14 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * goods item TODO WIP WIP
  * has value and everythign Item
  *
  */
+@Entity
 public class Goods extends Item{
 
     //all the commicerial goods in china
@@ -67,6 +71,7 @@ public class Goods extends Item{
     public enum CommercialGoods {
         Silk,Porcelain,Gunpowder,Fabric,Spices,Dye,Ivory,Gold,Silver,Iron,Copper,Limestone,Frankincense,Incense,Pearls
     }
+    @Id
     private int value; // price of the item
 
     /**

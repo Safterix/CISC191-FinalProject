@@ -15,7 +15,7 @@ public class Inventory{
     @Id
     private boolean isPlayers;
     @OneToMany(fetch = FetchType.EAGER)
-    private ArrayList<Item> storage= new ArrayList<Item>();
+    private ArrayList<Item> storage;
     @Transient
     private GridPane inventoryCells= new GridPane(); //gridpane visual of iventory with item buttons inside
     // inventory is a 2d arraylist with items
@@ -23,6 +23,7 @@ public class Inventory{
     private final int size = colSize * rowSize;
 
     public Inventory(){
+        storage= new ArrayList<Item>();
         isPlayers = true;
         for(int slot=0; slot<size;slot++){
 
@@ -35,6 +36,8 @@ public class Inventory{
      * adds random Nothing item to each cell, doesnt matter for now
      */
     public Inventory(boolean random){
+
+        storage= new ArrayList<Item>();
         isPlayers = false;
         for(int slot=0; slot<size;slot++){
 
