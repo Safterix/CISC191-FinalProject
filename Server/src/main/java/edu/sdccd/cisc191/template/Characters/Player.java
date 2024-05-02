@@ -112,5 +112,8 @@ public class Player extends Character {
 
         return stats;
 }
-
+@Override
+    public String toString(){
+        return getName() + ": " +getScore();
+}
 }

@@ -416,7 +416,7 @@ public class ViewGame extends Application {
             db.start(gameStage);
 
 //
-        GameButton highscore = db.getPublishButton();
+        GameButton highscore = DataBaseApplication.getPublishButton();
         layout.setTop(highscore);
 
 
