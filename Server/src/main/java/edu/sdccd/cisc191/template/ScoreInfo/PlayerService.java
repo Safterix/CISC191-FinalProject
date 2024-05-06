@@ -11,13 +11,13 @@ import java.util.List;
 @Service
 public class PlayerService {
     @Autowired
-    PlayerRepo playerRepo;
+    PlayerRepository playerRepo;
     @Autowired
-    InventoryRepo invRepo;
+    InventoryRepository invRepo;
     @Autowired
-    ItemRepo itemRepo;
+    ItemRepository itemRepo;
     @Autowired
-    CharacterRepo characterRepo;
+    CharacterRepository characterRepo;
 
     public Player save(Player player){
         return playerRepo.save(player);

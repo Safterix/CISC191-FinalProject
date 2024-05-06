@@ -2,6 +2,8 @@ package edu.sdccd.cisc191.template.ItemTypes;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  * goods item TODO WIP WIP
@@ -9,7 +11,11 @@ import javax.persistence.Id;
  *
  */
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Goods extends Item{
+
+    @Id
+    private int value; // price of the item
 
     //all the commicerial goods in china
     public static CommercialGoods[] china = new CommercialGoods[]{CommercialGoods.Silk,CommercialGoods.Porcelain,CommercialGoods.Gunpowder};
@@ -71,8 +77,7 @@ public class Goods extends Item{
     public enum CommercialGoods {
         Silk,Porcelain,Gunpowder,Fabric,Spices,Dye,Ivory,Gold,Silver,Iron,Copper,Limestone,Frankincense,Incense,Pearls
     }
-    @Id
-    private int value; // price of the item
+
 
     /**
      * picks random commerical good from a region, ex. put china pics a random chinese item

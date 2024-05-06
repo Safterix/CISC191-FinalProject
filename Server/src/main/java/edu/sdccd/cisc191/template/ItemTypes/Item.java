@@ -2,15 +2,14 @@ package edu.sdccd.cisc191.template.ItemTypes;
 
 import edu.sdccd.cisc191.template.GameAssets.GameButton;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 /**
  * creates a general items, things you can have in an inventory
  * has a name and descrption and gameBUtton icon
  */
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Item implements Comparable<Item> {
 
     @Id

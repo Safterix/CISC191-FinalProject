@@ -2,7 +2,10 @@ package edu.sdccd.cisc191.template.ScoreInfo;
 
 import edu.sdccd.cisc191.template.ItemTypes.Inventory;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface InventoryRepo extends CrudRepository<Inventory, String> {
+
+@Repository
+public interface InventoryRepository extends CrudRepository<Inventory, String> {
 
 }

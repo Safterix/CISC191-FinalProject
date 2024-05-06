@@ -60,6 +60,7 @@ public static GameButton getPublishButton(){
 }
     public Server inMemoryDBServer() throws SQLException {
         return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092");
+
     }
 }
 

@@ -31,6 +31,9 @@ public class Speech {
          display = new DialogBox(speaker, introduction(), speakerPersonality.toString(), true);}
         else{display = new DialogBox(speaker, introduction(), speakerPersonality.toString(), false);}
 
+
+
+
     }
 
     /**
