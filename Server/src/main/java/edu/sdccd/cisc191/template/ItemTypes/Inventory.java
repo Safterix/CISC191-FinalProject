@@ -10,13 +10,13 @@ import java.util.Collections;
  * makes inventory which is a 6x4 array list of items
  * displayed as a grid of items
  */
-@Entity
+//@Entity
 public class Inventory{
-    @Id
+//    @Id
     private boolean isPlayers;
-    @OneToMany(fetch = FetchType.EAGER)
+//    @OneToMany(fetch = FetchType.EAGER)
     private ArrayList<Item> storage;
-    @Transient
+//    @Transient
     private GridPane inventoryCells= new GridPane(); //gridpane visual of iventory with item buttons inside
     // inventory is a 2d arraylist with items
     private final int colSize = 6; int rowSize = 4; //arraylist is 6x4
@@ -29,7 +29,7 @@ public class Inventory{
 
                 storage.add(new Item());
             }
-        sortInv();
+
     }
 
     /**
@@ -43,7 +43,6 @@ public class Inventory{
 
             storage.add(new Item(true));
         }
-        sortInv();
     }
 
     /**
@@ -99,7 +98,6 @@ public class Inventory{
         int location = col * rowSize + row;
         //makes empty item in place of it
         storage.set(location,new Item());
-        sortInv();
     }
 
     /**
@@ -125,8 +123,7 @@ public class Inventory{
      * TODO attempt at sorting inv items
      */
     public void sortInv(){
-
-            Collections.sort(storage,Item::compareTo);
+            Collections.sort(storage);
 
     }
     public boolean isEmpty(){
@@ -178,8 +175,18 @@ public class Inventory{
         int location = col * rowSize + row;
         return storage.get(location);
     }
+    public String toString(){
+        String allItems = "";
+        for(Item item :storage){
+               allItems += " "+ item.getName();
+            }
+        return allItems;
+    }
 
     public ArrayList<Item> getAllItems(){
         return storage;
     }
+
+
+
 }

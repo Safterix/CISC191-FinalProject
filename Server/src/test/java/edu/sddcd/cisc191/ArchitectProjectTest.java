@@ -17,6 +17,7 @@ import org.junit.jupiter.api.TestInstance;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -158,7 +159,7 @@ public class ArchitectProjectTest
             testList.add(new Consumable(Consumable.ConsumableItems.Apricot));
             testList.add(new Item());
             testList.add(new Item());
-            testList.sort(Item::compareTo);
+            Collections.sort(testList);
             //rice -> apricots -> nothing
             assertEquals("Rice", testList.get(0).getName());
             assertEquals("Rice", testList.get(1).getName());
@@ -203,9 +204,19 @@ public class ArchitectProjectTest
         inv.addItem(4,2,new Consumable(Consumable.ConsumableItems.Apricot));
          inv.sortInv();
        assertTrue(inv.containsItem("Rice"));
-       assertEquals("Rice",inv.getItem(0,1).getName());
-        assertEquals("Apricot",inv.getItem(0,2).getName());
-        assertEquals("Nothing",inv.getItem(0,3).getName());
+       assertEquals("Rice",inv.getItem(0,0).getName());
+        assertEquals("Apricot",inv.getItem(0,1).getName());
+        assertEquals("Nothing",inv.getItem(0,2).getName());
+
+    }
+    /**
+     * tests to see if sorting inventory work
+     * TODO idk why it doesnt work
+     */
+    @Test public void testSortInvRandom(){
+        Inventory inv = new Inventory(true);
+        inv.sortInv();
+        System.out.print(inv);
 
     }
 

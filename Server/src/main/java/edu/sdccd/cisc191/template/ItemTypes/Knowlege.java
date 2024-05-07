@@ -6,14 +6,14 @@ import javax.persistence.Id;
 /**
  * TODO knowlege "items" like relgion and skills
  */
-
-@Entity
+//
+//@Entity
 public class Knowlege extends Goods{
     public enum KnowlegeSkills{
         SilkMaking, Fermenting
     }
-    @Id
-    boolean idk;
+//    @Id
+    private boolean idk;
 
 
 }

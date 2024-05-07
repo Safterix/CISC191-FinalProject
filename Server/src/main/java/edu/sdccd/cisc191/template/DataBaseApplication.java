@@ -21,15 +21,15 @@ public class DataBaseApplication extends Application{
 
     public static void main(String[] args) {
 
-        launch(DataBaseApplication.class, args);
+        launch(args);
     }
 
 public DataBaseApplication(){}
     @Override
     public void init() {
         springContext = SpringApplication.run(DataBaseApplication.class);
-        PlayerService playerService = springContext.getBean(PlayerService.class);
-        playerService.save(ViewGame.getPlayer());
+//        PlayerService playerService = springContext.getBean(PlayerService.class);
+//        playerService.save(ViewGame.getPlayer());
     }
         @Override
     public void start(Stage primaryStage) {
@@ -42,9 +42,6 @@ public DataBaseApplication(){}
                 init();
                 PlayerService playerService = springContext.getBean(PlayerService.class);
                 playerService.save(ViewGame.getPlayer());
-                for(Player player: playerService.findAll()){
-                    System.out.print(player.toString());
-                }
             });
 
     }

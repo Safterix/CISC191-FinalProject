@@ -6,8 +6,8 @@ import javax.persistence.Id;
 /**
  * heal items with enums to pick TODO MAKE OTHER ITEMS HAVE ENUMS TOO
  * has heal the heal amount number and everything in goods
- */
-@Entity
+// */
+//@Entity
 public class Consumable extends Goods{
         //options of items from china
         public static ConsumableItems[] china = new ConsumableItems[]{ConsumableItems.Apricot,ConsumableItems.Peach, ConsumableItems.Tea,
@@ -26,7 +26,7 @@ public class Consumable extends Goods{
             Apricot,Peach,Plum,Tea,Wine,Rice,Watermelon,Eggplant,Cucumber,Dates,Pistachio;
         }
 
-        @Id
+//        @Id
         private int heal; // the heal value of the item
 
     /**

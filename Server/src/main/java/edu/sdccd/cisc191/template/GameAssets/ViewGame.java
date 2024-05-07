@@ -4,6 +4,7 @@ package edu.sdccd.cisc191.template.GameAssets;
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
 import edu.sdccd.cisc191.template.DataBaseApplication;
+import edu.sdccd.cisc191.template.ScoreInfo.PlayerService;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -111,6 +112,10 @@ public class ViewGame extends Application {
         settings.setOnAction((ActionEvent settingsShow) -> {
             showSettings();
         });
+        GameButton score = new GameButton("score", sceneWidth / 4, sceneHeight / 12, sceneWidth / 30);
+        score.setOnAction((ActionEvent settingsShow) -> {
+            makeHighScore();
+        });
         //makes quit button which exits the window
         GameButton quit = new GameButton("Quit", sceneWidth / 6, sceneHeight / 15, sceneWidth / 45);
         quit.setOnAction((ActionEvent exit) -> {
@@ -118,7 +123,7 @@ public class ViewGame extends Application {
         });
 
         //makes holder for the buttons and centers it, adds all the four buttons
-        VBox buttonsHolder = new VBox(5, start, credits, settings, quit);
+        VBox buttonsHolder = new VBox(5, start, credits, settings,score, quit);
         buttonsHolder.setAlignment(Pos.CENTER);
 
         // add title and subtitle using gameLabels
@@ -523,9 +528,14 @@ public class ViewGame extends Application {
      * TODO writes to a Target file not sure what that is rn...
      *  TODO have string array....
      */
-    public void makeHighScore(String score) {
-        scoresHolder = score;
-
+    public void makeHighScore() {
+        PlayerService ps = new PlayerService();
+        HBox scoresHOlder = new HBox();
+        for(Player player:ps.findAll()){
+            scoresHOlder.getChildren().add(new GameButton(player.getName()+player.getScore(),sceneWidth / 4, sceneHeight / 10, sceneWidth / 30));
+        }
+        GameScene scene = new GameScene(new BorderPane(scoresHOlder), sceneWidth, sceneHeight);
+        switchScene(scene, "scorre");
 //        System.out.print(scores.canWrite());
 //        try {
 //            PrintWriter out = new PrintWriter(new FileWriter(scores));

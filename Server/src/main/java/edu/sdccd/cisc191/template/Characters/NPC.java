@@ -13,13 +13,13 @@ import javax.persistence.Transient;
 /**
  * creates an npc with everything in character, a descrption ,and body sprite
  */
-@Entity
+//@Entity
 public class NPC extends Character {
-    @Id
+//    @Id
     private String description; // descrption of charcater
-    @Transient
+//    @Transient
     private Personality personality;
-    @Transient
+//    @Transient
     private GameImageView bodySprite; // half body sprite u see of them
         public enum Personality{
             angry,excited,happy,indifferent,nervous,neutral,silly

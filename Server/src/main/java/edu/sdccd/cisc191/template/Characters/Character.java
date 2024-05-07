@@ -8,20 +8,20 @@ import javax.persistence.*;
 /**
  * makes a ahrcater with name, money, health, rep, and inventory
  *
- */
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+// */
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 
 public class Character
 {
-    @Id
+//    @Id
     private String name; //name of the character
     private int money; //amount of money they have
     private int health; // amount of hp they have
     private final int MAX_HEALTH;
     private int reputation; // reputation from [-100,100]
 
-    @OneToOne(fetch = FetchType.EAGER)
+//    @OneToOne(fetch = FetchType.EAGER)
     private Inventory storage;
 
 

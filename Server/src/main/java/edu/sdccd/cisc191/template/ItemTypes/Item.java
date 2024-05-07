@@ -7,15 +7,15 @@ import javax.persistence.*;
 /**
  * creates a general items, things you can have in an inventory
  * has a name and descrption and gameBUtton icon
- */
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+// */
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Item implements Comparable<Item> {
-
-    @Id
+//
+//    @Id
     private String name;
     private String description; //name and desc of item
-    @Transient
+//    @Transient
     GameButton icon; //pic of item on button
 
     /**
