@@ -1,6 +1,7 @@
 package edu.sdccd.cisc191.template.ScoreInfo;
 
 import edu.sdccd.cisc191.template.Characters.Player;
+import edu.sdccd.cisc191.template.ItemTypes.Consumable;
 import edu.sdccd.cisc191.template.ItemTypes.Inventory;
 import edu.sdccd.cisc191.template.ItemTypes.Item;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,16 @@ public class PlayerService {
     ItemRepository itemRepo;
     @Autowired
     CharacterRepository characterRepo;
+    @Autowired
+    GoodsRepository goodsRepository;
+    @Autowired
+    ConsumableRepository consumableRepo;
+    @Autowired
+    KnowlegeRepository knowledgeRepo;
+    @Autowired
+    NPCRepository NPCrepo;
+
+
 
     public Player save(Player player){
         return playerRepo.save(player);
@@ -37,4 +48,5 @@ public class PlayerService {
 
     public List<Player> findAll() {
         return (List<Player>) playerRepo.findAll(); }
+
 }

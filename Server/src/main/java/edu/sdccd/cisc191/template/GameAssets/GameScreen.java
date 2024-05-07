@@ -73,4 +73,9 @@ public class GameScreen {
         return wholeUi;
 
     }
+
+    private void clickItem(){
+
+
+    }
 }
