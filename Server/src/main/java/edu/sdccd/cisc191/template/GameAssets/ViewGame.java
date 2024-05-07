@@ -6,9 +6,12 @@ import edu.sdccd.cisc191.template.Characters.Player;
 import edu.sdccd.cisc191.template.DataBaseApplication;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -38,8 +41,11 @@ public class ViewGame extends Application {
     private Media media2 = new Media(getClass().getResource("/music/chinabgm.mp3").toString());
     // Create a MediaPlayer with the Media object
     private MediaPlayer mediaPlayer = new MediaPlayer(media);
-
     private MediaPlayer mediaPlayer2 = new MediaPlayer((media2));
+    private double volume=0.1;
+
+
+
     private boolean isPlaying;
     protected static int sceneWidth = 0; //this way, the class itself keeps track of the screen's size
     private  static int sceneHeight = 0;
@@ -73,8 +79,10 @@ public class ViewGame extends Application {
     @Override
     public void start(Stage stage) {
         ended=false;
+
+
         // Lower the volume of BGM (0.05 means 5% of maximum volume)
-        mediaPlayer.setVolume(0.05);
+        mediaPlayer.setVolume(volume);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); //loop music
         mediaPlayer.play(); //playmusic
 
@@ -175,7 +183,7 @@ public class ViewGame extends Application {
      */
     protected void showCredits() {
 
-        mediaPlayer2.setVolume(0.10);
+        mediaPlayer2.setVolume(volume);
         mediaPlayer2.setCycleCount(MediaPlayer.INDEFINITE); //loop music
         mediaPlayer2.play();
 
@@ -245,6 +253,8 @@ public class ViewGame extends Application {
      * TODO audio slider
      */
     protected void showSettings() {
+
+
         //creates window options first 640x360px that sets screen dimensions to tat
         GameButton smallerSize = new GameButton("640x360", sceneWidth / 2, sceneHeight / 10, sceneWidth / 20);
         smallerSize.setOnAction((ActionEvent size360p) -> {
@@ -267,8 +277,32 @@ public class ViewGame extends Application {
             start(gameStage);
         });
 
+
+        //audio slider
+        Slider audioSlider = new Slider(0,100,(volume/(0.0020)));
+        audioSlider.setShowTickMarks(true);
+        audioSlider.setShowTickLabels(true);
+        audioSlider.setMajorTickUnit(50);
+        audioSlider.getStylesheets().add((getClass().getResource("/colorPalette.css").toExternalForm()));
+        audioSlider.setMaxSize(sceneWidth / 2, sceneHeight / 10);
+
+        //anon class WOW!!!!!!!!!!!!!!!!!!!!!
+        audioSlider.valueProperty().addListener(new ChangeListener<Number>() {
+
+            public void changed(
+                    ObservableValue<? extends Number> observableValue,
+                    Number oldValue,
+                    Number newValue) {
+                volume=(0.0020)*(audioSlider.getValue());
+                mediaPlayer.setVolume(volume);
+            }
+        });
+
+
+
+
         //adds buttons to a button holder then centers it
-        VBox buttonHolder = new VBox(5, smallerSize, defautlSize, biggerSize, goBack);
+        VBox buttonHolder = new VBox(5, smallerSize, defautlSize, biggerSize,audioSlider, goBack);
         buttonHolder.setAlignment(Pos.CENTER);
 
         //makes borderpane and adds the buttons holder
