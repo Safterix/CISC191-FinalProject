@@ -14,6 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,7 +22,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.h2.engine.Database;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.Import;
 
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +41,7 @@ import static edu.sdccd.cisc191.template.GameAssets.GameScreen.defaultScreen;
 /**
  *the starting screens of the game, includes start page, settings, credits and the starting of the game
  */
+@Import(DataBaseApplication.class)
 public class ViewGame extends Application {
 
     private Media media = new Media(getClass().getResource("/music/romebgm.mp3").toString()); //music file
@@ -54,9 +60,7 @@ public class ViewGame extends Application {
     private static Stage gameStage;//the stage so u can switch it
     private static Player player;//player when the player makes themselves
     private  String scoresHolder; // TODO make this string array instead and make it work
-
-    private static boolean ended;
-
+    private static DataBaseApplication NPCdb;
     private File scores = new File(getClass().getResource("/Scores.txt").getPath());
     //TODO eventualyl for networking and high scores....an attempt was made...
     public ViewGame(){};
@@ -65,12 +69,12 @@ public class ViewGame extends Application {
      * @param args app launch
      */
     public static void main(String[] args) {
+
+        NPCdb = new DataBaseApplication();
+        NPCdb.init();
         launch();
     }
 
-    public static boolean isEnd() {
-        return ended;
-    }
 
     /**
      * creates the start screen
@@ -79,8 +83,6 @@ public class ViewGame extends Application {
      */
     @Override
     public void start(Stage stage) {
-        ended=false;
-
 
         // Lower the volume of BGM (0.05 means 5% of maximum volume)
         mediaPlayer.setVolume(volume);
@@ -112,18 +114,16 @@ public class ViewGame extends Application {
         settings.setOnAction((ActionEvent settingsShow) -> {
             showSettings();
         });
-        GameButton score = new GameButton("score", sceneWidth / 4, sceneHeight / 12, sceneWidth / 30);
-        score.setOnAction((ActionEvent settingsShow) -> {
-            makeHighScore();
-        });
+
         //makes quit button which exits the window
         GameButton quit = new GameButton("Quit", sceneWidth / 6, sceneHeight / 15, sceneWidth / 45);
         quit.setOnAction((ActionEvent exit) -> {
             Platform.exit();
+            NPCdb.stop();
         });
 
         //makes holder for the buttons and centers it, adds all the four buttons
-        VBox buttonsHolder = new VBox(5, start, credits, settings,score, quit);
+        VBox buttonsHolder = new VBox(5, start, credits, settings, quit);
         buttonsHolder.setAlignment(Pos.CENTER);
 
         // add title and subtitle using gameLabels
@@ -150,6 +150,9 @@ public class ViewGame extends Application {
         gameStage.setScene(scene);
         //cannot resize so that the settings will work...
         gameStage.resizableProperty().set(false);
+
+
+        gameStage.getIcons().add(new Image("image/Sprites/Cat_happy.png"));
         //shows the stage
         gameStage.show();
 
@@ -365,7 +368,7 @@ public class ViewGame extends Application {
 
             //TODO TEMP just makes an NPC for now to display the GameScreen as demo
                 //TODO all of the gamescene settings have an NPC on it for demo yes
-                NPC notPlayer = new NPC();
+                NPC notPlayer = new NPC(true);
 
                 //asks the player for their goal
                 GameTextArea goal = new GameTextArea("What is your goal in life...?","nervous");
@@ -415,7 +418,7 @@ public class ViewGame extends Application {
      * TODO also has a publish score button that is WIP networking
      */
     public void endGame() {
-        ended = true;
+
         //makes save button that calls save() to save your score
         GameButton save = new GameButton("Save", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
         save.setOnAction((ActionEvent saveAchievements) -> {
@@ -451,12 +454,6 @@ public class ViewGame extends Application {
         layout.setStyle("-fx-background-color: #CBD4C2");
         layout.setBottom(buttonsHolder);
 
-        DataBaseApplication db = new DataBaseApplication();
-            db.start(gameStage);
-
-//
-        GameButton highscore = DataBaseApplication.getPublishButton();
-        layout.setTop(highscore);
 
 
         //creates scene
@@ -523,29 +520,29 @@ public class ViewGame extends Application {
                 "Your Achievements:\n");
         output.close();
     }
-    /**
-     * TODO writes your highscore to the file, need to sort from high to low!
-     * TODO writes to a Target file not sure what that is rn...
-     *  TODO have string array....
-     */
-    public void makeHighScore() {
-        PlayerService ps = new PlayerService();
-        HBox scoresHOlder = new HBox();
-        for(Player player:ps.findAll()){
-            scoresHOlder.getChildren().add(new GameButton(player.getName()+player.getScore(),sceneWidth / 4, sceneHeight / 10, sceneWidth / 30));
-        }
-        GameScene scene = new GameScene(new BorderPane(scoresHOlder), sceneWidth, sceneHeight);
-        switchScene(scene, "scorre");
-//        System.out.print(scores.canWrite());
-//        try {
-//            PrintWriter out = new PrintWriter(new FileWriter(scores));
-//            out.write(string);
-//            out.close();
-//            System.out.print("i have written");
-//        } catch (IOException e) {
-//            e.printStackTrace(); }
-
-            }
+//    /**
+//     * TODO writes your highscore to the file, need to sort from high to low!
+//     * TODO writes to a Target file not sure what that is rn...
+//     *  TODO have string array....
+//     */
+//    public void makeHighScore() {
+//        PlayerService ps = new PlayerService();
+//        HBox scoresHOlder = new HBox();
+//        for(Player player:ps.findAll()){
+//            scoresHOlder.getChildren().add(new GameButton(player.getName()+player.getScore(),sceneWidth / 4, sceneHeight / 10, sceneWidth / 30));
+//        }
+//        GameScene scene = new GameScene(new BorderPane(scoresHOlder), sceneWidth, sceneHeight);
+//        switchScene(scene, "scorre");
+////        System.out.print(scores.canWrite());
+////        try {
+////            PrintWriter out = new PrintWriter(new FileWriter(scores));
+////            out.write(string);
+////            out.close();
+////            System.out.print("i have written");
+////        } catch (IOException e) {
+////            e.printStackTrace(); }
+//
+//            }
 
     /**
      * returns the scores TODO rn just a string but will be string array

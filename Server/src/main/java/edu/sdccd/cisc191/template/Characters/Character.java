@@ -8,20 +8,20 @@ import javax.persistence.*;
 /**
  * makes a ahrcater with name, money, health, rep, and inventory
  *
-// */
-//@Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+ */
+@MappedSuperclass
 
 public class Character
 {
-//    @Id
+    @Id
     private String name; //name of the character
-    private int money; //amount of money they have
-    private int health; // amount of hp they have
-    private final int MAX_HEALTH;
-    private int reputation; // reputation from [-100,100]
-
+    private Integer money; //amount of money they have
+    private Integer health; // amount of hp they have
+    private final Integer MAX_HEALTH;
+    private Integer reputation; // reputation from [-100,100]
+//
 //    @OneToOne(fetch = FetchType.EAGER)
+    @Transient
     private Inventory storage;
 
 
@@ -46,10 +46,26 @@ public class Character
         MAX_HEALTH = 100;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
+    public void setHealth(Integer health) {
+        this.health = health;
+    }
+
+    public void setReputation(Integer reputation) {
+        this.reputation = reputation;
+    }
+
     /**
      * @return money
      */
-    public int getMoney()
+    public Integer getMoney()
     {
         return money;
     }
@@ -99,18 +115,15 @@ public class Character
     /**
      * @return health
      */
-    public int getHealth()
+    public Integer getHealth()
     {
         return health;
     }
 
-    /**
-     * @return max health
-     */
-    public int getMAX_HEALTH()
-    {
+    public Integer getMAX_HEALTH() {
         return MAX_HEALTH;
     }
+
     /**
      * heals character by healAmount
      */
@@ -142,7 +155,7 @@ public class Character
      * @return reputation
      * NPCS have constant reputation while Player has fliud reputation me thinky
      */
-    public int getReputation()
+    public Integer getReputation()
     {
         return reputation;
     }

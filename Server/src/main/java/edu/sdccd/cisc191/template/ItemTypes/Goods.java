@@ -9,12 +9,12 @@ import javax.persistence.InheritanceType;
  * goods item TODO WIP WIP
  * has value and everythign Item
  *
- */
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+// */
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Goods extends Item{
-
-    @Id
+//
+//    @Id
     private int value; // price of the item
 
     //all the commicerial goods in china

@@ -7,23 +7,23 @@ import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 /**
  * makes PLAYER YAYER!!!
  * has score, goal, and pfp
  */
-@Entity
+//@Entity
 public class Player extends Character {
+//    @Id
+//    @GeneratedValue
+        private int id;
 
-@Id
     private int score;
     private String goal;
-    @Transient
+//    @Transient
     private GameImageView profileImage;
-    @Transient
+//    @Transient
     private KnowlegeBar knowlege;
 
 
@@ -40,6 +40,14 @@ public class Player extends Character {
         goal= "None";
         knowlege = new KnowlegeBar();
         profileImage=new GameImageView(new Image("image/Sprites/Player.png"));
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**

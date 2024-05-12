@@ -1,6 +1,7 @@
 //package edu.sdccd.cisc191.template.ScoreInfo.Repositories;
 //
 //import edu.sdccd.cisc191.template.Characters.Character;
+//import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.data.repository.CrudRepository;
 //import org.springframework.stereotype.Repository;
 //
@@ -8,6 +9,6 @@
 //
 //
 //@Repository
-//public interface CharacterRepository extends CrudRepository<Character, String> {
-//    List<Character> findByName(String name);
+//public interface CharacterRepository<T extends Character> extends JpaRepository<Character, String> {
+//    List<T> getAll();
 //}

@@ -1,5 +1,6 @@
 package edu.sdccd.cisc191.template.ScoreInfo;
 
+import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
 
 import edu.sdccd.cisc191.template.Characters.Character;
@@ -13,27 +14,27 @@ import java.util.List;
 
 @Service
 public class PlayerService {
-    @Autowired
-    PlayerRepository playerRepo;
+//    @Autowired
+//    PlayerRepository<Player> playerRepo;
 //    @Autowired
 //    InventoryRepository invRepo;
 //    @Autowired
-//    ItemRepository itemRepo;
+//////    ItemRepository itemRepo;
 //    @Autowired
-//    CharacterRepository characterRepo;
+//    CharacterRepository<NPC> npcRepository;
 //    @Autowired
 //    GoodsRepository goodsRepository;
 //    @Autowired
 //    ConsumableRepository consumableRepo;
-//    @Autowired
+////    @Autowired
 //    KnowlegeRepository knowledgeRepo;
-//    @Autowired
-//    NPCRepository NPCrepo;
+    @Autowired
+    NPCRepository NPCrepo;
 
 
 
-    public Player save(Player player){
-        return playerRepo.save(player);
+    public NPC save(NPC npc){
+        return NPCrepo.save(npc);
     }
 //    public Character save(Character character){
 //        return characterRepo.save(character);
@@ -48,7 +49,7 @@ public class PlayerService {
 //        return itemRepo.save(item);
 //    }
 
-    public List<Player> findAll() {
-        return (List<Player>) playerRepo.findAll(); }
+    public List<NPC> findAll() {
+        return (List<NPC>) NPCrepo.findAll(); }
 
 }
