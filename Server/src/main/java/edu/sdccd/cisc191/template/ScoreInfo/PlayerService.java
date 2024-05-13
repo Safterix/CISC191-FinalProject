@@ -14,20 +14,9 @@ import java.util.List;
 
 @Service
 public class PlayerService {
-//    @Autowired
-//    PlayerRepository<Player> playerRepo;
-//    @Autowired
-//    InventoryRepository invRepo;
-//    @Autowired
-//////    ItemRepository itemRepo;
-//    @Autowired
-//    CharacterRepository<NPC> npcRepository;
-//    @Autowired
-//    GoodsRepository goodsRepository;
-//    @Autowired
-//    ConsumableRepository consumableRepo;
-////    @Autowired
-//    KnowlegeRepository knowledgeRepo;
+    @Autowired
+    PlayerRepository playerRepo;
+
     @Autowired
     NPCRepository NPCrepo;
 
@@ -36,20 +25,13 @@ public class PlayerService {
     public NPC save(NPC npc){
         return NPCrepo.save(npc);
     }
-//    public Character save(Character character){
-//        return characterRepo.save(character);
-//    }
-//    public Inventory save(Inventory inventory){
-//
-//        return invRepo.save(inventory);
-//    }
-//
-//    public Item save(Item item){
-//
-//        return itemRepo.save(item);
-//    }
+    public Player save(Player player){
+        return playerRepo.save(player);
+    }
+    public List<Player> findAllPlayer() {
+        return (List<Player>) playerRepo.findAll(); }
 
-    public List<NPC> findAll() {
+    public List<NPC> findAllNPC() {
         return (List<NPC>) NPCrepo.findAll(); }
 
 }

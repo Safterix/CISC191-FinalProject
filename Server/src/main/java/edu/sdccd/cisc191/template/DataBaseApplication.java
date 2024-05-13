@@ -6,6 +6,8 @@ import edu.sdccd.cisc191.template.GameAssets.GameButton;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import edu.sdccd.cisc191.template.ScoreInfo.PlayerService;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import org.h2.tools.Server;
 import org.springframework.boot.CommandLineRunner;
@@ -43,13 +45,17 @@ public DataBaseApplication(){
         NPC TaoYu = new NPC("Tao Yu",100,100, (short) 50,"Mysterious");
         NPC Creature = new NPC("Creature",10000,100, (short) 0,":3");
         NPC Cat = new NPC("Cat",3,100, (short) 0,"mew.");
+        Player noOne = new Player("NoOne");
+
         playerService.save(Marky);
         playerService.save(Meowky);
         playerService.save(TaoYu);
         playerService.save(Creature);
         playerService.save(Cat);
-        random= playerService.findAll();
-        for(NPC npc: playerService.findAll()) {
+        playerService.save(noOne);
+
+        random= playerService.findAllNPC();
+        for(NPC npc: playerService.findAllNPC()) {
             System.out.println(npc.toString());
         }
 //        PlayerService playerService = springContext.getBean(PlayerService.class);
@@ -59,32 +65,29 @@ public DataBaseApplication(){
     public void start(Stage primaryStage) {
 
            PlayerService playerService=springContext.getBean(PlayerService.class);
-           random= playerService.findAll();
-////makes button that asks if u want to publish score
-//        int sceneWidth = (int) primaryStage.getWidth();
-//        int sceneHeight = (int) primaryStage.getHeight();
-//        publishScore = new GameButton("Publish Score?", (sceneWidth / 4), (sceneHeight / 10), (sceneWidth /30));
-//            publishScore.setOnAction(event -> {
-//                init();
-//                PlayerService playerService = springContext.getBean(PlayerService.class);
-//                playerService.save(ViewGame.getPlayer());
-//                for(Player playerr:playerService.findAll()){
-//                    System.out.println(playerr);
-//                }
-//            });
+           random= playerService.findAllNPC();
 
     }
-//    @Bean
-//    CommandLineRunner commandLineRunner(PlayerService ps){
-//        return args -> {
-//            NPC Marky = new NPC("Marky",10,100, (short) 0,"Hai");
-//            NPC Meowky = new NPC("Meowky",3,100, (short) 0,"Meowmeowmeow.");
-//            NPC TaoYu = new NPC("Tao Yu",100,100, (short) 50,"Mysterious");
-//            NPC Creature = new NPC("Creature",10000,100, (short) 0,":3");
-//            NPC Cat = new NPC("Cat",3,100, (short) 0,"mew.");
-//            random=ps.findAll();
-//        };
-//    }
+
+
+    public GameButton publishScore(){
+        GameButton publishScoreButton = new GameButton("Publish Score?", ViewGame.getScreenDimensions() / 4, ViewGame.getScreenDimensions() / 10, ViewGame.getScreenDimensions() / 30);
+            publishScoreButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    PlayerService playerService = springContext.getBean(PlayerService.class);
+                    playerService.save(ViewGame.getPlayer());
+                }
+            });
+            return publishScoreButton;
+
+    }
+
+    public List<Player> getScores(){
+        PlayerService playerService = springContext.getBean(PlayerService.class);
+        return playerService.findAllPlayer();
+    }
+
     public static NPC randomNPC(){
         return random.get((int) (Math.random()*(random.size())));
     }

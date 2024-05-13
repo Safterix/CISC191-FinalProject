@@ -13,17 +13,17 @@ import javax.persistence.*;
  * makes PLAYER YAYER!!!
  * has score, goal, and pfp
  */
-//@Entity
+@Entity
 public class Player extends Character {
-//    @Id
-//    @GeneratedValue
-        private int id;
+    @GeneratedValue
+    @Column(unique=true)
+        private Integer id;
 
-    private int score;
+    private Integer score;
     private String goal;
-//    @Transient
+    @Transient
     private GameImageView profileImage;
-//    @Transient
+    @Transient
     private KnowlegeBar knowlege;
 
 
@@ -42,7 +42,7 @@ public class Player extends Character {
         profileImage=new GameImageView(new Image("image/Sprites/Player.png"));
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -72,7 +72,7 @@ public class Player extends Character {
      *
      * @return player's score
      */
-    public int getScore(){
+    public Integer getScore(){
         return score;
     }
     /**

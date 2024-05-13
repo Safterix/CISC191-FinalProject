@@ -121,9 +121,16 @@ public class ViewGame extends Application {
             Platform.exit();
             NPCdb.stop();
         });
+        GameButton scores = new GameButton("HISCORE", sceneWidth / 6, sceneHeight / 15, sceneWidth / 45);
+        scores.setOnAction((ActionEvent exit) -> {
+            makeHighScore();
+        });
 
+
+        HBox smallButtons = new HBox(scores, quit);
+        smallButtons.setAlignment(Pos.CENTER);
         //makes holder for the buttons and centers it, adds all the four buttons
-        VBox buttonsHolder = new VBox(5, start, credits, settings, quit);
+        VBox buttonsHolder = new VBox(5, start, credits, settings, smallButtons);
         buttonsHolder.setAlignment(Pos.CENTER);
 
         // add title and subtitle using gameLabels
@@ -443,7 +450,7 @@ public class ViewGame extends Application {
         GameLabel subtitle = new GameLabel("YOU WIN! SCORE:" + player.getScore(), sceneWidth / 30);
         VBox titlesHolder = new VBox(sceneHeight / 20, gameOver, subtitle);
 
-
+        GameButton publish = NPCdb.publishScore();
         //if u died instead of making it, it will say you died instead lol
         if (player.getHealth() == 0) {
             subtitle.setText("YOU DIED...SCORE:" + player.getScore());
@@ -453,7 +460,7 @@ public class ViewGame extends Application {
         layout = new BorderPane(titlesHolder);
         layout.setStyle("-fx-background-color: #CBD4C2");
         layout.setBottom(buttonsHolder);
-
+    layout.setTop(publish);
 
 
         //creates scene
@@ -520,29 +527,37 @@ public class ViewGame extends Application {
                 "Your Achievements:\n");
         output.close();
     }
-//    /**
-//     * TODO writes your highscore to the file, need to sort from high to low!
-//     * TODO writes to a Target file not sure what that is rn...
-//     *  TODO have string array....
-//     */
-//    public void makeHighScore() {
-//        PlayerService ps = new PlayerService();
-//        HBox scoresHOlder = new HBox();
-//        for(Player player:ps.findAll()){
-//            scoresHOlder.getChildren().add(new GameButton(player.getName()+player.getScore(),sceneWidth / 4, sceneHeight / 10, sceneWidth / 30));
-//        }
-//        GameScene scene = new GameScene(new BorderPane(scoresHOlder), sceneWidth, sceneHeight);
-//        switchScene(scene, "scorre");
-////        System.out.print(scores.canWrite());
-////        try {
-////            PrintWriter out = new PrintWriter(new FileWriter(scores));
-////            out.write(string);
-////            out.close();
-////            System.out.print("i have written");
-////        } catch (IOException e) {
-////            e.printStackTrace(); }
-//
-//            }
+    /**
+     * TODO writes your highscore to the file, need to sort from high to low!
+     * TODO writes to a Target file not sure what that is rn...
+     *  TODO have string array....
+     */
+    public void makeHighScore() {
+
+        VBox scoresHOlder = new VBox();
+        for(Player player:NPCdb.getScores()){
+            scoresHOlder.getChildren().add(new GameButton(player.getName()+": "+player.getScore(),sceneWidth / 4, sceneHeight / 10, sceneWidth / 30));
+        }
+
+        GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 30, sceneWidth / 25);
+        goBack.setOnAction((ActionEvent back) -> {
+            mediaPlayer2.stop();
+            start(gameStage);
+        });
+        layout = new BorderPane(scoresHOlder);
+        layout.setBottom(goBack);
+        GameScene scene = new GameScene(layout, sceneWidth, sceneHeight);
+        switchScene(scene, "scores");
+//        System.out.print(scores.canWrite());
+//        try {
+//            PrintWriter out = new PrintWriter(new FileWriter(scores));
+//            out.write(string);
+//            out.close();
+//            System.out.print("i have written");
+//        } catch (IOException e) {
+//            e.printStackTrace(); }
+
+            }
 
     /**
      * returns the scores TODO rn just a string but will be string array
