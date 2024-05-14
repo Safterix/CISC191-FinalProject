@@ -19,13 +19,21 @@ import org.springframework.context.annotation.Bean;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * creates database for NPCs and Playersr
+ * npcs are preinitialized with a set of npcs while players
+ * must be saved
+ */
 @SpringBootApplication
 public class DataBaseApplication extends Application{
 //    private static PlayerService playerService = null;
     public ConfigurableApplicationContext springContext;
     private static List<NPC> random;
 
-
+    /**
+     * main
+     * @param args
+     */
     public static void main(String[] args) {
 
         launch(DataBaseApplication.class,args);
@@ -34,6 +42,9 @@ public class DataBaseApplication extends Application{
 public DataBaseApplication(){
 }
 
+    /**
+     * init all thee NPCs
+     */
     @Override
     public void init() {
         springContext = SpringApplication.run(DataBaseApplication.class);
@@ -54,38 +65,51 @@ public DataBaseApplication(){
         playerService.save(Cat);
         playerService.save(noOne);
 
-        random= playerService.findAllNPC();
-        for(NPC npc: playerService.findAllNPC()) {
-            System.out.println(npc.toString());
         }
 //        PlayerService playerService = springContext.getBean(PlayerService.class);
 //        playerService.save(ViewGame.getPlayer());
-    }
+
+    /**
+     *
+     * @param primaryStage the primary stage for this application, onto which
+     * the application scene can be set. The primary stage will be embedded in
+     * the browser if the application was launched as an applet.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages and will not be embedded in the browser.
+     */
         @Override
     public void start(Stage primaryStage) {
 
-           PlayerService playerService=springContext.getBean(PlayerService.class);
-           random= playerService.findAllNPC();
-
+        random = getNPCs();
     }
 
-
+    /**
+     * creates a publish score button for the game screen that saves the player who just played
+     * @return
+     */
     public GameButton publishScore(){
         GameButton publishScoreButton = new GameButton("Publish Score?", ViewGame.getScreenDimensions() / 4, ViewGame.getScreenDimensions() / 10, ViewGame.getScreenDimensions() / 30);
             publishScoreButton.setOnAction(event -> {
                 PlayerService playerService = springContext.getBean(PlayerService.class);
-                System.out.print(ViewGame.getPlayer());
                 playerService.save(ViewGame.getPlayer());
             });
             return publishScoreButton;
 
     }
 
+    /**
+     * gets all the players (unsorted
+     * @return list of players
+     */
     public List<Player> getScores(){
         PlayerService playerService = springContext.getBean(PlayerService.class);
         return playerService.findAllPlayer();
     }
 
+    /**
+     * gets all  the players (sorted by higheest score)
+     * @return list of playerrsr
+     */
     public List<Player> getScoresOrder(){
 
         PlayerService playerService = springContext.getBean(PlayerService.class);
@@ -95,14 +119,26 @@ public DataBaseApplication(){
         return sorted;
     }
 
+    /**
+     * all NPCS
+     * @return all NPCs
+     */
+    public List<NPC> getNPCs(){
+        PlayerService playerService = springContext.getBean(PlayerService.class);
+        return playerService.findAllNPC();
+    }
+
+    /**
+     *
+     * @return one random NPC
+     */
     public static NPC randomNPC(){
         return random.get((int) (Math.random()*(random.size())));
     }
-//
-//    public Server inMemoryDBServer() throws SQLException {
-//        return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092");
-//    }
-    @Override
+
+    /**
+     * stops
+     */
     public void stop() {
         springContext.stop();
     }

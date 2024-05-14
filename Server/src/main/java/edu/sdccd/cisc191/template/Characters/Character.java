@@ -1,9 +1,13 @@
 package edu.sdccd.cisc191.template.Characters;
 
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
+import edu.sdccd.cisc191.template.ItemTypes.Goods;
 import edu.sdccd.cisc191.template.ItemTypes.Inventory;
 
 import javax.persistence.*;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * makes a ahrcater with name, money, health, rep, and inventory
@@ -23,6 +27,12 @@ public class Character
 //    @OneToOne(fetch = FetchType.EAGER)
     @Transient
     private Inventory storage;
+
+    @Transient
+    Lock moneyLock = new ReentrantLock();
+    @Transient
+    Condition cantAfford = moneyLock.newCondition();
+
 
 
 
@@ -92,8 +102,27 @@ public class Character
      */
     public void gainMoney(int gainedMoney)
     {
+        moneyLock.lock();
+
         money += gainedMoney;
+            cantAfford.signal();
+        moneyLock.unlock();
     }
+
+    public String buyItem(Goods item) throws InterruptedException {
+        moneyLock.lock();
+
+        while((this.getMoney())<item.getValue()){
+            removeReputation();
+            cantAfford.await();
+            return "You are indebted to me...";
+        }
+
+        spendMoney(item.getValue());
+        moneyLock.unlock();
+        return "Thank you!";
+    }
+
 
     /**
      * @return name of charcater
@@ -164,6 +193,17 @@ public class Character
      */
     public Inventory getInventory(){return storage;}
 
+    /**
+     * adds  one reputation
+     */
+    public void addReputation(){
+        reputation++;
+}
 
-
+    /**
+     * removes reptatuion
+     */
+    public void removeReputation(){
+        reputation--;
+    }
 }

@@ -5,6 +5,7 @@ import edu.sdccd.cisc191.template.GameAssets.GameButton;
 import edu.sdccd.cisc191.template.GameAssets.GameImageView;
 import edu.sdccd.cisc191.template.GameAssets.GameTextArea;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
+import edu.sdccd.cisc191.template.ItemTypes.Item;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -72,6 +73,20 @@ public class DialogBox {
 
         options= new HBox(option1,option2,option3);
         options.setAlignment(Pos.CENTER);
+    }
+
+    /**
+     * TODO TODODTODOTODOTOODD TODOTODo
+     * 1 : sell  item to NPC, they will not pay you if they hate it, pay you full price if fine
+     * and pay double if love
+     * 2: see their inventory
+     * TODO make  options do things, option three sets new npc yes
+     * @param item
+     */
+    public void setOptions(Item item){
+        option1.setText("Give");
+        option2.setText("Take");
+        option3.setText("Leave");
     }
     /**
      * changes the dialog to something else, changes the mood as well

@@ -4,10 +4,14 @@ import edu.sdccd.cisc191.template.GameAssets.GameImageView;
 import edu.sdccd.cisc191.template.GameAssets.GameLabel;
 import edu.sdccd.cisc191.template.GameAssets.GameTooltip;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
+import edu.sdccd.cisc191.template.ItemTypes.Goods;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
 import javax.persistence.*;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * makes PLAYER YAYER!!!
@@ -136,6 +140,8 @@ public class Player extends Character {
         }
         return 0;
 }
+
+
 @Override
     public String toString(){
         return getName() + ": " +getScore();

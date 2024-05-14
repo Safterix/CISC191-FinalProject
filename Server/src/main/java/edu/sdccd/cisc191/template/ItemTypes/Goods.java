@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * goods item TODO WIP WIP
@@ -31,26 +35,6 @@ public class Goods extends Item{
     //all the commicerial goods in arabia
     public static CommercialGoods[] arabia = new CommercialGoods[]{CommercialGoods.Frankincense,CommercialGoods.Incense
     ,CommercialGoods.Pearls,CommercialGoods.Copper};
-//
-//    @Override
-//    public int compareTo(Item item) {
-//        if(item.getName().equals(this.getName())){
-//            return 0;
-//        }
-//        else if(item.getName().equals("Nothing")){
-//            return 1;
-//        }
-//        else if(item.getClass()==Goods.class||item.getClass()==Consumable.class){
-//
-//            if(this.getValue()>((Goods) item).getValue()){
-//                    return 1;}
-//            else if (this.getValue()==((Goods) item).getValue()) {
-//                return 0;
-//            }
-//        }
-//
-//        return -1;
-//    }
 
     @Override
     public int compareTo(Item item) {
@@ -209,12 +193,15 @@ public class Goods extends Item{
 }
     @Override
     public void giveItem(){
-    ViewGame.getPlayer().gainMoney(getValue());
+        ViewGame.getPlayer().addScore(100);
+        ViewGame.getPlayer().gainMoney(getValue());
     System.out.print(ViewGame.getPlayer().getMoney());
     setName("Nothing");
     setDescription("Empty!");
     icon = new GameButton(this);
             System.out.print("gave money");
 }
+
+
 }
 

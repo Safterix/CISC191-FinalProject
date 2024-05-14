@@ -1,5 +1,6 @@
 package edu.sddcd.cisc191;
 
+import edu.sdccd.cisc191.template.DataBaseApplication;
 import edu.sdccd.cisc191.template.ItemTypes.Inventory;
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
@@ -307,7 +308,7 @@ public class ArchitectProjectTest
     }
     /**tests to see if counting duplicates work
      * with random items
-     * TODO DOESNT WORK IDEALLY
+     * TODO DOESNT WORK IDEALLY bcoz items not  sorted in corerct order...why...
      */
     @Test public void testCountingDoopsRandom(){
         //make empty inventory
@@ -319,6 +320,52 @@ public class ArchitectProjectTest
         //has 24 items
         // proper order is
         //rice, tea, apricot, plum , peach, wine
+
+    }
+
+    /**
+     * tests to see if the  NPC database has NPCs in it
+     */
+    @Test public void testNPCDatabase(){
+        DataBaseApplication db = new DataBaseApplication();
+        db.init();
+
+             assertEquals("Marky 10 100 0",  db.getNPCs().get(0).toString());
+            assertEquals("Meowky 3 100 0",  db.getNPCs().get(1).toString());
+            assertEquals("Tao Yu 100 100 50",  db.getNPCs().get(2).toString());
+            assertEquals("Creature 10000 100 0",  db.getNPCs().get(3).toString());
+            assertEquals("Cat 3 100 0",  db.getNPCs().get(4).toString());
+    }
+
+    /**
+     * tests to see if players are sorteed by score
+     * corectly  using compareTo()
+     * higheset to greeatest
+     */
+    @Test public void testScoresOrderr(){
+
+        Player winner = new Player("Winner");
+                winner.addScore(10000000);
+        Player loser = new Player("Loser");
+        loser.addScore(3);
+        Player guy = new Player("Guy");
+        guy.addScore(100);
+        Player hi = new Player("hi");
+        hi.addScore(5000);
+        ArrayList<Player> leadeBoard  = new ArrayList<>();
+        leadeBoard.add(winner);
+        leadeBoard.add(loser);
+        leadeBoard.add(guy);
+        leadeBoard.add(hi);
+        leadeBoard.sort(Player::compareTo);
+        assertEquals(winner,leadeBoard.get(0));
+
+        assertEquals(hi,leadeBoard.get(1));
+
+        assertEquals(guy,leadeBoard.get(2));
+
+        assertEquals(loser,leadeBoard.get(3));
+
 
     }
 }
