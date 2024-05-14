@@ -7,6 +7,10 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+
 /**
  * creatres a game screen with the player layout on the bottom and everythiing else on top
  */
@@ -16,6 +20,23 @@ public class GameScreen {
     //the screen layout
     private static GridPane wholeUi;
     private static ViewGame game = new ViewGame();
+    private static Player gamer;
+    private static int screenWidth, screenHeight;
+
+    static PropertyChangeListener isUpdated = evt -> {
+        if (!gamer.getInventory().isUptodate()){
+            gamer.getInventory().displayInventory();
+            setPlayerLayout(gamer,screenWidth,screenHeight);
+        }
+    };
+    private static PropertyChangeSupport listener;
+
+    {
+        listener = new PropertyChangeSupport(this);
+        listener.addPropertyChangeListener(isUpdated);
+    }
+
+
     /**
      * sets the player layout with their stats, pfp, and inventory on the bottom
      * @param player the player object
@@ -24,6 +45,7 @@ public class GameScreen {
      */
     public static void setPlayerLayout(Player player, int screenWidth, int screenHeight){
 
+        gamer=player;
         //playerinfo bottom area
         playerLayout = new GridPane();
         playerLayout.setPrefWidth(screenWidth);
@@ -51,7 +73,8 @@ public class GameScreen {
      * @return the layout of tthe screen
      */
     public static GridPane defaultScreen(Player player, NPC npc, int screenWidth, int screenHeight){
-
+        GameScreen.screenWidth =screenWidth;
+        GameScreen.screenHeight =screenHeight;
         setPlayerLayout(player,screenWidth,screenHeight);
         //set up the layout of the scene
         wholeUi = new GridPane();
@@ -66,7 +89,8 @@ public class GameScreen {
 
         //put the npc picture and dialog
         wholeUi.add(npc.displayProfile(),0,0,1,1);
-        wholeUi.add(new Speech(npc).getDialogBox().displayText(),1,0,1,1);
+        Speech talk = new Speech(npc);
+        wholeUi.add(talk.getDialogBox().displayText(),1,0,1,1);
 
         wholeUi.alignmentProperty().set(Pos.BOTTOM_CENTER);
 
@@ -74,8 +98,15 @@ public class GameScreen {
 
     }
 
-    private void clickItem(){
+    public void inventoryChanged(){
 
+        PropertyChangeListener isUpdated = evt -> {
+            if (!gamer.getInventory().isUptodate()){
+                gamer.getInventory().displayInventory();
+            }
+        };
+        listener.addPropertyChangeListener(isUpdated);
 
     }
+
 }

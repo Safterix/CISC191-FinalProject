@@ -1,8 +1,12 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.GridPane;
 
 import javax.persistence.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,12 +19,13 @@ public class Inventory{
 //    @Id
     private boolean isPlayers;
 //    @OneToMany(fetch = FetchType.EAGER)
-    private ArrayList<Item> storage;
+    private static ArrayList<Item> storage;
 //    @Transient
     private GridPane inventoryCells= new GridPane(); //gridpane visual of iventory with item buttons inside
     // inventory is a 2d arraylist with items
     private final int colSize = 6; int rowSize = 4; //arraylist is 6x4
     private final int size = colSize * rowSize;
+    private static boolean uptodate;
 
     public Inventory(){
         storage= new ArrayList<Item>();
@@ -29,6 +34,7 @@ public class Inventory{
 
                 storage.add(new Item());
             }
+        uptodate =true;
 
     }
 
@@ -43,6 +49,8 @@ public class Inventory{
 
             storage.add(new Item(true));
         }
+        uptodate =true;
+
     }
 
     /**
@@ -52,7 +60,7 @@ public class Inventory{
     public void addItem(Item item){
         if(!isFull()){
             storage.add(new Item());}
-
+        uptodate =false;
 
     }
     /**
@@ -62,6 +70,7 @@ public class Inventory{
     public void addItem(int col, int row, Item item){
         int location = col * rowSize + row;
         storage.set(location,item);
+        uptodate =false;
 
 
     }
@@ -89,6 +98,7 @@ public class Inventory{
         return storage.get(location);
     }
 
+
     /**
      * removes one item
      * @param row which row is in
@@ -98,13 +108,29 @@ public class Inventory{
         int location = col * rowSize + row;
         //makes empty item in place of it
         storage.set(location,new Item());
+        uptodate =false;
     }
+    /**
+     * removes one item
+     * @param itemREmove item that will be removed
+     */
+    public static void removeItem(Item itemREmove){
+        //makes empty item in place of it
+        storage.remove(itemREmove);
+        storage.add(new Item());
+        uptodate =false;
+
+    }
+
+
+
 
     /**
      * displays the inventory on a gridpane of buttons
      * @return gridpane of buttons, visual of inventory
      */
     public GridPane displayInventory(){
+        uptodate =true;
         sortInv();
         inventoryCells.getChildren().removeAll();
         for(int col=0; col<colSize;col++){
@@ -118,6 +144,7 @@ public class Inventory{
     return inventoryCells;
 
     }
+
 
     /**
      * TODO attempt at sorting inv items
@@ -187,6 +214,11 @@ public class Inventory{
         return storage;
     }
 
-
-
+    /**
+     * checks if is upt o date
+     * @return
+     */
+    public boolean isUptodate(){
+        return uptodate;
+}
 }

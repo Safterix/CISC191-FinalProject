@@ -382,6 +382,8 @@ public class ViewGame extends Application {
                 goal.setMaxSize(sceneWidth/2,sceneHeight/3);
                 goal.setPrefSize(sceneWidth/2,sceneHeight/3);
                 //makes money option that sets gaol to making a lot of money
+
+
                 GameButton moneyGoal = new GameButton("Make lots of money", sceneWidth / 3, sceneHeight / 10, sceneWidth / 30);
                 moneyGoal.setOnAction((ActionEvent setMoneyGoal) -> {
                     player.setGoal("Make lots of money");

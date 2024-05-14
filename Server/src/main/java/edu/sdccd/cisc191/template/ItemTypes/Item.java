@@ -1,6 +1,11 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
 import edu.sdccd.cisc191.template.GameAssets.GameButton;
+import edu.sdccd.cisc191.template.GameAssets.NPCDialog.Speech;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseButton;
 
 import javax.persistence.*;
 
@@ -25,6 +30,7 @@ public class Item implements Comparable<Item> {
         name = "Nothing";
         description = "Empty!";
         icon = new GameButton(this);
+        click();
 
     }
 
@@ -39,6 +45,7 @@ public class Item implements Comparable<Item> {
        name = randomItem.getName();
        description =randomItem.getDescription();
        icon = new GameButton(this);
+        click();
     }
 
     /**
@@ -118,7 +125,38 @@ public class Item implements Comparable<Item> {
         return -1;
     }
 
+    public void giveItem(){
+        Inventory.removeItem(this);
+        System.out.print("removed");
 
+    }
+    private void click(){
+
+
+        icon.setOnMouseClicked(event -> {
+
+            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+
+                System.out.print("removedreal");
+                giveItem();
+        }
+            else
+                    Speech.talkAbout(this);
+        });
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Item))
+            return false;
+        Item other = (Item) obj;
+        return getName() != null && getName().equals(other.getName());
+    }
+    @Override
+    public int hashCode() {
+        return getName().hashCode();
+    }
 }
 
 

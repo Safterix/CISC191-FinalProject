@@ -187,4 +187,23 @@ public class Goods extends Item{
     public void setValue(int value) {
         this.value = value;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Goods))
+            return false;
+        Goods other = (Goods) obj;
+
+        if(getValue() != other.getValue())
+            return false;
+        return true;
+    }
+    @Override
+    public int hashCode() {
+        return getValue();
 }
+
+}
+

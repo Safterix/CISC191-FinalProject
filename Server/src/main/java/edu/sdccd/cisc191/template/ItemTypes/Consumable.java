@@ -139,6 +139,21 @@ public class Consumable extends Goods{
         public int getHeal() {
             return heal;
         }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Consumable))
+            return false;
+        Consumable other = (Consumable) obj;
 
+        if(getHeal() != other.getHeal())
+            return false;
+        return true;
+    }
+    @Override
+    public int hashCode() {
+        return getHeal();
+    }
     }
 
