@@ -88,7 +88,7 @@ public class SortInventory{
                 //set parent to focus/root
                 parent = focus;
                 //if the new item is less than the focus item
-                    if(newItemNode.getItem().compareTo(focus.getItem()) == -1){
+                    if(newItemNode.getItem().compareTo(focus.getItem()) < 0){
                         //focus becomes the left child
                     focus = focus.leftChild;
                     //if focus(now left child) is null

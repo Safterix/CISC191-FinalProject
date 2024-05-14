@@ -75,6 +75,7 @@ public class Player extends Character {
     public Integer getScore(){
         return score;
     }
+
     /**
      *adds score to player
      */
@@ -119,6 +120,21 @@ public class Player extends Character {
 
 
         return stats;
+}
+
+    /**
+     * comapres the scores of players
+     * @param player2
+     * @return if greate o lesser
+     */
+    public int compareTo(Player player2){
+        if(player2.getScore()>getScore()){
+            return 1;
+        } else if (player2.getScore()<getScore()) {
+            return -1;
+
+        }
+        return 0;
 }
 @Override
     public String toString(){

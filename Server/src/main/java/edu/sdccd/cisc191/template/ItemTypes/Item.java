@@ -1,7 +1,9 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
+import edu.sdccd.cisc191.template.Characters.Player;
 import edu.sdccd.cisc191.template.GameAssets.GameButton;
 import edu.sdccd.cisc191.template.GameAssets.NPCDialog.Speech;
+import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -112,9 +114,9 @@ public class Item implements Comparable<Item> {
     @Override
     public int compareTo(Item item) {
         if(item.getName().equals("Nothing")){
-            return 1;}
-        else if (("Goods".equals(item.getClass().toString()))) {
-            return -1;
+            return -1;}
+        else if ((item instanceof Goods)) {
+            return 1;
         }
         return 0;
     }
@@ -122,11 +124,14 @@ public class Item implements Comparable<Item> {
         if(item.getName().equals(this.getName())){
             return 0;
         }
-        return -1;
+        return 1;
     }
 
     public void giveItem(){
-        Inventory.removeItem(this);
+        ViewGame.getPlayer().addScore(100);
+        name = "Nothing";
+        description = "Empty!";
+        icon = new GameButton(this);
         System.out.print("removed");
 
     }
@@ -138,9 +143,11 @@ public class Item implements Comparable<Item> {
             if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
 
                 System.out.print("removedreal");
-                giveItem();
+                this.giveItem();
         }
             else
+
+            System.out.print(ViewGame.getPlayer().getScore());
                     Speech.talkAbout(this);
         });
     }

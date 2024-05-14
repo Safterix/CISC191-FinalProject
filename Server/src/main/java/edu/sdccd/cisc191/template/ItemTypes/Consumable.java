@@ -34,7 +34,7 @@ public class Consumable extends Goods{
      * @param region
      */
     public Consumable(ConsumableItems[] region){
-        this(region[(int)(Math.random()*region.length)]);
+        this(region[(int)((Math.random()*(region.length)))]);
     }
 
     /**
@@ -43,7 +43,7 @@ public class Consumable extends Goods{
     public Consumable(){
         //picks a random number that is no more than the consumable items enum options
         //each umber is assigned an item so picks one based on number
-            int pick = (int) (Math.random() * ConsumableItems.values().length);
+            int pick = (int) (Math.random() * (ConsumableItems.values().length));
             switch(pick){
                 case 1:
                     setName("Apricot");

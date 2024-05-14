@@ -1,5 +1,8 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
+import edu.sdccd.cisc191.template.GameAssets.GameButton;
+import edu.sdccd.cisc191.template.GameAssets.ViewGame;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -67,11 +70,11 @@ public class Goods extends Item{
         }
 
             if(this.getValue()>(item.getValue())){
-                return 1;
+                return -1;
             }
 
 
-        return -1;
+        return 1;
 }
 
     /**
@@ -204,6 +207,14 @@ public class Goods extends Item{
     public int hashCode() {
         return getValue();
 }
-
+    @Override
+    public void giveItem(){
+    ViewGame.getPlayer().gainMoney(getValue());
+    System.out.print(ViewGame.getPlayer().getMoney());
+    setName("Nothing");
+    setDescription("Empty!");
+    icon = new GameButton(this);
+            System.out.print("gave money");
+}
 }
 

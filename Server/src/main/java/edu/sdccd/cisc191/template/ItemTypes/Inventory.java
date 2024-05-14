@@ -19,7 +19,7 @@ public class Inventory{
 //    @Id
     private boolean isPlayers;
 //    @OneToMany(fetch = FetchType.EAGER)
-    private static ArrayList<Item> storage;
+    private ArrayList<Item> storage;
 //    @Transient
     private GridPane inventoryCells= new GridPane(); //gridpane visual of iventory with item buttons inside
     // inventory is a 2d arraylist with items
@@ -114,7 +114,7 @@ public class Inventory{
      * removes one item
      * @param itemREmove item that will be removed
      */
-    public static void removeItem(Item itemREmove){
+    public void removeItem(Item itemREmove){
         //makes empty item in place of it
         storage.remove(itemREmove);
         storage.add(new Item());

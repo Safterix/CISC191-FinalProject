@@ -173,10 +173,11 @@ public class ArchitectProjectTest
      * tests if row is empty works
      */
     @Test public void testRowisEmpty(){
-        Inventory inv = new Inventory(true);
-        Inventory inv2 = new Inventory();
+        Inventory inv = new Inventory();
+        assertTrue(inv.isEmpty());
+
+        inv.addItem(new Item(true));
         assertFalse(inv.isEmpty());
-        assertTrue(inv2.isEmpty());
 
     }
 

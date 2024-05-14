@@ -72,12 +72,10 @@ public DataBaseApplication(){
 
     public GameButton publishScore(){
         GameButton publishScoreButton = new GameButton("Publish Score?", ViewGame.getScreenDimensions() / 4, ViewGame.getScreenDimensions() / 10, ViewGame.getScreenDimensions() / 30);
-            publishScoreButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    PlayerService playerService = springContext.getBean(PlayerService.class);
-                    playerService.save(ViewGame.getPlayer());
-                }
+            publishScoreButton.setOnAction(event -> {
+                PlayerService playerService = springContext.getBean(PlayerService.class);
+                System.out.print(ViewGame.getPlayer());
+                playerService.save(ViewGame.getPlayer());
             });
             return publishScoreButton;
 
@@ -86,6 +84,15 @@ public DataBaseApplication(){
     public List<Player> getScores(){
         PlayerService playerService = springContext.getBean(PlayerService.class);
         return playerService.findAllPlayer();
+    }
+
+    public List<Player> getScoresOrder(){
+
+        PlayerService playerService = springContext.getBean(PlayerService.class);
+        List<Player> sorted = playerService.findAllPlayer();
+
+        sorted.sort(Player::compareTo);
+        return sorted;
     }
 
     public static NPC randomNPC(){

@@ -52,8 +52,6 @@ public class ViewGame extends Application {
     private double volume=0.1;
 
 
-
-    private boolean isPlaying;
     protected static int sceneWidth = 0; //this way, the class itself keeps track of the screen's size
     private  static int sceneHeight = 0;
     private BorderPane layout;//so u can switch the scene...
@@ -537,8 +535,8 @@ public class ViewGame extends Application {
     public void makeHighScore() {
 
         VBox scoresHOlder = new VBox();
-        for(Player player:NPCdb.getScores()){
-            scoresHOlder.getChildren().add(new GameButton(player.getName()+": "+player.getScore(),sceneWidth / 4, sceneHeight / 10, sceneWidth / 30));
+        for(Player player1:NPCdb.getScoresOrder()){
+            scoresHOlder.getChildren().add(new GameButton(player1.getName()+": "+player1.getScore(),sceneWidth / 4, sceneHeight / 10, sceneWidth / 30));
         }
 
         GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 30, sceneWidth / 25);
