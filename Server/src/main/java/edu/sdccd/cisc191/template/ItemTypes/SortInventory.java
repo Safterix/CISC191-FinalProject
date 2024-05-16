@@ -2,7 +2,7 @@ package edu.sdccd.cisc191.template.ItemTypes;
 
 import java.util.ArrayList;
 
-public class SortInventory{
+public class SortInventory extends Thread {
      final private ArrayList<edu.sdccd.cisc191.template.ItemTypes.Item> inventory;
     private ArrayList<ItemNode> allItemNodes;
     private ItemNode root;
@@ -21,14 +21,17 @@ public class SortInventory{
         System.out.println("Og Size: "+this.inventory.size());
     }
 
+    public void run(){
 
+        convertToNode(null);
+    }
     /**
      * converts the allItemsFlattened ArrayList<Item> to ArrayList<ItemNode>
      * @param preDup the array that will be gone through
      */
     public void convertToNode(ArrayList<Item> preDup) {
         //makes preDuplicatesCopy
-        ArrayList<Item> preDuplicatesCopy = new ArrayList<>();
+        ArrayList<Item> preDuplicatesCopy;
         //if it is null, preDuplicatesCopy is allItemsFlattened clone
         if (preDup == null) {
             preDuplicatesCopy = (ArrayList<Item>) inventory.clone();

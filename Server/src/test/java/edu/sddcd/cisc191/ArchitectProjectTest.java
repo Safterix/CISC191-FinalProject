@@ -281,6 +281,20 @@ public class ArchitectProjectTest
         inventory.addItem(2,0, new Consumable(Consumable.ConsumableItems.Rice));
         inventory.addItem(3,0, new Consumable(Consumable.ConsumableItems.Rice));
         SortInventory sorting = new SortInventory(inventory);
+        sorting.start();
+
+    }
+
+    /**
+     * takes a lot longer than on Sorting  Thread
+     */
+    @Test public void testConvertingnode2(){
+        Inventory inventory = new Inventory();
+        inventory.addItem(0,0, new Consumable(Consumable.ConsumableItems.Rice));
+        inventory.addItem(1,0, new Consumable(Consumable.ConsumableItems.Rice));
+        inventory.addItem(2,0, new Consumable(Consumable.ConsumableItems.Rice));
+        inventory.addItem(3,0, new Consumable(Consumable.ConsumableItems.Rice));
+        SortInventory sorting = new SortInventory(inventory);
         sorting.convertToNode(null);
 
     }
@@ -296,7 +310,7 @@ public class ArchitectProjectTest
         sorting.addNodes();
         sorting.inOrderTraverse(sorting.getRoot());
         //there should be 24 nothings
-        assertEquals("Nothing 24", sorting.getRoot().toString());
+        assertEquals("Nothing 24", sorting.getRoot().toString());;
     }
     /**tests to see if counting duplicates work
      * with 20 nothing, and 4 rice
@@ -309,7 +323,7 @@ public class ArchitectProjectTest
         inventory.addItem(2,0, new Consumable(Consumable.ConsumableItems.Rice));
         inventory.addItem(3,0, new Consumable(Consumable.ConsumableItems.Rice));
         SortInventory sorting = new SortInventory(inventory);
-        sorting.convertToNode(null);
+        sorting.start();
         sorting.addNodes();
         sorting.inOrderTraverse(sorting.getRoot());
         //check system out if Rice 4 Nothing 20
@@ -324,7 +338,7 @@ public class ArchitectProjectTest
         //make empty inventory
         Inventory inventory = new Inventory(true);
         SortInventory sorting = new SortInventory(inventory);
-        sorting.convertToNode(null);
+        sorting.start();
         sorting.addNodes();
         sorting.inOrderTraverse(sorting.getRoot());
         //has 24 items
