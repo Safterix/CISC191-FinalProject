@@ -154,6 +154,11 @@ public GameButton getIcon(){
         }
 
     }
+
+    /**
+     * click on an item, one click shows NPC reaction
+     * two cilck give NPC item
+     */
     private void click(){
 
 
@@ -161,7 +166,6 @@ public GameButton getIcon(){
 
             if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
 
-                System.out.print("removedreal");
                 this.giveItem();
         }
             else

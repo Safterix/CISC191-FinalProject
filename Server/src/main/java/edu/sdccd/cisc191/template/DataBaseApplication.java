@@ -36,6 +36,7 @@ public DataBaseApplication(){
 
     @Override
     public void init() {
+
         springContext = SpringApplication.run(DataBaseApplication.class);
         PlayerService playerService = springContext.getBean(PlayerService.class);
 
@@ -99,6 +100,17 @@ public DataBaseApplication(){
     @Override
     public void stop() {
         springContext.stop();
+    }
+
+
+    public static void playerJackpot(Player player){
+        for (int i = 0; i < 100; i++) {
+            player.removeScore(1);
+            for (int j = 0; j < 100; j++) {
+                player.addScore(1);
+            }
+        }
+
     }
 }
 

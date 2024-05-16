@@ -16,12 +16,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import javax.swing.text.View;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -333,6 +332,10 @@ public class ArchitectProjectTest
         //rice, tea, apricot, plum , peach, wine
 
     }
+
+    /**
+     * tests to see if isFull works
+     */
         @Test public void testInvFull(){
                 Inventory inv = new Inventory();
                 assertFalse(inv.isFull());
@@ -342,6 +345,28 @@ public class ArchitectProjectTest
                 assertFalse(inv.isFull());
 
         }
+    /**
+     * tests to see if player score is work...
+     */
+    @Test public void testPlayerScoreSyncrhonized() throws InterruptedException {
 
+        Player superWinner = new Player("MegaMillion!!!");
+
+
+        InfiniteScoreGlitch[] many = new InfiniteScoreGlitch[10];
+        for(int i = 0; i < 10; i++){
+            many[i] = new InfiniteScoreGlitch(superWinner);
+        }
+        //10 threads
+        for(InfiniteScoreGlitch glitch : many){
+            glitch.start();
+            //100000
+        }
+        for(InfiniteScoreGlitch glitch : many){
+            glitch.join();
+        }
+        assertEquals(100000, superWinner.getScore());
+
+    }
 
 }

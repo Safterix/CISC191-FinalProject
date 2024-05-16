@@ -42,11 +42,21 @@ public class Player extends Character {
      * @param name of player that is set
      */
     public Player(String name){
+
         super(name,0,100,0);
+
+
         score  = 0;
         goal= "None";
         knowlege = new KnowlegeBar();
         profileImage=new GameImageView(new Image("image/Sprites/Player.png"));
+
+        int size = ViewGame.getScreenDimensions()/30;
+        //initialze labels
+        healthLabel = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),size,"red");
+        moneyLabel = new GameLabel("Money: "+ getMoney(),size, "green");
+        reputationLabel = new GameLabel("Rep: "+ getReputation(),size/2);
+        scoreLabel = new GameLabel("Score: "+ getScore(),size/2);
     }
 
     public Integer getId() {
@@ -86,8 +96,15 @@ public class Player extends Character {
     /**
      *adds score to player
      */
-    public void addScore(int add){
+    public synchronized void addScore(int add){
         score+=add;
+        scoreLabel.setText("Score: "+ getScore());
+    }
+    /**
+     *removes score to player
+     */
+    public void removeScore(int remove){
+        score-=remove;
         scoreLabel.setText("Score: "+ getScore());
     }
 
@@ -118,10 +135,10 @@ public class Player extends Character {
     public VBox displayProfile(){
         //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
         int size = ViewGame.getScreenDimensions()/30;
-         healthLabel = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),size,"red");
-         moneyLabel = new GameLabel("Money: "+ getMoney(),size, "green");
-         reputationLabel = new GameLabel("Rep: "+ getReputation(),size/2);
-         scoreLabel = new GameLabel("Score: "+ getScore(),size/2);
+        healthLabel.setText("Health: "+ getHealth() +"/"+ getMAX_HEALTH());
+        moneyLabel.setText("Money: "+ getMoney());
+         reputationLabel.setText("Rep: "+ getReputation());
+        scoreLabel.setText("Score: "+ getScore());
 
         GameLabel playerName = new GameLabel(getName(),size*2);
         //adds all of them to a VBox stack
