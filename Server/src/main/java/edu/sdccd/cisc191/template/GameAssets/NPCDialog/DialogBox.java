@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
+import static edu.sdccd.cisc191.template.GameAssets.GameScreen.nextNPC;
+
 /**
  * npc dialog class that makes the dialog box for NPCS
  * shows the name, little profile picture with their emotion, and their dialog in a stackpane
@@ -24,7 +26,6 @@ public class DialogBox {
     GameTextArea nameBox;  //the NPC name display
     String speakerName; //name of npc
     GameImageView emotionSprite; // profile picture with NPC's expression
-    StackPane dialog; // stackpane that has all of the above
 
     HBox options;
     GameButton option1,option2,option3;
@@ -64,12 +65,18 @@ public class DialogBox {
 
     public void setOptions(){
 
-        option1=new GameButton("...",ViewGame.getScreenDimensions()/9,ViewGame.getScreenDimensions()/15,ViewGame.getScreenDimensions()/45);
-
+        option1=new GameButton("Hi",ViewGame.getScreenDimensions()/9,ViewGame.getScreenDimensions()/15,ViewGame.getScreenDimensions()/45);
+        option1.setOnAction(event ->{
+            changeDialog("Hi!", "happy");
+        });
         option2=new GameButton("...",ViewGame.getScreenDimensions()/9,ViewGame.getScreenDimensions()/15,ViewGame.getScreenDimensions()/45);
+        option2.setOnAction(event ->{
+            changeDialog("...", "neutral");
+        });
+        option3=new GameButton("Bye!",ViewGame.getScreenDimensions()/9,ViewGame.getScreenDimensions()/15,ViewGame.getScreenDimensions()/45);
 
-        option3=new GameButton("...",ViewGame.getScreenDimensions()/9,ViewGame.getScreenDimensions()/15,ViewGame.getScreenDimensions()/45);
-
+        option3.setOnAction(event ->{
+        nextNPC();});
         options= new HBox(option1,option2,option3);
         options.setAlignment(Pos.CENTER);
     }

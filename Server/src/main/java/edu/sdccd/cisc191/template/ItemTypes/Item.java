@@ -2,6 +2,8 @@ package edu.sdccd.cisc191.template.ItemTypes;
 
 import edu.sdccd.cisc191.template.Characters.Player;
 import edu.sdccd.cisc191.template.GameAssets.GameButton;
+import edu.sdccd.cisc191.template.GameAssets.GameImageView;
+import edu.sdccd.cisc191.template.GameAssets.NPCDialog.ItemWant;
 import edu.sdccd.cisc191.template.GameAssets.NPCDialog.Speech;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import javafx.application.Platform;
@@ -15,16 +17,14 @@ import javax.persistence.*;
  * creates a general items, things you can have in an inventory
  * has a name and descrption and gameBUtton icon
 // */
-//@Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Item implements Comparable<Item> {
 //
-//    @Id
+
     private String name;
     private String description; //name and desc of item
-//    @Transient
-    GameButton icon; //pic of item on button
 
+    private GameButton icon; //pic of item on button
+    private ItemWant want;
     /**
      * empty item conscutor that makes an empty item
      */
@@ -32,6 +32,7 @@ public class Item implements Comparable<Item> {
         name = "Nothing";
         description = "Empty!";
         icon = new GameButton(this);
+        want = new ItemWant(this);
         click();
 
     }
@@ -47,6 +48,7 @@ public class Item implements Comparable<Item> {
        name = randomItem.getName();
        description =randomItem.getDescription();
        icon = new GameButton(this);
+        want = new ItemWant(this);
         click();
     }
 
@@ -126,13 +128,30 @@ public class Item implements Comparable<Item> {
         }
         return 1;
     }
+public GameButton getIcon(){
+        return icon;
+}
+
+    public void setIcon(GameButton icon) {
+        this.icon = icon;
+    }
+
+    /**
+     * sets icon to nothing
+     */
+    public void setIcon() {
+        icon.setImage(new GameImageView("Nothing"));
+    }
 
     public void giveItem(){
-        ViewGame.getPlayer().addScore(100);
-        name = "Nothing";
-        description = "Empty!";
-        icon = new GameButton(this);
-        System.out.print("removed");
+        if(!isNothing()){
+        ViewGame.getPlayer().addScore((int) ((100)*(getWant().getMultiplier())));
+       setName("Nothing");
+        setDescription("Empty!");
+            setIcon();}
+        else if(this instanceof Goods){
+            ((Goods) this).sellItem();
+        }
 
     }
     private void click(){
@@ -151,6 +170,20 @@ public class Item implements Comparable<Item> {
                     Speech.talkAbout(this);
         });
     }
+
+    public void getDialog(){
+        getWant().getDialogText();
+    }
+
+
+    public ItemWant getWant() {
+        return want;
+    }
+
+    public void setWant(ItemWant want) {
+        this.want = want;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null)
@@ -163,6 +196,10 @@ public class Item implements Comparable<Item> {
     @Override
     public int hashCode() {
         return getName().hashCode();
+    }
+
+    public boolean isNothing(){
+        return getName().equals("Nothing");
     }
 }
 

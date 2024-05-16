@@ -207,14 +207,15 @@ public class Goods extends Item{
     public int hashCode() {
         return getValue();
 }
-    @Override
-    public void giveItem(){
-    ViewGame.getPlayer().gainMoney(getValue());
-    System.out.print(ViewGame.getPlayer().getMoney());
-    setName("Nothing");
-    setDescription("Empty!");
-    icon = new GameButton(this);
-            System.out.print("gave money");
+
+    public void sellItem(){
+        ViewGame.getPlayer().addScore((int) ((100)*(getWant().getMultiplier())));
+        ViewGame.getPlayer().gainMoney((int) ((getValue())*(getWant().getMultiplier())));
+        System.out.print(ViewGame.getPlayer().getMoney());
+        setName("Nothing");
+        setDescription("Empty!");
+        setIcon();
+                System.out.print("gave money");
 }
 }
 

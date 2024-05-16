@@ -1,5 +1,6 @@
 package edu.sddcd.cisc191;
 
+import edu.sdccd.cisc191.template.DataBaseApplication;
 import edu.sdccd.cisc191.template.ItemTypes.Inventory;
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
@@ -9,6 +10,7 @@ import edu.sdccd.cisc191.template.ItemTypes.Consumable;
 import edu.sdccd.cisc191.template.ItemTypes.Item;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import edu.sdccd.cisc191.template.ItemTypes.SortInventory;
+import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -144,8 +147,9 @@ public class ArchitectProjectTest
     @Test public void testCompareTo(){
         Consumable rice = new Consumable(Consumable.ConsumableItems.Rice);
         Consumable apricot = new Consumable(Consumable.ConsumableItems.Apricot);
-        assertEquals(-1,rice.compareTo(apricot));
-        assertEquals(1,apricot.compareTo(rice));
+        //appricot is greater than rice
+        assertEquals(1,rice.compareTo(apricot));
+        assertEquals(-1,apricot.compareTo(rice));
         }
     /**
      * tests to see of item sorting works
@@ -161,23 +165,29 @@ public class ArchitectProjectTest
             testList.add(new Item());
             Collections.sort(testList);
             //rice -> apricots -> nothing
-            assertEquals("Rice", testList.get(0).getName());
-            assertEquals("Rice", testList.get(1).getName());
-            assertEquals("Apricot", testList.get(2).getName());
-            assertEquals("Apricot", testList.get(3).getName());
+            assertEquals("Apricot", testList.get(0).getName());
+            assertEquals("Apricot", testList.get(1).getName());
+            assertEquals("Rice", testList.get(2).getName());
+            assertEquals("Rice", testList.get(3).getName());
             assertEquals("Nothing",testList.get(4).getName());
             assertEquals("Nothing",testList.get(5).getName());
         }
 
     /**
-     * tests if row is empty works
+     * tests if  is empty works
      */
-    @Test public void testRowisEmpty(){
+    @Test public void testIsEmpty(){
         Inventory inv = new Inventory();
         assertTrue(inv.isEmpty());
 
         inv.addItem(new Item(true));
         assertFalse(inv.isEmpty());
+
+        inv = new Inventory(true);
+        assertFalse(inv.isEmpty());
+
+
+
 
     }
 
@@ -204,9 +214,10 @@ public class ArchitectProjectTest
         inv.addItem(4,3,new Consumable(Consumable.ConsumableItems.Rice));
         inv.addItem(4,2,new Consumable(Consumable.ConsumableItems.Apricot));
          inv.sortInv();
+         System.out.print(inv);
        assertTrue(inv.containsItem("Rice"));
-       assertEquals("Rice",inv.getItem(0,0).getName());
-        assertEquals("Apricot",inv.getItem(0,1).getName());
+        assertEquals("Apricot",inv.getItem(0,0).getName());
+       assertEquals("Rice",inv.getItem(0,1).getName());
         assertEquals("Nothing",inv.getItem(0,2).getName());
 
     }
@@ -302,7 +313,8 @@ public class ArchitectProjectTest
         sorting.convertToNode(null);
         sorting.addNodes();
         sorting.inOrderTraverse(sorting.getRoot());
-        //check system out if Nothing 20 Rice 4
+        //check system out if Rice 4 Nothing 20
+        //yes
 
     }
     /**tests to see if counting duplicates work
@@ -321,4 +333,15 @@ public class ArchitectProjectTest
         //rice, tea, apricot, plum , peach, wine
 
     }
+        @Test public void testInvFull(){
+                Inventory inv = new Inventory();
+                assertFalse(inv.isFull());
+                inv = new Inventory(true);
+                assertTrue(inv.isFull());
+                inv.removeItem(1,1);
+                assertFalse(inv.isFull());
+
+        }
+
+
 }

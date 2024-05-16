@@ -55,11 +55,6 @@ public DataBaseApplication(){
         playerService.save(noOne);
 
         random= playerService.findAllNPC();
-        for(NPC npc: playerService.findAllNPC()) {
-            System.out.println(npc.toString());
-        }
-//        PlayerService playerService = springContext.getBean(PlayerService.class);
-//        playerService.save(ViewGame.getPlayer());
     }
         @Override
     public void start(Stage primaryStage) {
@@ -74,7 +69,6 @@ public DataBaseApplication(){
         GameButton publishScoreButton = new GameButton("Publish Score?", ViewGame.getScreenDimensions() / 4, ViewGame.getScreenDimensions() / 10, ViewGame.getScreenDimensions() / 30);
             publishScoreButton.setOnAction(event -> {
                 PlayerService playerService = springContext.getBean(PlayerService.class);
-                System.out.print(ViewGame.getPlayer());
                 playerService.save(ViewGame.getPlayer());
             });
             return publishScoreButton;

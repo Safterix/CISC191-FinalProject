@@ -4,6 +4,8 @@ import edu.sdccd.cisc191.template.ItemTypes.Item;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 
+import java.awt.*;
+
 /**
  * Gamebutton extends button and makes a presetted button in various ways
  * can be used for any text label
@@ -52,6 +54,10 @@ public class GameButton extends Button {
 
 
 
+    }
+
+    public void setImage(GameImageView image) {
+        setGraphic(image);
     }
 }
 

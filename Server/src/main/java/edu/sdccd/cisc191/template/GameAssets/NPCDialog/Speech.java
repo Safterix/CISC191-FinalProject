@@ -1,6 +1,7 @@
 package edu.sdccd.cisc191.template.GameAssets.NPCDialog;
 
 import edu.sdccd.cisc191.template.Characters.NPC;
+import edu.sdccd.cisc191.template.GameAssets.ViewGame;
 import edu.sdccd.cisc191.template.ItemTypes.Item;
 
 import java.util.Random;
@@ -10,13 +11,11 @@ import java.util.Random;
  * and their personailty
  */
 public class Speech {
-    NPC speaker; //npc that is speaking
-    final NPC.Personality speakerPersonality; //their personailty to determine what kind of dialog
-    static DialogBox display; //the dialog box
-    static NPC.Personality mood; //if your actions change the mood, but will not affect generic personailty
+    private NPC speaker; //npc that is speaking
+    private NPC.Personality speakerPersonality; //their personailty to determine what kind of dialog
+    private static DialogBox display; //the dialog box
+    private static NPC.Personality mood; //if your actions change the mood, but will not affect generic personailty
     //based dialog
-    static String dialogText; //dialog text
-    static int want; // 0-2 scale of how much they want it, could be how much theyre willing to sell it for
 
     /**
      * creates a dialog box and sets up info for future dialog
@@ -28,8 +27,7 @@ public class Speech {
         //its only happy rn so
         speakerPersonality =speaker.getPersonality(); //get their personailty to determine what intro
 
-        //they have
-        want = 0; //default desire for any item is 0
+
         mood = NPC.Personality.happy; //default mood is happy
     //if the charcater is a nervous character they will have the Mysterious settings where their name is unknown
         if(speakerPersonality== NPC.Personality.nervous){
@@ -42,6 +40,14 @@ public class Speech {
     }
     public void changeNPC(NPC newNPC){
         speaker = newNPC;
+        speakerPersonality =newNPC.getPersonality();
+        if(speakerPersonality== NPC.Personality.nervous){
+            display = new DialogBox(speaker, introduction(), speakerPersonality.toString(), true);}
+        else{display = new DialogBox(speaker, introduction(), speakerPersonality.toString(), false);}
+        //refreshes all the itemwant stats
+        for(Item item: ViewGame.getPlayer().getInventory().getAllItems()){
+            item.setWant(new ItemWant(item));
+        }
 
     }
     /**
@@ -82,35 +88,23 @@ public class Speech {
      */
 
     public static void talkAbout(Item item){
-
-        switch(new Random().nextInt(4)){
-            case 1:{
-                dialogText = "I want "+item.getName() +" right now...";
-                want = 2;
-                setDialog();
-                break;
-            }
-            case 2:{
-                dialogText = item.getName() +" is fine";
-                want = 1;
-                setDialog();
-                break;
-            }
-            case 3:{
-                dialogText = "I HATE "+item.getName().toUpperCase() +" SO MUCH!!";
-                want = 0;
-                setDialog();
-                break;
-            }
-
-        }
+    if(!item.isNothing()){
+        item.getDialog();}
+    else{setDialog("...", NPC.Personality.neutral);}
     }
+
 
     /**
      * change the dialog input the text and current mood
      */
-    public static void setDialog(){
+    public static void setDialog(String dialogText){
         display.changeDialog(dialogText,mood.toString());
+    }
+    /**
+     * change the dialog input the text and current mood
+     */
+    public static void setDialog(String inDialog, NPC.Personality inMood){
+        display.changeDialog(inDialog,inMood.toString());
     }
 
     /**
@@ -123,14 +117,7 @@ public class Speech {
         return speaker;
     }
 
-    public int getWant() {
-        return want;
-    }
-
-    public void addWant() {
-        want++;
-    }
-    public void subtractWant() {
-        want--;
+    public void setSpeaker(NPC speaker) {
+        this.speaker = speaker;
     }
 }

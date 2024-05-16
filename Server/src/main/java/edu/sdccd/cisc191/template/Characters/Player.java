@@ -25,7 +25,14 @@ public class Player extends Character {
     private GameImageView profileImage;
     @Transient
     private KnowlegeBar knowlege;
-
+    @Transient
+    private GameLabel healthLabel;
+    @Transient
+    private GameLabel moneyLabel;
+    @Transient
+    private GameLabel reputationLabel;
+    @Transient
+    private GameLabel scoreLabel;
 
     public Player(){
        this("None");
@@ -81,6 +88,7 @@ public class Player extends Character {
      */
     public void addScore(int add){
         score+=add;
+        scoreLabel.setText("Score: "+ getScore());
     }
 
     /**
@@ -110,18 +118,44 @@ public class Player extends Character {
     public VBox displayProfile(){
         //get all numeric stats and add to a VBOx that goes into (0,2) of the gridpane
         int size = ViewGame.getScreenDimensions()/30;
-        GameLabel health = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),size,"red");
-        GameLabel money = new GameLabel("Money: "+ getMoney(),size, "green");
-        GameLabel reputation = new GameLabel("Rep: "+ getReputation(),size);
+         healthLabel = new GameLabel("Health: "+ getHealth() +"/"+ getMAX_HEALTH(),size,"red");
+         moneyLabel = new GameLabel("Money: "+ getMoney(),size, "green");
+         reputationLabel = new GameLabel("Rep: "+ getReputation(),size/2);
+         scoreLabel = new GameLabel("Score: "+ getScore(),size/2);
 
         GameLabel playerName = new GameLabel(getName(),size*2);
         //adds all of them to a VBox stack
-        VBox stats = new VBox(playerName, health,money,reputation);
+        VBox stats = new VBox(playerName, healthLabel,moneyLabel,reputationLabel, scoreLabel);
 
 
         return stats;
 }
+    /**
+     * heals character by healAmount
+     */
+    public void heal(int healAmount)
+    {
+        setHealth(getHealth()+healAmount);
+        healthLabel.setText("Health: "+ getHealth() +"/"+ getMAX_HEALTH());
 
+    }
+    @Override
+    public void gainMoney(int money){
+        setMoney(getMoney()+money);
+        moneyLabel.setText("Money: "+ getMoney());
+    }
+    @Override
+    public void spendMoney(int money){
+        setMoney(getMoney()-money);
+        moneyLabel.setText("Money: "+ getMoney());
+    }
+    @Override
+    public void damage(int damageAmount){
+        setHealth(getHealth()-damageAmount);
+        healthLabel.setText("Health: "+ getHealth() +"/"+ getMAX_HEALTH());
+        //if the health is 0 and it is the player, then they die
+
+    }
     /**
      * comapres the scores of players
      * @param player2

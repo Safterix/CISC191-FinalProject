@@ -50,4 +50,9 @@ public class GameImageView extends ImageView {
         GameTooltip emotion = new GameTooltip(mood);
         GameTooltip.install(this,emotion);
     }
+
+    public String toString(){
+        return getId();
+
+    }
 }

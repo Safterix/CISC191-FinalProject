@@ -23,6 +23,7 @@ public class GameScreen {
     private static Player gamer;
     private static int screenWidth, screenHeight;
 
+    private static Speech speech;
     static PropertyChangeListener isUpdated = evt -> {
         if (!gamer.getInventory().isUptodate()){
             gamer.getInventory().displayInventory();
@@ -89,15 +90,25 @@ public class GameScreen {
 
         //put the npc picture and dialog
         wholeUi.add(npc.displayProfile(),0,0,1,1);
-        Speech talk = new Speech(npc);
-        wholeUi.add(talk.getDialogBox().displayText(),1,0,1,1);
+        speech = new Speech(npc);
+        wholeUi.add(speech.getDialogBox().displayText(),1,0,1,1);
 
         wholeUi.alignmentProperty().set(Pos.BOTTOM_CENTER);
 
         return wholeUi;
 
     }
+    public static void nextNPC(){
+        NPC newNPc = new NPC(true);
 
+        wholeUi.getChildren().remove(speech.getSpeaker().displayProfile());
+        wholeUi.getChildren().remove(speech.getDialogBox().displayText());
+
+        speech.changeNPC(newNPc);
+        wholeUi.add(newNPc.displayProfile(),0,0,1,1);
+        wholeUi.add(speech.getDialogBox().displayText(),1,0,1,1);
+
+    }
     public void inventoryChanged(){
 
         PropertyChangeListener isUpdated = evt -> {

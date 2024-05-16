@@ -548,24 +548,9 @@ public class ViewGame extends Application {
         layout.setBottom(goBack);
         GameScene scene = new GameScene(layout, sceneWidth, sceneHeight);
         switchScene(scene, "scores");
-//        System.out.print(scores.canWrite());
-//        try {
-//            PrintWriter out = new PrintWriter(new FileWriter(scores));
-//            out.write(string);
-//            out.close();
-//            System.out.print("i have written");
-//        } catch (IOException e) {
-//            e.printStackTrace(); }
 
             }
 
-    /**
-     * returns the scores TODO rn just a string but will be string array
-     * @return
-     */
-    public String getScoresHolder(){
-        return scoresHolder;
-    }
 
     public static Player getPlayer() {
         return player;

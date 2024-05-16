@@ -24,7 +24,7 @@ public class GameTextArea extends TextArea {
             setEditable(false);
             //size
             setMaxSize(width/3,width/48*9);
-           setStyle("-fx-font-size: "+ width/20);
+           setStyle("-fx-font-size: "+ width/30);
         }
 
     /**
