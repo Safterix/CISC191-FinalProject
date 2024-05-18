@@ -323,7 +323,7 @@ public class ArchitectProjectTest
         inventory.addItem(2,0, new Consumable(Consumable.ConsumableItems.Rice));
         inventory.addItem(3,0, new Consumable(Consumable.ConsumableItems.Rice));
         SortInventory sorting = new SortInventory(inventory);
-        sorting.start();
+        sorting.run();
         sorting.addNodes();
         sorting.inOrderTraverse(sorting.getRoot());
         //check system out if Rice 4 Nothing 20
