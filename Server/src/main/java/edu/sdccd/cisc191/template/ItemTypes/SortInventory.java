@@ -63,9 +63,7 @@ public class SortInventory extends Thread {
      * noargs addNodes which inputs the allItemNodes
      */
     public void addNodes(){
-        while(!allItemNodes.isEmpty()){
-            addNodes(allItemNodes);
-        }
+        addNodes(allItemNodes);
     }
 
     /**
@@ -91,17 +89,16 @@ public class SortInventory extends Thread {
                 //set parent to focus/root
                 parent = focus;
                 //if the new item is less than the focus item
-                    if(newItemNode.getItem().compareTo(focus.getItem()) < 0){
-                        //focus becomes the left child
+                if(newItemNode.getItem().compareTo(focus.getItem()) < 0){
+                    //focus becomes the left child
                     focus = focus.leftChild;
                     //if focus(now left child) is null
                     if(focus ==null){
                         //it is the new item
                         parent.leftChild= newItemNode;
                         return;
-
                     }
-                      }
+                }
                 //if its greater/ equal it goes on the right
                 else{
                     //focus becomes right child
@@ -114,7 +111,8 @@ public class SortInventory extends Thread {
                     }
 
                 }
-        }}
+            }
+        }
         //if allItemsNodes is not empty, recursive
         while(!arrayList.isEmpty()){
             addNodes(arrayList);

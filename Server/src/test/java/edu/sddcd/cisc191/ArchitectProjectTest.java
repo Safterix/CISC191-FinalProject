@@ -338,7 +338,7 @@ public class ArchitectProjectTest
         //make empty inventory
         Inventory inventory = new Inventory(true);
         SortInventory sorting = new SortInventory(inventory);
-        sorting.start();
+        sorting.run();
         sorting.addNodes();
         sorting.inOrderTraverse(sorting.getRoot());
         //has 24 items
