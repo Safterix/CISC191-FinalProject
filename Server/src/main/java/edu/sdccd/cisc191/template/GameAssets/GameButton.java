@@ -3,13 +3,8 @@ package edu.sdccd.cisc191.template.GameAssets;
 import edu.sdccd.cisc191.template.ItemTypes.Item;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Font;
-import javafx.util.Duration;
 
-import javax.tools.Tool;
+import java.awt.*;
 
 /**
  * Gamebutton extends button and makes a presetted button in various ways
@@ -59,6 +54,10 @@ public class GameButton extends Button {
 
 
 
+    }
+
+    public void setImage(GameImageView image) {
+        setGraphic(image);
     }
 }
 

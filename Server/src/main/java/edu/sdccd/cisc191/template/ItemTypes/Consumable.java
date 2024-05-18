@@ -1,9 +1,13 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * heal items with enums to pick TODO MAKE OTHER ITEMS HAVE ENUMS TOO
  * has heal the heal amount number and everything in goods
- */
+// */
+//@Entity
 public class Consumable extends Goods{
         //options of items from china
         public static ConsumableItems[] china = new ConsumableItems[]{ConsumableItems.Apricot,ConsumableItems.Peach, ConsumableItems.Tea,
@@ -22,6 +26,7 @@ public class Consumable extends Goods{
             Apricot,Peach,Plum,Tea,Wine,Rice,Watermelon,Eggplant,Cucumber,Dates,Pistachio;
         }
 
+//        @Id
         private int heal; // the heal value of the item
 
     /**
@@ -29,7 +34,7 @@ public class Consumable extends Goods{
      * @param region
      */
     public Consumable(ConsumableItems[] region){
-        this(region[(int)(Math.random()*region.length)]);
+        this(region[(int)((Math.random()*(region.length)))]);
     }
 
     /**
@@ -38,15 +43,14 @@ public class Consumable extends Goods{
     public Consumable(){
         //picks a random number that is no more than the consumable items enum options
         //each umber is assigned an item so picks one based on number
-            int pick = (int) (Math.random() * ConsumableItems.values().length);
+            int pick = (int) (Math.random() * (ConsumableItems.values().length));
             switch(pick){
                 case 1:
                     setName("Apricot");
                     setDescription("Eat it to restore 10 HP!");
                     heal= 10;
-                    setValue(5);
+                    setValue(3);
                     break;
-
                 case 2:
                     setName("Peach");
                     setDescription("Tasty Chinese classic! Heal 10HP");
@@ -57,19 +61,25 @@ public class Consumable extends Goods{
                     setName("Plum");
                     setDescription("Delicious fruit...Heal 10HP");
                     heal =10;
-                    setValue(5);
+                    setValue(4);
                     break;
                 case 4:
                     setName("Tea");
-                    setDescription("SlurpSlurp...Heal 10HP");
+                    setDescription("SlurpSlurp...Heal 10HP\nWorth 2 silver");
                     heal =10;
-                    setValue(5);
+                    setValue(2);
                     break;
                 case 5:
                     setName("Wine");
                     setDescription("Delicious...Heal 10HP");
                     heal =10;
-                    setValue(5);
+                    setValue(10);
+                    break;
+                case 6:
+                    setName("Rice");
+                    setDescription("Fluffy rice! Heal 50HP");
+                    heal =50;
+                    setValue(1);
                     break;
 
             }
@@ -85,7 +95,7 @@ public class Consumable extends Goods{
                 setName("Apricot");
                 setDescription("Eat it to restore 10 HP!");
                 heal= 10;
-                setValue(5);
+                setValue(3);
                 break;
 
             case Peach:
@@ -98,19 +108,19 @@ public class Consumable extends Goods{
                 setName("Plum");
                 setDescription("Delicious fruit...Heal 10HP");
                 heal =10;
-                setValue(5);
+                setValue(4);
                 break;
             case Tea:
                 setName("Tea");
-                setDescription("SlurpSlurp...Heal 10HP\nWorth "+getValue()+" coins");
+                setDescription("SlurpSlurp...Heal 10HP\nWorth 2 silver");
                 heal =10;
-                setValue(5);
+                setValue(2);
                 break;
             case Wine:
                 setName("Wine");
                 setDescription("Delicious...Heal 10HP");
                 heal =10;
-                setValue(5);
+                setValue(10);
                 break;
             case Rice:
                 setName("Rice");
@@ -129,6 +139,21 @@ public class Consumable extends Goods{
         public int getHeal() {
             return heal;
         }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Consumable))
+            return false;
+        Consumable other = (Consumable) obj;
 
+        if(getHeal() != other.getHeal())
+            return false;
+        return true;
+    }
+    @Override
+    public int hashCode() {
+        return getHeal();
+    }
     }
 

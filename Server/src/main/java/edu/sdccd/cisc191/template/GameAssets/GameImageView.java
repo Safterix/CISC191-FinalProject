@@ -1,6 +1,5 @@
 package edu.sdccd.cisc191.template.GameAssets;
 
-import edu.sdccd.cisc191.template.ItemTypes.Item;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -50,5 +49,10 @@ public class GameImageView extends ImageView {
         //makes a gametooltip so when you hover overthe sprite it says the emotion theyre feeling
         GameTooltip emotion = new GameTooltip(mood);
         GameTooltip.install(this,emotion);
+    }
+
+    public String toString(){
+        return getId();
+
     }
 }

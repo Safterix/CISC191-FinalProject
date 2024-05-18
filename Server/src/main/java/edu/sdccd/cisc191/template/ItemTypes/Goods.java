@@ -1,11 +1,24 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
+import edu.sdccd.cisc191.template.GameAssets.GameButton;
+import edu.sdccd.cisc191.template.GameAssets.ViewGame;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 /**
  * goods item TODO WIP WIP
  * has value and everythign Item
  *
- */
+// */
+//@Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Goods extends Item{
+//
+//    @Id
+    private int value; // price of the item
 
     //all the commicerial goods in china
     public static CommercialGoods[] china = new CommercialGoods[]{CommercialGoods.Silk,CommercialGoods.Porcelain,CommercialGoods.Gunpowder};
@@ -18,14 +31,59 @@ public class Goods extends Item{
     //all the commicerial goods in arabia
     public static CommercialGoods[] arabia = new CommercialGoods[]{CommercialGoods.Frankincense,CommercialGoods.Incense
     ,CommercialGoods.Pearls,CommercialGoods.Copper};
+//
+//    @Override
+//    public int compareTo(Item item) {
+//        if(item.getName().equals(this.getName())){
+//            return 0;
+//        }
+//        else if(item.getName().equals("Nothing")){
+//            return 1;
+//        }
+//        else if(item.getClass()==Goods.class||item.getClass()==Consumable.class){
+//
+//            if(this.getValue()>((Goods) item).getValue()){
+//                    return 1;}
+//            else if (this.getValue()==((Goods) item).getValue()) {
+//                return 0;
+//            }
+//        }
+//
+//        return -1;
+//    }
+
+    @Override
+    public int compareTo(Item item) {
+        if(item.getName().equals(getName())){
+            return 0;
+        }
+        if(item instanceof Goods){
+            return compareTo((Goods)item);
+        }
+        return -1;
+    }
+    @Override
+    public int compareTo(Goods item) {
+
+        if(item.getName().equals(this.getName())){
+            return 0;
+        }
+
+            if(this.getValue()>(item.getValue())){
+                return -1;
+            }
+
+
+        return 1;
+}
 
     /**
      * commerical goods enum with all the commerial goods options
      */
     public enum CommercialGoods {
-        Silk,Porcelain,Gunpowder,Fabric,Spices,Dye,Ivory,Gold,Silver,Iron,Copper,Limestone,Frankincense,Incense,Pearls;
+        Silk,Porcelain,Gunpowder,Fabric,Spices,Dye,Ivory,Gold,Silver,Iron,Copper,Limestone,Frankincense,Incense,Pearls
     }
-    private int value; // price of the item
+
 
     /**
      * picks random commerical good from a region, ex. put china pics a random chinese item
@@ -132,4 +190,32 @@ public class Goods extends Item{
     public void setValue(int value) {
         this.value = value;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Goods))
+            return false;
+        Goods other = (Goods) obj;
+
+        if(getValue() != other.getValue())
+            return false;
+        return true;
+    }
+    @Override
+    public int hashCode() {
+        return getValue();
 }
+
+    public void sellItem(){
+        ViewGame.getPlayer().addScore((int) ((100)*(getWant().getMultiplier())));
+        ViewGame.getPlayer().gainMoney((int) ((getValue())*(getWant().getMultiplier())));
+        System.out.print(ViewGame.getPlayer().getMoney());
+        setName("Nothing");
+        setDescription("Empty!");
+        setIcon();
+                System.out.print("gave money");
+}
+}
+

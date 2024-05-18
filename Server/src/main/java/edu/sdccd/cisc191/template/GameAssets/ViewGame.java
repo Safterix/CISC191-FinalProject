@@ -3,39 +3,62 @@ package edu.sdccd.cisc191.template.GameAssets;
 
 import edu.sdccd.cisc191.template.Characters.NPC;
 import edu.sdccd.cisc191.template.Characters.Player;
-import edu.sdccd.cisc191.template.Networking.Client;
+import edu.sdccd.cisc191.template.DataBaseApplication;
+import edu.sdccd.cisc191.template.ScoreInfo.PlayerService;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.application.Platform;
+import org.h2.engine.Database;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.Import;
 
-import java.io.*;
+import javax.xml.crypto.Data;
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import static edu.sdccd.cisc191.template.GameAssets.GameScreen.defaultScreen;
 
 /**
  *the starting screens of the game, includes start page, settings, credits and the starting of the game
  */
+@Import(DataBaseApplication.class)
 public class ViewGame extends Application {
 
-    private Media media = new Media(getClass().getResource("/chinabgm.mp3").toString()); //music file
+    private Media media = new Media(getClass().getResource("/music/romebgm.mp3").toString()); //music file
+    private Media media2 = new Media(getClass().getResource("/music/chinabgm.mp3").toString());
     // Create a MediaPlayer with the Media object
     private MediaPlayer mediaPlayer = new MediaPlayer(media);
-    private boolean isPlaying;
+    private MediaPlayer mediaPlayer2 = new MediaPlayer((media2));
+    private double volume=0.1;
+
+
     protected static int sceneWidth = 0; //this way, the class itself keeps track of the screen's size
     private  static int sceneHeight = 0;
     private BorderPane layout;//so u can switch the scene...
     private static Stage gameStage;//the stage so u can switch it
     private static Player player;//player when the player makes themselves
     private  String scoresHolder; // TODO make this string array instead and make it work
-    public static Client client = new Client(); //for networking and highscore
+    private static DataBaseApplication NPCdb;
     private File scores = new File(getClass().getResource("/Scores.txt").getPath());
     //TODO eventualyl for networking and high scores....an attempt was made...
     public ViewGame(){};
@@ -44,8 +67,12 @@ public class ViewGame extends Application {
      * @param args app launch
      */
     public static void main(String[] args) {
+
+        NPCdb = new DataBaseApplication();
+        NPCdb.init();
         launch();
     }
+
 
     /**
      * creates the start screen
@@ -54,12 +81,11 @@ public class ViewGame extends Application {
      */
     @Override
     public void start(Stage stage) {
+
         // Lower the volume of BGM (0.05 means 5% of maximum volume)
-        mediaPlayer.setVolume(0.05);
+        mediaPlayer.setVolume(volume);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); //loop music
         mediaPlayer.play(); //playmusic
-
-
 
         //add this to the main at start stage
         //default size of the stage/window is 1280x720px
@@ -77,6 +103,8 @@ public class ViewGame extends Application {
         //makes credit buttons which leads you to credit scene, using showCredits()
         GameButton credits = new GameButton("Credits", sceneWidth / 4, sceneHeight / 12, sceneWidth / 30);
         credits.setOnAction((ActionEvent creditsShow) -> {
+            mediaPlayer.setMute(true);
+            mediaPlayer.stop();
             showCredits();
         });
         //creatures setting button that leads you to settings scene, using showSettings
@@ -84,14 +112,23 @@ public class ViewGame extends Application {
         settings.setOnAction((ActionEvent settingsShow) -> {
             showSettings();
         });
+
         //makes quit button which exits the window
         GameButton quit = new GameButton("Quit", sceneWidth / 6, sceneHeight / 15, sceneWidth / 45);
         quit.setOnAction((ActionEvent exit) -> {
             Platform.exit();
+            NPCdb.stop();
+        });
+        GameButton scores = new GameButton("HISCORE", sceneWidth / 6, sceneHeight / 15, sceneWidth / 45);
+        scores.setOnAction((ActionEvent exit) -> {
+            makeHighScore();
         });
 
+
+        HBox smallButtons = new HBox(scores, quit);
+        smallButtons.setAlignment(Pos.CENTER);
         //makes holder for the buttons and centers it, adds all the four buttons
-        VBox buttonsHolder = new VBox(5, start, credits, settings, quit);
+        VBox buttonsHolder = new VBox(5, start, credits, settings, smallButtons);
         buttonsHolder.setAlignment(Pos.CENTER);
 
         // add title and subtitle using gameLabels
@@ -118,6 +155,9 @@ public class ViewGame extends Application {
         gameStage.setScene(scene);
         //cannot resize so that the settings will work...
         gameStage.resizableProperty().set(false);
+
+
+        gameStage.getIcons().add(new Image("image/Sprites/Cat_happy.png"));
         //shows the stage
         gameStage.show();
 
@@ -151,16 +191,40 @@ public class ViewGame extends Application {
     /**
      * makes credit page
      */
+    /**
+     * makes credit page
+     */
     protected void showCredits() {
+
+        mediaPlayer2.setVolume(volume);
+        mediaPlayer2.setCycleCount(MediaPlayer.INDEFINITE); //loop music
+        mediaPlayer2.play();
+
         //creates people buttons TODO make it lead to our github pages or somethign?
         GameButton kim = new GameButton("Kim", sceneWidth / 2, sceneHeight / 30, sceneWidth / 30);
+        kim.setOnAction((ActionEvent goToKim)->{
+            goToGithub("kimwong000");
+        });
         GameButton angeliz = new GameButton("Angeliz", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
+        angeliz.setOnAction((ActionEvent goToAngeliz)->{
+            goToGithub("angelizn");
+        });
         GameButton kyle = new GameButton("Kyle", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
+        kyle.setOnAction((ActionEvent goToKyle)->{
+            goToGithub("KyleNNguyen");
+        });
         GameButton aleister = new GameButton("Aleister", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
+        aleister.setOnAction((ActionEvent goToAleister)->{
+            goToGithub("safterix");
+        });
         GameButton jason = new GameButton("Jason", sceneWidth / 2, sceneHeight / 30,sceneWidth / 30);
+        jason.setOnAction((ActionEvent goToJason)->{
+            goToGithub("jasonphan1234");
+        });
         //creates a button to go back to the start screen
         GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 30, sceneWidth / 25);
         goBack.setOnAction((ActionEvent back) -> {
+            mediaPlayer2.stop();
             start(gameStage);
         });
         //adds buttons to a button holder then centers it
@@ -169,15 +233,41 @@ public class ViewGame extends Application {
 
         //makes borderpane and adds the buttons holder
         layout = new BorderPane(buttonHolder);
-        layout.setStyle("-fx-background-color: gray");
         switchScene(new GameScene(layout, sceneWidth, sceneHeight), "Credits!");
     }
+
+    /**
+     * tries to opens the link to our github page
+     * @param username of our github account
+     */
+    public static void goToGithub(String username) {
+        URI openLink;
+        try {
+            //turn the URL to our github into a URI
+            URL lala = new URL("https://github.com/"+username);
+            openLink = lala.toURI();
+        } catch (MalformedURLException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        //is desktop supported? yes -> get desktop, no null
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.browse(openLink);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     /**
      *show the settings which only has size options for now
      * TODO audio slider
      */
     protected void showSettings() {
+
+
         //creates window options first 640x360px that sets screen dimensions to tat
         GameButton smallerSize = new GameButton("640x360", sceneWidth / 2, sceneHeight / 10, sceneWidth / 20);
         smallerSize.setOnAction((ActionEvent size360p) -> {
@@ -200,8 +290,32 @@ public class ViewGame extends Application {
             start(gameStage);
         });
 
+
+        //audio slider
+        Slider audioSlider = new Slider(0,100,(volume/(0.0020)));
+        audioSlider.setShowTickMarks(true);
+        audioSlider.setShowTickLabels(true);
+        audioSlider.setMajorTickUnit(50);
+        audioSlider.getStylesheets().add((getClass().getResource("/colorPalette.css").toExternalForm()));
+        audioSlider.setMaxSize(sceneWidth / 2, sceneHeight / 10);
+
+        //anon class WOW!!!!!!!!!!!!!!!!!!!!!
+        audioSlider.valueProperty().addListener(new ChangeListener<Number>() {
+
+            public void changed(
+                    ObservableValue<? extends Number> observableValue,
+                    Number oldValue,
+                    Number newValue) {
+                volume=(0.0020)*(audioSlider.getValue());
+                mediaPlayer.setVolume(volume);
+            }
+        });
+
+
+
+
         //adds buttons to a button holder then centers it
-        VBox buttonHolder = new VBox(5, smallerSize, defautlSize, biggerSize, goBack);
+        VBox buttonHolder = new VBox(5, smallerSize, defautlSize, biggerSize,audioSlider, goBack);
         buttonHolder.setAlignment(Pos.CENTER);
 
         //makes borderpane and adds the buttons holder
@@ -259,13 +373,15 @@ public class ViewGame extends Application {
 
             //TODO TEMP just makes an NPC for now to display the GameScreen as demo
                 //TODO all of the gamescene settings have an NPC on it for demo yes
-                NPC notPlayer = new NPC();
+                NPC notPlayer = new NPC(true);
 
                 //asks the player for their goal
                 GameTextArea goal = new GameTextArea("What is your goal in life...?","nervous");
                 goal.setMaxSize(sceneWidth/2,sceneHeight/3);
                 goal.setPrefSize(sceneWidth/2,sceneHeight/3);
                 //makes money option that sets gaol to making a lot of money
+
+
                 GameButton moneyGoal = new GameButton("Make lots of money", sceneWidth / 3, sceneHeight / 10, sceneWidth / 30);
                 moneyGoal.setOnAction((ActionEvent setMoneyGoal) -> {
                     player.setGoal("Make lots of money");
@@ -309,6 +425,7 @@ public class ViewGame extends Application {
      * TODO also has a publish score button that is WIP networking
      */
     public void endGame() {
+
         //makes save button that calls save() to save your score
         GameButton save = new GameButton("Save", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
         save.setOnAction((ActionEvent saveAchievements) -> {
@@ -333,7 +450,7 @@ public class ViewGame extends Application {
         GameLabel subtitle = new GameLabel("YOU WIN! SCORE:" + player.getScore(), sceneWidth / 30);
         VBox titlesHolder = new VBox(sceneHeight / 20, gameOver, subtitle);
 
-
+        GameButton publish = NPCdb.publishScore();
         //if u died instead of making it, it will say you died instead lol
         if (player.getHealth() == 0) {
             subtitle.setText("YOU DIED...SCORE:" + player.getScore());
@@ -343,33 +460,7 @@ public class ViewGame extends Application {
         layout = new BorderPane(titlesHolder);
         layout.setStyle("-fx-background-color: #CBD4C2");
         layout.setBottom(buttonsHolder);
-
-//
-//        GameButton highscore = new GameButton("Publish Score?", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
-//        highscore.setOnAction((ActionEvent scoresave) -> {
-//            makeHighScore();
-//            highscore.setText("Thank you!");
-//            highscore.setOnAction(null);
-//            });
-//
-        //TODO HIGH SCORE
-        GameButton highscore = new GameButton("Publish Score?", sceneWidth / 4, sceneHeight / 10, sceneWidth / 30);
-        highscore.setOnAction((ActionEvent scoresave) -> {
-
-            try { //client send request with player info and get player info back but formated
-                //useless networking
-                client.startConnection("127.0.0.1", 6000 );
-                makeHighScore(client.sendRequest(player.getName(), player.getScore()).toString());
-                System.out.println(client.sendRequest(player.getName(), player.getScore()).toString());
-                client.stopConnection();
-                highscore.setText("Thank you!");
-                   highscore.setOnAction(null);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-
-        });
-        layout.setTop(highscore);
+    layout.setTop(publish);
 
 
         //creates scene
@@ -441,26 +532,29 @@ public class ViewGame extends Application {
      * TODO writes to a Target file not sure what that is rn...
      *  TODO have string array....
      */
-    public void makeHighScore(String score) {
-        scoresHolder = score;
+    public void makeHighScore() {
 
-//        System.out.print(scores.canWrite());
-//        try {
-//            PrintWriter out = new PrintWriter(new FileWriter(scores));
-//            out.write(string);
-//            out.close();
-//            System.out.print("i have written");
-//        } catch (IOException e) {
-//            e.printStackTrace(); }
+        VBox scoresHOlder = new VBox();
+        for(Player player1:NPCdb.getScoresOrder()){
+            scoresHOlder.getChildren().add(new GameButton(player1.getName()+": "+player1.getScore(),sceneWidth / 4, sceneHeight / 10, sceneWidth / 30));
+        }
+
+        GameButton goBack = new GameButton("Go Back", sceneWidth / 2, sceneHeight / 30, sceneWidth / 25);
+        goBack.setOnAction((ActionEvent back) -> {
+            mediaPlayer2.stop();
+            start(gameStage);
+        });
+        layout = new BorderPane(scoresHOlder);
+        layout.setBottom(goBack);
+        GameScene scene = new GameScene(layout, sceneWidth, sceneHeight);
+        switchScene(scene, "scores");
 
             }
 
-    /**
-     * returns the scores TODO rn just a string but will be string array
-     * @return
-     */
-    public String getScoresHolder(){
-        return scoresHolder;
-    }
 
+    public static Player getPlayer() {
+        return player;
     }
+}
+
+

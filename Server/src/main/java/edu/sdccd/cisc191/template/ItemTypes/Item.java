@@ -1,18 +1,30 @@
 package edu.sdccd.cisc191.template.ItemTypes;
 
-import edu.sdccd.cisc191.template.Characters.Character;
+import edu.sdccd.cisc191.template.Characters.Player;
 import edu.sdccd.cisc191.template.GameAssets.GameButton;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import edu.sdccd.cisc191.template.GameAssets.GameImageView;
+import edu.sdccd.cisc191.template.GameAssets.NPCDialog.ItemWant;
+import edu.sdccd.cisc191.template.GameAssets.NPCDialog.Speech;
+import edu.sdccd.cisc191.template.GameAssets.ViewGame;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseButton;
+
+import javax.persistence.*;
 
 /**
  * creates a general items, things you can have in an inventory
  * has a name and descrption and gameBUtton icon
- */
-public class Item {
-    private String name, description; //name and desc of item
-    GameButton icon; //pic of item on button
+// */
+public class Item implements Comparable<Item> {
+//
 
+    private String name;
+    private String description; //name and desc of item
+
+    private GameButton icon; //pic of item on button
+    private ItemWant want;
     /**
      * empty item conscutor that makes an empty item
      */
@@ -20,6 +32,8 @@ public class Item {
         name = "Nothing";
         description = "Empty!";
         icon = new GameButton(this);
+        want = new ItemWant(this);
+        click();
 
     }
 
@@ -34,6 +48,8 @@ public class Item {
        name = randomItem.getName();
        description =randomItem.getDescription();
        icon = new GameButton(this);
+        want = new ItemWant(this);
+        click();
     }
 
     /**
@@ -83,5 +99,112 @@ public class Item {
         return icon;
 
     }
+
+    /**
+     * checks to see if two items are equal based on their names
+     * @param item that isbeing compared to
+     * @return true or false if they are equal
+     */
+    public boolean equals(Item item){
+        return this.getName().equals(item.getName());
+    }
+    /**
+     * compares to see if item is less, greater, or eqwual
+     * @param item the object to be compared.
+     * @return 0
+     */
+    @Override
+    public int compareTo(Item item) {
+        if(item.getName().equals("Nothing")){
+            return -1;}
+        else if ((item instanceof Goods)) {
+            return 1;
+        }
+        return 0;
+    }
+    public int compareTo(Goods item) {
+        if(item.getName().equals(this.getName())){
+            return 0;
+        }
+        return 1;
+    }
+public GameButton getIcon(){
+        return icon;
 }
+
+    public void setIcon(GameButton icon) {
+        this.icon = icon;
+    }
+
+    /**
+     * sets icon to nothing
+     */
+    public void setIcon() {
+        icon.setImage(new GameImageView("Nothing"));
+    }
+
+    public void giveItem(){
+        if(!isNothing()){
+        ViewGame.getPlayer().addScore((int) ((100)*(getWant().getMultiplier())));
+       setName("Nothing");
+        setDescription("Empty!");
+            setIcon();}
+        else if(this instanceof Goods){
+            ((Goods) this).sellItem();
+        }
+
+    }
+
+    /**
+     * click on an item, one click shows NPC reaction
+     * two cilck give NPC item
+     */
+    private void click(){
+
+
+        icon.setOnMouseClicked(event -> {
+
+            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+
+                this.giveItem();
+        }
+            else
+
+            System.out.print(ViewGame.getPlayer().getScore());
+                    Speech.talkAbout(this);
+        });
+    }
+
+    public void getDialog(){
+        getWant().getDialogText();
+    }
+
+
+    public ItemWant getWant() {
+        return want;
+    }
+
+    public void setWant(ItemWant want) {
+        this.want = want;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Item))
+            return false;
+        Item other = (Item) obj;
+        return getName() != null && getName().equals(other.getName());
+    }
+    @Override
+    public int hashCode() {
+        return getName().hashCode();
+    }
+
+    public boolean isNothing(){
+        return getName().equals("Nothing");
+    }
+}
+
 

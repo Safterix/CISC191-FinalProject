@@ -35,6 +35,20 @@
     -fx-text-fill: #CBD4C2;
 }
 
+.slider {
+    -fx-text-fill: #815355;
+    -fx-background-color: #CBD4C2;
+    -fx-border-color: #523249;
+    -fx-cursor: hand;
+    -fx-border-width: 5;
+}
+.slider:focused {
+    -fx-text-fill: #815355;
+    -fx-background-color: #CBD4C2;
+    -fx-border-color: #523249;
+    -fx-cursor: hand;
+    -fx-border-width: 5;
+}
 
 
 

@@ -1,21 +1,27 @@
 package edu.sdccd.cisc191.template.Characters;
 
-import edu.sdccd.cisc191.template.GameAssets.GameImageView;
 import edu.sdccd.cisc191.template.GameAssets.ViewGame;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import edu.sdccd.cisc191.template.ItemTypes.Inventory;
+
+import javax.persistence.*;
 
 /**
  * makes a ahrcater with name, money, health, rep, and inventory
  *
  */
+@MappedSuperclass
+
 public class Character
 {
+    @Id
     private String name; //name of the character
-    private int money; //amount of money they have
-    private int health; // amount of hp they have
-    private final int MAX_HEALTH;
-    private short reputation; // reputation from [-100,100]
+    private Integer money; //amount of money they have
+    private Integer health; // amount of hp they have
+    private final Integer MAX_HEALTH;
+    private Integer reputation; // reputation from [-100,100]
+//
+//    @OneToOne(fetch = FetchType.EAGER)
+    @Transient
     private Inventory storage;
 
 
@@ -26,7 +32,7 @@ public class Character
      * @param money the character's money
      * @param health the character's health
      */
-    public Character(String name, int money, int health, short rep)
+    public Character(String name, int money, int health, int rep)
     {
         this.name = name;
         this.money = money;
@@ -36,10 +42,30 @@ public class Character
 
     }
 
+    public Character() {
+        MAX_HEALTH = 100;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
+    public void setHealth(Integer health) {
+        this.health = health;
+    }
+
+    public void setReputation(Integer reputation) {
+        this.reputation = reputation;
+    }
+
     /**
      * @return money
      */
-    public int getMoney()
+    public Integer getMoney()
     {
         return money;
     }
@@ -89,18 +115,15 @@ public class Character
     /**
      * @return health
      */
-    public int getHealth()
+    public Integer getHealth()
     {
         return health;
     }
 
-    /**
-     * @return max health
-     */
-    public int getMAX_HEALTH()
-    {
+    public Integer getMAX_HEALTH() {
         return MAX_HEALTH;
     }
+
     /**
      * heals character by healAmount
      */
@@ -132,7 +155,7 @@ public class Character
      * @return reputation
      * NPCS have constant reputation while Player has fliud reputation me thinky
      */
-    public int getReputation()
+    public Integer getReputation()
     {
         return reputation;
     }

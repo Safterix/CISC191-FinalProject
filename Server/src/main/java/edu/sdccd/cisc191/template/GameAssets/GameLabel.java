@@ -1,8 +1,6 @@
 package edu.sdccd.cisc191.template.GameAssets;
 
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 /**
  * makes a label object with the font set
  * can make default brownish font with default pixel font (game-label)
