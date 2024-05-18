@@ -212,11 +212,11 @@ public class ArchitectProjectTest
         Inventory inv = new Inventory();
         inv.addItem(4,3,new Consumable(Consumable.ConsumableItems.Rice));
         inv.addItem(4,2,new Consumable(Consumable.ConsumableItems.Apricot));
-         inv.sortInv();
-         System.out.print(inv);
-       assertTrue(inv.containsItem("Rice"));
+        inv.sortInv();
+        System.out.print(inv);
+        assertTrue(inv.containsItem("Rice"));
         assertEquals("Apricot",inv.getItem(0,0).getName());
-       assertEquals("Rice",inv.getItem(0,1).getName());
+        assertEquals("Rice",inv.getItem(0,1).getName());
         assertEquals("Nothing",inv.getItem(0,2).getName());
 
     }

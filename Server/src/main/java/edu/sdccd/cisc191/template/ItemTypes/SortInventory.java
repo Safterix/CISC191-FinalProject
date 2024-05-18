@@ -26,7 +26,7 @@ public class SortInventory extends Thread {
         convertToNode(null);
     }
     /**
-     * converts the allItemsFlattened ArrayList<Item> to ArrayList<ItemNode>
+     * converts the allItemsFlattened Item ArrayList to ItemNode ArrayList
      * @param preDup the array that will be gone through
      */
     public void convertToNode(ArrayList<Item> preDup) {
